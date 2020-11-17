@@ -1,0 +1,678 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Poppins&family=Raleway:wght@400;500;600;700&display=swap');
+@font-face {
+    font-family: arialMT;
+    src: url("./fonts/arial\ rounded\ mt\ bold.ttf");
+}
+
+/* VARIABLES */
+:root{
+    /* fonts */
+    --font-raleway : 'Raleway', sans-serif;
+    --font-montserrat : 'Montserrat', sans-serif;
+    --font-poppins : 'Poppins', sans-serif;
+    --font-arial: 'arialMT', sans-serif;
+
+    /* box-shadow */
+    --box-shadow: 0px 15px 45px -9px rgba(0,0,0,.2);
+    --box-shadow2: 0px 3px 13px 1px rgba(0,0,0,.12);
+
+    /* colors */
+    --color-black : #000;
+    --color-red: #EA1821;
+    --color-white : white;
+    
+}
+
+
+/* GLOBAL STYLES */
+body, html{
+    position: relative;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: var(--font-raleway);
+}
+.container{
+    max-width: 1200px;
+}
+section{
+    padding: 100px 0;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+a,a:hover,a:focus{
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+}
+.text-orange{
+    color: var(--color-orange);
+}
+.btn,.btn:hover,.btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.image{
+    position: relative;
+}
+.image:after{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.bg-red{
+    background: rgba(62, 0, 3, 0.05);
+}
+
+/* ! ===================== */
+/* ! NAVIGATION BAR STYLES */
+/* ! ===================== */
+
+nav{
+   padding: 1rem 0 !important;
+}
+nav .image{
+    max-width: 200px;
+}
+nav .nav-link{
+    color: var(--color-black) !important;
+    padding: 0 1rem !important;
+    font-weight: 500;
+    font-size: 1rem;
+}
+nav .nav-link.link-button{
+    box-shadow: var(--box-shadow2);
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem !important;
+    color: var(--color-red) !important;
+    font-family: var(--font-montserrat);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 1rem !important;
+}
+
+/* ! ===================== */
+/* ! NAVIGATION BAR STYLES */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! HERO                  */
+/* ! ===================== */
+
+.hero{
+    /* min-height: 90vh; */
+    padding: 50px 0 120px 0;
+}
+.hero-heading{
+    font-family: var(--font-montserrat);
+    font-weight: 800;
+    color: var(--color-red);
+    text-transform: capitalize;
+    text-shadow: 2px 2px #000;
+    font-size: 50px;
+}
+.hero-subheading{
+    font-family: var(--font-poppins);
+    font-weight: normal;
+}
+.primary-button{
+    background: var(--color-red);
+    color: white;
+    font-family: var(--font-montserrat);
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+}
+.secondary-button{
+    background: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-montserrat);
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: var(--box-shadow2);
+}
+
+/* ! ===================== */
+/* ! HERO                  */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! COUNTERS              */
+/* ! ===================== */
+
+.counters{
+    background: url("../assets/background/counter-back.jpg") no-repeat center;
+    background-size: cover;
+    padding: 50px 0;
+}
+.counters .counter-heading{
+    font-size: 35px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 2px 2px #000;
+    font-family: var(--font-montserrat);
+    margin: 0;
+}
+.counters .counter-para{
+    font-size: 18px;
+    color: white;
+    font-family: var(--font-poppins);
+}
+.counters .content{
+    color: white;
+    font-family: var(--font-montserrat) !important;
+    text-transform: capitalize !important;
+}
+.counters .content i{
+    font-size: 30px;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px #000;
+
+}
+.counters .content .number-wrapper{
+    font-family: var(--font-montserrat) !important;
+    font-size: 40px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 100%;
+    text-shadow: 2px 2px #000;
+
+}
+.counters .content .title{
+    font-size: 1rem;
+    margin: 0;
+    line-height: 100%;
+    text-transform: uppercase;
+}
+/* ! ===================== */
+/* ! COUNTER               */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! ABOUT US              */
+/* ! ===================== */
+
+.about-us .about-img{
+    width: 50%;
+}
+.heading h1{
+    font-family: var(--font-montserrat);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px var(--color-red);
+}
+.heading .line{
+    width: 75px;
+    height: 7px;
+    background: var(--color-red);
+    margin: 0.5rem 0;
+}
+.about-us .about-para{
+    margin: 0;
+    margin-top: 2rem;
+}
+
+/* ! ===================== */
+/* ! ABOUT US              */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! WHAT's THERE          */
+/* ! ===================== */
+
+.whats-there{
+
+}
+.whats-there .heading h1{
+    color: var(--color-red) !important;
+    text-shadow: 2px 2px #000 !important;
+}
+.whats-there .row [class*=col-]{
+    margin: 0;
+    padding: 10px;
+}
+.whats-there .card{
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow2);
+    border: none;
+    overflow: hidden;
+    padding: 1rem;
+}
+.whats-there .card .image{
+    margin-bottom: 2rem;
+    max-height: 150px !important;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.whats-there .card .image img{
+    height: 100%;
+}
+.whats-there .card .card-heading{
+    font-family: var(--font-poppins);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.whats-there .card .card-para{
+    font-size: 0.8rem;
+}
+
+/* ! ===================== */
+/* ! WHAT's THERE          */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! UPCOMING EVENTS       */
+/* ! ===================== */
+
+.upcoming .slider-wrapper{
+    position: relative;
+}
+.upcoming .slider .card{
+    margin: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+.upcoming .slider .card .content{
+    padding: 1rem;
+}
+.upcoming .card .card-title{
+    margin: 0;
+    font-family: var(--font-montserrat);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+.upcoming .card .card-para{
+    font-size: 0.9rem;
+}
+.upcoming .card .more{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.upcoming .card .more .price{
+    color: rgb(0, 186, 0);
+    font-family: var(--font-montserrat);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.upcoming .card .more .status{
+    border: 1px solid #ddd !important;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    padding-left: 2rem;
+    position: relative;
+}
+.upcoming .card .more .status .circle{
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background: rgb(0, 186, 0);
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+}
+
+.upcoming .slider-arrows{
+    width: 105%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: -2.5%;
+    transform: translateY(-50%);
+}
+.upcoming .slider-arrows button{
+    background: white;
+    box-shadow: var(--box-shadow2);
+    border-radius: 100%;
+    border:none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+/* ! ===================== */
+/* ! UPCOMING EVENTS       */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! TESTIMONIALS          */
+/* ! ===================== */
+.testimonials .slick-track{
+    padding-top: 75px !important;
+}
+.testimonials .testimonial-slider .card{
+    position: relative;
+    border-radius: 5px;
+    border: none;
+    box-shadow: var(--box-shadow2);
+    margin: 1rem;
+    padding: 2rem;
+    padding-top: 100px;
+    /* width: 200px !impo   rtant; */
+}
+.testimonials .testimonial-slider .card .image{
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 125px;
+    height: 125px;
+    border-radius: 100px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow2);
+}
+.testimonials .testimonial-slider .card .para{
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+.testimonials .testimonial-slider .card .card-heading{
+    font-family: var(--font-montserrat);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    margin-top: 1rem;
+}
+/* ! ===================== */
+/* ! TESTIMONIALS          */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! FOOTER                */
+/* ! ===================== */
+
+footer{
+    padding-top: 50px !important;
+}
+footer .heading{
+    max-width: 250px;
+    margin-bottom: 1rem;
+}
+footer .heading span{
+    color: var(--color-red);
+}
+footer .footer-para{
+    font-size: 0.9rem;
+    max-width: 450px;
+}
+footer .footer-heading{
+    font-family: var(--font-montserrat);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+footer ul{
+    list-style-type: none;
+    padding: 0 0.5rem;
+}
+footer ul a{
+    color: var(--color-red);
+}
+footer .follow a{
+    margin-right:5px;
+}
+footer .follow a:hover{
+    color: var(--color-red);
+}
+footer .follow a i{
+    font-size: 1.2rem;
+}
+
+footer .content a{
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+/* ! ===================== */
+/* ! FOOTER                */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! WHY US - BUSINESS     */
+/* ! ===================== */
+
+.why-us{
+    padding: 100px 0;
+}
+.why-us .image{
+    max-width: 90%;
+}
+.why-us .hero-para{
+    font-size: 0.9rem;
+}
+
+/* ! ===================== */
+/* ! WHY US - BUSINESS     */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! SERVICES - BUSINESS   */
+/* ! ===================== */
+
+.services{
+    position: relative;
+}
+.services:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background:#f8f9fa;
+    z-index: -1;
+}
+.services .card{
+    max-width: 350px;
+    margin: 10px;
+    box-shadow: var(--box-shadow2);
+    border: none;
+    border-radius: 5px;
+    padding: 2rem;
+}
+.services .card .image{
+    margin-bottom: 2rem;
+    max-height: 150px !important;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.services .card .image img{
+    height: 100%;
+}
+
+.services .card .card-heading{
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+    margin-bottom: 0.25rem;
+    text-align: center;
+}
+.services .card .card-para{
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ! ===================== */
+/* ! SERVICES - BUSINESS   */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! CLIENTS  - BUSINESS   */
+/* ! ===================== */
+
+.clients{
+    border-top: 5px solid rgba(234, 24, 35, 0.8);
+    border-bottom: 2px dashed  rgba(234, 24, 35, 0.8);
+    box-shadow: inset 0px 15px 45px -9px rgba(0,0,0,.2);
+}
+.client-slider-wrapper .card{
+    margin: 30px 10px;
+    border: none;
+    box-shadow: var(--box-shadow2);
+}
+
+/* ! ===================== */
+/* ! CLIENTS  - BUSINESS   */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! GALLERY  - BUSINESS   */
+/* ! ===================== */
+
+.gallery{
+    padding-bottom: 120px;
+}
+.gallery-wrapper{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 10px;
+}
+.gallery-wrapper img{
+    width: 100%;
+    height: 100%;
+}
+.gallery-wrapper .map3-2{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.gallery-wrapper .map2-1.one{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.gallery-wrapper .map2-1.two{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+.gallery-wrapper .map2-2{
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.gallery-wrapper .map2-1.three{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+.gallery-wrapper .map2-1.five{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+.gallery-wrapper .map2-1.six{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+.gallery-wrapper .map2-1.seven{
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+/* marquee */
+.gallery .gallery-marquee{
+    width: 100vw;
+    overflow: hidden;
+}
+.gallery .gallery-marquee .marquee-content{
+    list-style-type: none;
+    height: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    animation: scrolling 30s linear infinite;
+}
+@keyframes scrolling{
+    0%{
+        transform: translateX(0vw);
+    }
+    100%{
+        transform: translateX(-270vw);
+    }
+}
+.gallery .gallery-marquee .marquee-content li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    max-height: 400px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0 1rem;
+}
+.gallery .gallery-marquee .marquee-content li img{
+    height: 100% !important;
+    width: 100%;
+}
+
+/* ! ===================== */
+/* ! GALLERY  - BUSINESS   */
+/* ! ===================== */
+
+
+/* ! ===================== */
+/* ! FORMS                 */
+/* ! ===================== */
+
+.form iframe{
+    box-shadow: var(--box-shadow2);
+    padding-top: 1.25rem;
+    border-radius: 5px;
+}
+
+/* ! ===================== */
+/* ! FORMS                 */
+/* ! ===================== */
