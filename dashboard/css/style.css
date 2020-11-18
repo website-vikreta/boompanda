@@ -310,6 +310,30 @@ a,a:hover,a:focus{
     margin-right: 10px;
 }
 
+/* !FOOTER */
+.wrapper footer .footer-content{
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-top: 2px solid var(--color-red);
+    font-size: 12px;
+}
+.wrapper footer .footer-content ul{
+    margin: 0;
+    padding: 0;
+}
+.wrapper footer .footer-content ul li{
+    margin-left: 1rem;
+    list-style: none;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.wrapper footer .footer-content ul li i{
+    font-size: 5px;
+    margin-right: 5px;
+    color: var(--color-red);
+}
+
 
 
 /* !================================== */
