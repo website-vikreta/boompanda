@@ -32,7 +32,7 @@
                 <img src="./assets/logo.png" alt="boompanda-logo" class="img-fluid">
             </div>
             <ul class="nav-list">
-                <li class="nav-tab active">
+                <li class="nav-tab">
                     <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
                 </li>
                 <li class="nav-tab dropdown">
@@ -102,7 +102,7 @@
                         <li>View all admin</li>
                     </ul>
                 </li>
-                <li class="nav-tab">
+                <li class="nav-tab active">
                     <label for="toggle-check6" class="m-0 p-0">
                         <div class="tab"><i class="far fa-exclamation-circle"></i> Components
                         </div>
@@ -112,7 +112,7 @@
                     <i class="far fa-chevron-right toggle"></i>
                     <ul class="dropdown-menulist">
                         <a href="forms.html">
-                            <li>Form, button, links</li>
+                            <li class="active">Form, button, links</li>
                         </a>
                         <li>Table</li>
                         <li>Card</li>
@@ -131,7 +131,7 @@
             <!-- ! ======================================================== -->
             <nav>
                 <div class="page-loc">
-                    <p class="m-0">Dashboard</p>
+                    <p class="m-0"><span class="text-muted">Components / </span> Forms, Buttons, Links</p>
                 </div>
                 <div class="links">
                     <div class="wallet">
@@ -183,6 +183,126 @@
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
 
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper">
+                <div class="card">
+                    <div class="card-header text-muted">
+                        <i class="fas fa-user"></i> Card Heading
+                    </div>
+                    <div class="card-body">
+                        <form action="" class="form">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" placeholder="Name">
+                                <div class="error"></div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">Subjects</label>
+                                    <div class="d-flex align-items-center checkbox-group-wrapper">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="checkbox1" name="gender">
+                                            <div class="checkbox"></div>
+                                            <label for="checkbox1">Male</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="checkbox2" name="gender">
+                                            <div class="checkbox"></div>
+                                            <label for="checkbox2">Female</label>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="checkbox3" name="gender">
+                                            <div class="checkbox"></div>
+                                            <label for="checkbox3">Other</label>
+                                        </div>
+                                    </div>
+                                    <div class="error"></div>
+                                </div>
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">Name</label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="">---- Select one option ----</option>
+                                        <option value="">Value 1</option>
+                                        <option value="">Value 2</option>
+                                        <option value="">Value 3</option>
+                                        <option value="">Value 4</option>
+                                        <option value="">Value 5</option>
+                                    </select>
+                                    <div class="error"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">Name</label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="">---- Select one option ----</option>
+                                        <option value="">Value 1</option>
+                                        <option value="">Value 2</option>
+                                        <option value="">Value 3</option>
+                                        <option value="">Value 4</option>
+                                        <option value="">Value 5</option>
+                                    </select>
+                                    <div class="error"></div>
+                                </div>
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">Gender</label>
+                                    <div class="d-flex align-items-center radio-group-wrapper">
+                                        <div class="radio-group">
+                                            <input type="radio" id="radio1" name="gender">
+                                            <div class="radio"></div>
+                                            <label for="radio1">Male</label>
+                                        </div>
+                                        <div class="radio-group">
+                                            <input type="radio" id="radio2" name="gender">
+                                            <div class="radio"></div>
+                                            <label for="radio2">Female</label>
+                                        </div>
+                                        <div class="radio-group">
+                                            <input type="radio" id="radio3" name="gender">
+                                            <div class="radio"></div>
+                                            <label for="radio3">Other</label>
+                                        </div>
+                                    </div>
+                                    <div class="error"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">File</label>
+                                    <input type="file" class="form-control">
+                                    <div class="error"></div>
+                                </div>
+                                <div class="form-group col-lg-6 col-12">
+                                    <label for="">Name</label>
+                                    <input type="text" class="form-control">
+                                    <div class="error"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <textarea name="" class="form-control" id="" cols="30" rows="5"
+                                    placeholder="Enter text"></textarea>
+                                <div class="error"></div>
+                            </div>
+
+                            <!-- buttons -->
+                            <div class="row mt-3">
+                                <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
+                                    <button class="btn btn-solid">Submit button</button>
+                                    <button class="btn btn-transparent">Clear button</button>
+                                </div>
+                                <div class="form-group col-lg-6 col-12">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
         </div>
     </div>
 

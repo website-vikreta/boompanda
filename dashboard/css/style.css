@@ -9,12 +9,17 @@
     /* box-shadow */
     --box-shadow: 0px 15px 45px -9px rgba(0,0,0,.2);
     --box-shadow2: 0px 3px 13px 1px rgba(0,0,0,.12);
+    --box-shadow3: 0 1px 9px rgba(0,0,0,0.05);
+    --box-shadow4: 0 0 40px rgba(0,0,0,0.045);
+    --box-shadow5: 0 0 9px rgba(50,0,0,0.1);
 
     /* colors */
     --color-black : #000;
     --color-black2 : #1b1b1b;
     --color-black3 : #333;
     --color-red: #EA1821;
+    --color-red2: rgba(255,0,0,0.2);
+    --color-red3: rgba(255,0,0,0.05);
     --color-white : white;
     --color-light: #f8f9fa;
     
@@ -84,12 +89,12 @@ a,a:hover,a:focus{
 }
 .wrapper .vertical-nav .dropdown-menulist{
     max-height: 0;
-    transition: 1s linear;
+    transition: 0.5s linear;
     overflow: hidden;
 }
 .wrapper .vertical-nav .toggle-check:checked ~ .dropdown-menulist{
     position: relative;
-    max-height:500px;
+    max-height:200px;
     height: auto;
 }
 .wrapper .vertical-nav .toggle-check:checked ~ i.toggle{
@@ -250,6 +255,7 @@ a,a:hover,a:focus{
     visibility: hidden;
     opacity: 0;
     transition: 0.5s ease;
+    z-index: 100;
 }
 .wrapper .links .notification .notification-dropdown:after,
 .wrapper .links .profile .profile-dropdown:after{
@@ -302,4 +308,139 @@ a,a:hover,a:focus{
     border-radius: 50px;
     border: 3px solid var(--color-red);
     margin-right: 10px;
+}
+
+
+
+/* !================================== */
+/* !Content */
+/* !================================== */
+.content-wrapper{
+    padding: 2rem;
+}
+.content-wrapper .card{
+    background: none;
+    border: none;
+    box-shadow: var(--box-shadow5);
+    border-radius: 20px;
+}
+.content-wrapper .card .card-header{
+    background: none;
+    font-family: var(--font-montserrat);
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+}
+.content-wrapper .card .card-header i{
+    width: 20px;
+}
+
+/* form */
+.content-wrapper form .form-group{
+    position: relative;
+    margin: 0.5rem 0;
+}
+.content-wrapper form .form-group label{
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 100%;
+}
+.content-wrapper form .form-group .error{
+    font-size: 0.8rem;
+    color: var(--color-red);
+    line-height: 100%;
+    margin-top: 5px;
+}
+.content-wrapper form .form-group .form-control{
+    width: 100%;
+    border: 1px solid var(--color-red2) !important;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+.content-wrapper form .form-group .form-control:focus{
+    box-shadow: none !important;
+    outline: none !important;
+    border: 1px solid var(--color-red) !important;
+}
+.content-wrapper form .form-group .form-control::placeholder{
+    font-size: 0.9rem;
+    color: var(--color-gray);
+}
+
+/* radio button & checkboxes */
+.content-wrapper form .form-group .radio-group,
+.content-wrapper form .form-group .checkbox-group{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+.content-wrapper form .form-group .radio-group-wrapper,
+.content-wrapper form .form-group .checkbox-group-wrapper{
+    height: 2rem;
+}
+.content-wrapper form .form-group .radio-group .radio,
+.content-wrapper form .form-group .checkbox-group .checkbox{
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--color-red);
+    border-radius: 50px;
+    margin-right: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.content-wrapper form .form-group .checkbox-group .checkbox{
+    border-radius: 2px !important;
+}
+.content-wrapper form .form-group .radio-group .radio:after,
+.content-wrapper form .form-group .checkbox-group .checkbox:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50px;
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--color-red);
+    transition: transform 0.5s ease;
+}
+.content-wrapper form .form-group .checkbox-group .checkbox:after{
+    border-radius: 2px !important;
+    width: 90%;
+    height: 90%;
+    background: var(--color-red) url("../assets/img/tick.png") center no-repeat;
+    background-size: 80%;
+}
+.content-wrapper form .form-group .radio-group label,
+.content-wrapper form .form-group .checkbox-group label{
+    font-weight: initial;
+    cursor: pointer;
+}
+.content-wrapper form .form-group .radio-group input,
+.content-wrapper form .form-group .checkbox-group input{
+    display: none;
+}
+.content-wrapper form .form-group .radio-group input:checked ~ .radio:after,
+.content-wrapper form .form-group .checkbox-group input:checked ~ .checkbox:after{
+    transform: translate(-50%, -50%) scale(1);
+}
+/* buttons */
+.content-wrapper form .form-group .btn{
+    border: 1px solid var(--color-red);
+    border-radius: 0;
+    box-shadow: var(--box-shadow5);
+    font-family: var(--font-poppins);
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin-right: 10px;
+    color: var(--color-black3);
+}
+.content-wrapper form .form-group .btn:active{
+    transform: scale(0.9);
+}
+.content-wrapper form .form-group .btn.btn-solid{
+    background: var(--color-red);
+    color: white;
 }
