@@ -105,6 +105,11 @@ a,a:hover,a:focus{
 .wrapper .vertical-nav .nav-list{
     padding: 1rem 0;
 }
+.wrapper .vertical-nav .nav-link{
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+}
 .wrapper .vertical-nav .nav-tab{
     position: relative;
     padding: 0;
@@ -131,7 +136,7 @@ a,a:hover,a:focus{
     font-size: 0.8rem;
     transition: transform 0.5s ease;
 }
-.wrapper .vertical-nav .nav-tab.active:before{
+.wrapper .vertical-nav .nav-link.active .nav-tab:before{
     content: '';
     position: absolute;
     top: 0;
@@ -149,7 +154,7 @@ a,a:hover,a:focus{
     position: relative;
     padding: 0.25rem 2rem;
 }
-.wrapper .vertical-nav .dropdown-menulist li.active{
+.wrapper .vertical-nav .dropdown-menulist .nav-link.active li{
     font-weight: bold;
 }
 .wrapper .vertical-nav .dropdown-menulist li:before{

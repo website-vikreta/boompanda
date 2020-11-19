@@ -3,9 +3,11 @@
         <img src="./assets/logo.png" alt="boompanda-logo" class="img-fluid">
     </div>
     <ul class="nav-list">
-        <li class="nav-tab">
-            <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
-        </li>
+        <a href="./index.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
+            </li>
+        </a>
         <li class="nav-tab dropdown">
             <label for="toggle-check1" class="m-0 p-0">
                 <div class="tab"><i class="far fa-rupee-sign"></i> Tasks
@@ -73,22 +75,48 @@
                 <li>View all admin</li>
             </ul>
         </li>
-        <li class="nav-tab active">
-            <label for="toggle-check6" class="m-0 p-0">
-                <div class="tab"><i class="far fa-exclamation-circle"></i> Components
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check6" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <a href="forms.html">
-                    <li class="active">Form, button, links</li>
-                </a>
-                <li>Table</li>
-                <li>Card</li>
-                <li>Modal</li>
-            </ul>
-        </li>
+        <div class="nav-link dropdown">
+            <li class="nav-tab">
+                <label for="toggle-check6" class="m-0 p-0">
+                    <div class="tab"><i class="far fa-exclamation-circle"></i> Components
+                    </div>
+                </label>
+                <!-- checkbox  to manage toggle -->
+                <input type="checkbox" name="" id="toggle-check6" class="toggle-check">
+                <i class="far fa-chevron-right toggle"></i>
+                <ul class="dropdown-menulist">
+                    <a href="forms.html" class="nav-link">
+                        <li>Form, button, links</li>
+                    </a>
+                    <a href="tables.html" class="nav-link">
+                        <li>Table</li>
+                    </a>
+                    <li>Card</li>
+                    <li>Modal</li>
+                </ul>
+            </li>
+        </div>
     </ul>
 </div>
+
+<script>
+    // Add active state to sidbar nav links
+    var links = $('.nav-link');
+    var sublink = $('.nav-tab>ul>a.nav-link');
+    var checklink = $(links).hasClass('dropdown');
+
+    $.each(links, function (key, va) {
+        if (va.href == document.URL) {
+            if (checklink) {
+                // if dropdown is present
+                $(this, sublink).addClass('active');
+                $(this).parents('.nav-link').addClass('active');
+            } else {
+                //if dropdown is not present
+                $(this).addClass('active');
+            }
+        }
+        // opens dropdown when sub tab is selected
+        $('.' + links.attr('class') + ' .toggle-check').prop('checked', true);
+    });
+</script>
