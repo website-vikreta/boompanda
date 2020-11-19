@@ -19,6 +19,13 @@
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
+
+    <!-- important scripts -->
+    <!-- jquery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+
 </head>
 
 <body>
@@ -27,100 +34,7 @@
         <!-- ! ======================================================== -->
         <!-- ! VERTICAL NAV -->
         <!-- ! ======================================================== -->
-        <div class="vertical-nav">
-            <div class="logo">
-                <img src="./assets/logo.png" alt="boompanda-logo" class="img-fluid">
-            </div>
-            <ul class="nav-list">
-                <li class="nav-tab">
-                    <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
-                </li>
-                <li class="nav-tab dropdown">
-                    <label for="toggle-check1" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-rupee-sign"></i> Tasks
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check1" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <li>Add task</li>
-                        <li>View tasks</li>
-                        <li>Pending approvals</li>
-                        <li>Submissions</li>
-                    </ul>
-                </li>
-                <li class="nav-tab dropdown">
-                    <label for="toggle-check2" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-chalkboard"></i> Learn
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check2" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <li>Add activity</li>
-                        <li>View activities</li>
-                    </ul>
-                </li>
-                <li class="nav-tab dropdown">
-                    <label for="toggle-check3" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-tags"></i> Offers
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check3" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <li>Add offer</li>
-                        <li>View offers</li>
-                    </ul>
-                </li>
-                <li class="nav-tab dropdown">
-                    <label for="toggle-check4" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-users"></i> Users
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check4" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <li>Add user</li>
-                        <li>View all users</li>
-                    </ul>
-                </li>
-                <li class="nav-tab">
-                    <label for="toggle-check5" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-user-cog"></i> Admins
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check5" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <li>Add admin</li>
-                        <li>View all admin</li>
-                    </ul>
-                </li>
-                <li class="nav-tab active">
-                    <label for="toggle-check6" class="m-0 p-0">
-                        <div class="tab"><i class="far fa-exclamation-circle"></i> Components
-                        </div>
-                    </label>
-                    <!-- checkbox  to manage toggle -->
-                    <input type="checkbox" name="" id="toggle-check6" class="toggle-check">
-                    <i class="far fa-chevron-right toggle"></i>
-                    <ul class="dropdown-menulist">
-                        <a href="forms.html">
-                            <li class="active">Form, button, links</li>
-                        </a>
-                        <li>Table</li>
-                        <li>Card</li>
-                        <li>Modal</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <div id="vertical-nav"></div>
         <!-- ! ======================================================== -->
         <!-- ! VERTICAL NAV -->
         <!-- ! ======================================================== -->
@@ -129,56 +43,7 @@
             <!-- ! ======================================================== -->
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
-            <nav>
-                <div class="page-loc">
-                    <p class="m-0"><span class="text-muted">Components / </span> Forms, Buttons, Links</p>
-                </div>
-                <div class="links">
-                    <div class="wallet">
-                        <i class="far fa-wallet mr-2"></i>
-                        <div class="amount">&#8377; 500</div>
-                    </div>
-                    <div class="notification">
-                        <div class="btn"><i class="far fa-bell"></i></div>
-                        <div class="notification-dropdown">
-                            <ul>
-                                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
-                                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
-                                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
-                            </ul>
-                            <div class="link bg-light text-center text-primary small p-2"><a href="#">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile">
-                        <div class="image">
-                            <img src="../assets/img/profile.jpg" class="img-fluid" alt="">
-                            <i class="far fa-chevron-down small"></i>
-                        </div>
-                        <div class="profile-dropdown">
-                            <div class="user mt-2">
-                                <p class="m-0">Hello, <span id="uid" class="font-weight-bold">username</span></p>
-                            </div>
-                            <hr class="m-0">
-                            <ul class="pt-0">
-                                <a href="#">
-                                    <li>Edit Profile</li>
-                                </a>
-                                <a href="#">
-                                    <li>Change Password</li>
-                                </a>
-                                <hr class="m-0">
-                                <a href="#" class="text-danger font-weight-bold">
-                                    <li>Logout</li>
-                                </a>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="toggle d-none">
-                        <div class="btn" id="toggle"><i class="far fa-bars"></i></div>
-                    </div>
-                </div>
-            </nav>
+            <div id="navigation-bar"></div>
             <!-- ! ======================================================== -->
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
@@ -204,18 +69,21 @@
                                     <div class="d-flex align-items-center checkbox-group-wrapper">
                                         <div class="checkbox-group">
                                             <input type="checkbox" id="checkbox1" name="gender">
-                                            <div class="checkbox"></div>
-                                            <label for="checkbox1">Male</label>
+                                            <label for="checkbox1">
+                                                <div class="checkbox"></div>Male
+                                            </label>
                                         </div>
                                         <div class="checkbox-group">
                                             <input type="checkbox" id="checkbox2" name="gender">
-                                            <div class="checkbox"></div>
-                                            <label for="checkbox2">Female</label>
+                                            <label for="checkbox2">
+                                                <div class="checkbox"></div>Female
+                                            </label>
                                         </div>
                                         <div class="checkbox-group">
                                             <input type="checkbox" id="checkbox3" name="gender">
-                                            <div class="checkbox"></div>
-                                            <label for="checkbox3">Other</label>
+                                            <label for="checkbox3">
+                                                <div class="checkbox"></div>Other
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="error"></div>
@@ -251,18 +119,21 @@
                                     <div class="d-flex align-items-center radio-group-wrapper">
                                         <div class="radio-group">
                                             <input type="radio" id="radio1" name="gender">
-                                            <div class="radio"></div>
-                                            <label for="radio1">Male</label>
+                                            <label for="radio1">
+                                                <div class="radio"></div>Male
+                                            </label>
                                         </div>
                                         <div class="radio-group">
                                             <input type="radio" id="radio2" name="gender">
-                                            <div class="radio"></div>
-                                            <label for="radio2">Female</label>
+                                            <label for="radio2">
+                                                <div class="radio"></div>Female
+                                            </label>
                                         </div>
                                         <div class="radio-group">
                                             <input type="radio" id="radio3" name="gender">
-                                            <div class="radio"></div>
-                                            <label for="radio3">Other</label>
+                                            <label for="radio3">
+                                                <div class="radio"></div>Other
+                                            </label>
                                         </div>
                                     </div>
                                     <div class="error"></div>
@@ -307,24 +178,7 @@
             <!-- ! ======================================================== -->
             <!-- ! FOOTER -->
             <!-- ! ======================================================== -->
-            <footer>
-                <div class="footer-content flex-center">
-                    <div class="copy">&copy; 2020 | Gladius Ventures</div>
-                    <div class="links">
-                        <ul class="flex-center">
-                            <a href="#">
-                                <li><i class="fas fa-circle"></i> FAQs</li>
-                            </a>
-                            <a href="#">
-                                <li><i class="fas fa-circle"></i> Terms & Conditions</li>
-                            </a>
-                            <a href="#">
-                                <li><i class="fas fa-circle"></i> Privacy Policy</li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
+            <div id="footer"></div>
             <!-- ! ======================================================== -->
             <!-- ! FOOTER -->
             <!-- ! ======================================================== -->
@@ -332,8 +186,6 @@
     </div>
 
 
-    <!-- jquery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
     <!-- custom js -->

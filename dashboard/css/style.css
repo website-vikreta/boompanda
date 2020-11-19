@@ -441,13 +441,16 @@ a,a:hover,a:focus{
 .content-wrapper form .form-group .checkbox-group label{
     font-weight: initial;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .content-wrapper form .form-group .radio-group input,
 .content-wrapper form .form-group .checkbox-group input{
     display: none;
 }
-.content-wrapper form .form-group .radio-group input:checked ~ .radio:after,
-.content-wrapper form .form-group .checkbox-group input:checked ~ .checkbox:after{
+.content-wrapper form .form-group .radio-group input:checked ~ label .radio:after,
+.content-wrapper form .form-group .checkbox-group input:checked ~ label .checkbox:after{
     transform: translate(-50%, -50%) scale(1);
 }
 /* buttons */
