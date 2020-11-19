@@ -16,6 +16,8 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="../vendor/fontawesome/all.css">
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
@@ -43,7 +45,12 @@
             <!-- ! ======================================================== -->
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
-            <div id="navigation-bar"></div>
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0"><span class="text-muted">Components / </span> Tables</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
             <!-- ! ======================================================== -->
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
@@ -52,123 +59,212 @@
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
             <div class="content-wrapper">
-                <div class="card">
-                    <div class="card-header text-muted">
-                        <i class="fas fa-user"></i> Card Heading
-                    </div>
-                    <div class="card-body">
-                        <form action="" class="form">
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" class="form-control" placeholder="Name">
-                                <div class="error"></div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Subjects</label>
-                                    <div class="d-flex align-items-center checkbox-group-wrapper">
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox1" name="gender">
-                                            <label for="checkbox1">
-                                                <div class="checkbox"></div>Male
-                                            </label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox2" name="gender">
-                                            <label for="checkbox2">
-                                                <div class="checkbox"></div>Female
-                                            </label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox3" name="gender">
-                                            <label for="checkbox3">
-                                                <div class="checkbox"></div>Other
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="error"></div>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">---- Select one option ----</option>
-                                        <option value="">Value 1</option>
-                                        <option value="">Value 2</option>
-                                        <option value="">Value 3</option>
-                                        <option value="">Value 4</option>
-                                        <option value="">Value 5</option>
-                                    </select>
-                                    <div class="error"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">---- Select one option ----</option>
-                                        <option value="">Value 1</option>
-                                        <option value="">Value 2</option>
-                                        <option value="">Value 3</option>
-                                        <option value="">Value 4</option>
-                                        <option value="">Value 5</option>
-                                    </select>
-                                    <div class="error"></div>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Gender</label>
-                                    <div class="d-flex align-items-center radio-group-wrapper">
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio1" name="gender">
-                                            <label for="radio1">
-                                                <div class="radio"></div>Male
-                                            </label>
-                                        </div>
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio2" name="gender">
-                                            <label for="radio2">
-                                                <div class="radio"></div>Female
-                                            </label>
-                                        </div>
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio3" name="gender">
-                                            <label for="radio3">
-                                                <div class="radio"></div>Other
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="error"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">File</label>
-                                    <input type="file" class="form-control">
-                                    <div class="error"></div>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <input type="text" class="form-control">
-                                    <div class="error"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <textarea name="" class="form-control" id="" cols="30" rows="5"
-                                    placeholder="Enter text"></textarea>
-                                <div class="error"></div>
-                            </div>
-
-                            <!-- buttons -->
-                            <div class="row mt-3">
-                                <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
-                                    <button class="btn btn-solid">Submit button</button>
-                                    <button class="btn btn-transparent">Clear button</button>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="table-wrapper">
+                    <!-- <div class="card-header text-muted">
+                        <i class="fas fa-table"></i> Table heading
+                    </div> -->
+                    <table class="table table-responsive-sm" width="100%" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>branch</th>
+                                <th>gender</th>
+                                <th>contact no.</th>
+                                <th>actions</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>branch</th>
+                            <th>gender</th>
+                            <th>contact no.</th>
+                            <th>actions</th>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Shubham Gujarathi</td>
+                                <td>Computer engineering</td>
+                                <td>Male</td>
+                                <td>88888 88888</td>
+                                <td class="flex-center justify-content-start">
+                                    <button class="btn solid rounded btn-success"><i class="far fa-check"></i></button>
+                                    <button class="btn solid rounded btn-info"><i class="far fa-times"></i></button>
+                                    <button class="btn solid rounded btn-danger"><i class="far fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <!-- ! ======================================================== -->
@@ -188,8 +284,13 @@
 
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
     <!-- custom js -->
     <script src="./js/main.js"></script>
+    <script>
+        $('#myTable').DataTable();
+    </script>
 </body>
 
 </html>
