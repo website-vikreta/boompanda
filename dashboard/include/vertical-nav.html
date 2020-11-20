@@ -122,4 +122,9 @@
         // opens dropdown when sub tab is selected
         $('.' + links.attr('class') + ' .toggle-check').prop('checked', true);
     });
+
+    //checkbox unchecked
+    $(".toggle-check").change(function () {
+        $(".toggle-check").not(this).prop('checked', false);
+    });
 </script>

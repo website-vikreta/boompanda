@@ -33,7 +33,7 @@
                     <li>Change Password</li>
                 </a>
                 <hr class="m-0">
-                <a href="#" class="text-danger font-weight-bold">
+                <a href="../login/logout.php" class="text-danger font-weight-bold">
                     <li>Logout</li>
                 </a>
             </ul>
@@ -43,3 +43,11 @@
         <div class="btn" id="toggle"><i class="far fa-bars"></i></div>
     </div>
 </div>
+
+
+<script>
+    //vertical nav toggle on responsive design
+    $("#toggle").on('click', function () {
+        $(".vertical-nav").toggleClass('show');
+    })
+</script>

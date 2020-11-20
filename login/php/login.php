@@ -32,7 +32,7 @@
         // if no error check in db
         // ==================================================
         if($flag == 0){
-            $sql = "SELECT * FROM `user` WHERE (`username` = '$username' OR `email` = '$username') AND `userType` = 'boompanda'";
+            $sql = "SELECT * FROM `user` WHERE (`username` = '$username' OR `email` = '$username') AND (`userType` != 'google' OR `userType` != 'facebook')";
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) == 1){
                 $row = mysqli_fetch_assoc($result);
@@ -41,6 +41,8 @@
                     //write success code here
                     if($row['status'] == "verified"){
                         $response['success'] = true;
+                        $_SESSION['email'] = $row['email'];
+                        $_SESSION['userType'] = $row['userType'];
                     }else{
                         $response['serverErr'] = "Verify your account first, click on link we sent you to your email";
                     }
