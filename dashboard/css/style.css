@@ -351,6 +351,7 @@ a,a:hover,a:focus{
 /* !================================== */
 .content-wrapper{
     padding: 2rem;
+    min-height: 80vh;
 }
 .content-wrapper .card{
     background: none;
@@ -488,14 +489,21 @@ a,a:hover,a:focus{
     font-size: 0.9rem;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid var(--color-red2);
+    border: 1px solid transparent;
+    padding: 0 !important;
 }
 .content-wrapper table thead,
 .content-wrapper table tfoot{
-    background: var(--color-red3);
+    background: #362f4b;
+    color: white;
     border-top: none !important;
     text-transform: capitalize;
     font-family: var(--font-poppins);
+    padding:;
+    margin: 0 !important;
+}
+.content-wrapper table th{
+    padding: 0.8rem 1rem !important;
 }
 .content-wrapper table td{
     vertical-align: middle;
@@ -578,4 +586,25 @@ a,a:hover,a:focus{
 #myTable_paginate span .paginate_button.current:hover{
     background: var(--color-red) !important;
     color: white !important;
+}
+
+
+/* !================================== */
+/* ! NOTIFICATION - Bootstrap notify */
+/* !================================== */
+[data-notify="container"]{
+    border: none;
+    border-radius: 0;
+    box-shadow: var(--box-shadow);
+    background: var(--color-red);
+    color: white;
+}
+[data-notify="container"] [data-notify="title"],
+[data-notify="container"] [data-notify="message"]{
+    font-family: var(--font-raleway) !important;
+    padding-left: 0.5rem;
+    font-weight: 300 !important;
+}
+[data-notify="container"] [data-notify="title"]{
+    font-weight: bold !important;
 }
