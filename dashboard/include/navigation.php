@@ -1,3 +1,15 @@
+<?php 
+    include_once "../php/db.php";
+
+    if(!empty($_SESSION['email']) && !empty($_SESSION['userType'])){
+        $email = $_SESSION['email'];
+        $userType = $_SESSION['userType'];
+    }
+
+    $sql = "SELECT `username`, `name`, `profile` FROM `user` WHERE `email` = '$email' AND `userType` = '$userType'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+?>
 <div class="links">
     <div class="wallet">
         <i class="far fa-wallet mr-2"></i>
@@ -17,12 +29,27 @@
     </div>
     <div class="profile">
         <div class="image">
-            <img src="../assets/img/profile.jpg" class="img-fluid" alt="">
+            <?php
+                if($row['profile'] == ""){
+                    $profile = "../assets/img/profile.jpg";
+                }else{
+                    $profile = $row['profile'];
+                }
+            ?>
+            <img src="<?php echo $profile ?>" class="img-fluid" alt="">
             <i class="far fa-chevron-down small"></i>
         </div>
         <div class="profile-dropdown">
             <div class="user mt-2">
-                <p class="m-0">Hello, <span id="uid" class="font-weight-bold">username</span></p>
+                <p class="m-0">Hello, <span id="uid" class="font-weight-bold">
+                    <?php
+                        if($row['name'] == ""){
+                            echo $row['username'];
+                        }else{
+                            echo $row['name'];
+                        }
+                    ?>
+                </span></p>
             </div>
             <hr class="m-0">
             <ul class="pt-0">

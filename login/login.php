@@ -38,6 +38,10 @@ if(isset($_GET["code"]))
         {
             $email = $data['email'];
         }
+        if(!empty($data['name']))
+        {
+            $name = $data['name'];
+        }
         if(!empty($data['picture']))
         {
             $picture = $data['picture'];
@@ -46,8 +50,10 @@ if(isset($_GET["code"]))
         $sql = "SELECT `id` FROM `user` WHERE `email` = '$email' AND `userType` = 'google' ";
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) < 1){
-            $sql = "INSERT INTO `user`(`email`, `profile`, `userType`, `status`, `token`) VALUES ('$email','$picture', 'google', 'verified', '$token_val')";
+            $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', 'verified', '$token_val')";
+            $sql1 = "INSERT INTO `user_info` (`email`) VALUES('$email')";
             $res = mysqli_query($conn, $sql);
+            $res1 = mysqli_query($conn, $sql1);
         }
         $_SESSION['email'] = $email;
         $_SESSION['userType'] = "google";

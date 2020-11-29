@@ -6,7 +6,7 @@ $(document).ready(function () {
     });
 
     // navigation bar
-    $.get("include/navigation.html", function (data) {
+    $.get("include/navigation.php", function (data) {
         $("#navigation-bar").replaceWith(data);
     });
 

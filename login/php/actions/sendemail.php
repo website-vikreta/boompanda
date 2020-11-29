@@ -6,8 +6,11 @@
 
         try{
             $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
-                ->setUsername('sgujarathi17699@gmail.com')
-                ->setPassword('zuwyxwhfqtcuyibb')
+                // ->setUsername('sgujarathi17699@gmail.com')
+                // ->setPassword('zuwyxwhfqtcuyibb')
+                // for boompanda
+                ->setUsername('admboompanda@gmail.com')
+                ->setPassword('ezdgwpuplsugrvtg')
             ;
             $mailer = new Swift_Mailer($transport);
             $message = (new Swift_Message($subject))

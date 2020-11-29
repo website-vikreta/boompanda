@@ -32,7 +32,7 @@
         // if no error check in db
         // ==================================================
         if($flag == 0){
-            $sql = "SELECT * FROM `user` WHERE (`username` = '$username' OR `email` = '$username') AND (`userType` != 'google' OR `userType` != 'facebook')";
+            $sql = "SELECT * FROM `user` WHERE (`username` = '$username' OR `email` = '$username') AND (`userType` <> 'google' AND `userType` <> 'facebook')";
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) == 1){
                 $row = mysqli_fetch_assoc($result);

@@ -499,7 +499,6 @@ a,a:hover,a:focus{
     border-top: none !important;
     text-transform: capitalize;
     font-family: var(--font-poppins);
-    padding:;
     margin: 0 !important;
 }
 .content-wrapper table th{

@@ -45,7 +45,7 @@
                 $flag = 1;
             }else{
                 // check whether it is present in db or not
-                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email'"); //diff for google login
+                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email' AND (`userType` = 'boompanda' OR `userType` = 'admin')"); //diff for google login
                 if(mysqli_num_rows($result) > 0){
                     $response['emailErr'] = "Oops, email is already taken!";
                     $flag = 1;

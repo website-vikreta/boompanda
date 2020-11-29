@@ -2,7 +2,7 @@
 
     include_once "./db.php";
 
-    $name = $email = $password = $cpassword = $oldpass = "";
+    $name = $email = $password = $cpassword = $oldpass = $state = $city = $language = "";
     $flag = 0;
 
     $response = array();
@@ -63,6 +63,45 @@
         }
 
         // ==================================================
+        // state validations
+        // ==================================================
+        if($_POST['state'] == ""){
+            $response['stateErr'] = "Required!";
+            $response['cityErr'] = "Required!";
+            $flag = 1;
+        }else{
+            $state = mysqli_real_escape_string($conn, $_POST['state']);
+            // remove blank spaces
+            $state = str_replace(" ", "", $state);
+        }
+
+        // ==================================================
+        // city validations
+        // ==================================================
+        if($_POST['city'] == ""){
+            $response['cityErr'] = "Required!";
+            $flag = 1;
+        }else{
+            $city = mysqli_real_escape_string($conn, $_POST['city']);
+            // remove blank spaces
+            $city = str_replace(" ", "", $city);
+        }
+
+        // ==================================================
+        // language validations
+        // ==================================================
+        if(empty($_POST['language'])){
+            $response['languageErr'] = "Required!";
+            $flag = 1;
+        }else{
+            $language = mysqli_real_escape_string($conn, $_POST['language']);
+            if(preg_match("/[^A-Za-z'-]/", $language)){
+                $response['languageErr'] = "Invalid language entered";
+                $flag = 1;
+            }
+        }
+
+        // ==================================================
         // if no error enter in db
         // ==================================================
         if($flag == 0){
@@ -75,22 +114,11 @@
             
             // insert data into db
             $sql = "INSERT INTO `user`(`name`,`password`, `email`, `userType`, `status`, `token`) VALUES ('$name', '$password', '$email', 'admin', 'not verified', '$token')";;
+            $sql1 = "INSERT INTO `user_info`(`email`, `city`, `state`, `language`) VALUES ('$email', '$state', '$city', '$language')";
             $result = mysqli_query($conn, $sql);
-            if($result){
-
-                //write success code here
-                // sending email
-                include_once "./actions/sendemail.php";
-                $subject = "Verify your account as admin";
-                $body = "
-                    <p>Username: <b>".$email."</b></p>
-                    <p>Password: <b>".$oldpass."</b></p>
-                    <a href='localhost/boompanda/login/php/actions/verify.php?email=".$email."&token=".$token."'>Click here to verify</a>
-                ";
-                $emailsend = sendEmail($email, $subject, $body);
-                if($emailsend)
-                    $response['success'] = true;
-                
+            $result1 = mysqli_query($conn, $sql1);
+            if($result && $result1){
+                $response['success'] = true;
                 //write success code here
             }else
                 $response['success'] = false;
