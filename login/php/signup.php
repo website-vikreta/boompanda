@@ -45,7 +45,7 @@
                 $flag = 1;
             }else{
                 // check whether it is present in db or not
-                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email' AND (`userType` = 'boompanda' OR `userType` = 'admin')"); //diff for google login
+                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email' AND (`userType` = 'boompanda' OR `userType` = 'admin' OR `userType` = 'superadmin')"); //diff for google login
                 if(mysqli_num_rows($result) > 0){
                     $response['emailErr'] = "Oops, email is already taken!";
                     $flag = 1;
@@ -83,7 +83,9 @@
             // insert data into db
             $sql = "INSERT INTO `user`(`username`, `password`, `email`, `userType`, `status`, `token`) VALUES ('$username', '$password', '$email', 'boompanda', 'not verified', '$token')";;
             $result = mysqli_query($conn, $sql);
-            if($result){
+            $sql1 = "INSERT INTO `user_info`(`email`, `userType`) VALUES ('$email', 'boompanda')";
+            $result1 = mysqli_query($conn, $sql1);
+            if($result && $result1){
 
                 //write success code here
                 // sending email

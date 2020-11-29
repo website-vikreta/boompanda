@@ -114,7 +114,7 @@
             
             // insert data into db
             $sql = "INSERT INTO `user`(`name`,`password`, `email`, `userType`, `status`, `token`) VALUES ('$name', '$password', '$email', 'admin', 'not verified', '$token')";;
-            $sql1 = "INSERT INTO `user_info`(`email`, `city`, `state`, `language`) VALUES ('$email', '$state', '$city', '$language')";
+            $sql1 = "INSERT INTO `user_info`(`email`, `userType`, `city`, `state`, `language`) VALUES ('$email', 'admin', '$state', '$city', '$language')";
             $result = mysqli_query($conn, $sql);
             $result1 = mysqli_query($conn, $sql1);
             if($result && $result1){

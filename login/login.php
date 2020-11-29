@@ -51,7 +51,7 @@ if(isset($_GET["code"]))
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) < 1){
             $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', 'verified', '$token_val')";
-            $sql1 = "INSERT INTO `user_info` (`email`) VALUES('$email')";
+            $sql1 = "INSERT INTO `user_info` (`email`, `userType`) VALUES('$email', 'google')";
             $res = mysqli_query($conn, $sql);
             $res1 = mysqli_query($conn, $sql1);
         }
