@@ -6,7 +6,7 @@
         $userType = $_SESSION['userType'];
     }
 
-    $sql = "SELECT `username`, `name`, `profile` FROM `user` WHERE `email` = '$email' AND `userType` = '$userType'";
+    $sql = "SELECT `username`, `name`, `profile`, `userType` FROM `user` WHERE `email` = '$email' AND `userType` = '$userType'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 ?>
@@ -34,6 +34,9 @@
                     $profile = "../assets/img/profile.jpg";
                 }else{
                     $profile = $row['profile'];
+                    if(substr($profile, 0, 4) != "http"){
+                        $profile =  substr($profile, 1);
+                    }
                 }
             ?>
             <img src="<?php echo $profile ?>" class="img-fluid" alt="">
@@ -52,17 +55,32 @@
                 </span></p>
             </div>
             <hr class="m-0">
-            <ul class="pt-0">
-                <a href="#">
+            <ul class="py-0">
+                <a href="./edit-profile.html">
                     <li>Edit Profile</li>
                 </a>
                 <a href="#">
-                    <li>Change Password</li>
+                    <li>Account Settings</li>
                 </a>
                 <hr class="m-0">
                 <a href="../login/logout.php" class="text-danger font-weight-bold">
                     <li>Logout</li>
                 </a>
+                <hr class="m-0">
+                <p class="bg-light userType">
+                    Logged in as
+                    <b>
+                        <?php
+                            if($row['userType'] == "superadmin"){
+                                echo "Super Admin";
+                            }else if($row['userType'] == "admin"){
+                                echo "Admin";
+                            }else{
+                                echo "Student";
+                            }
+                        ?>
+                    </b>
+                </p>
             </ul>
         </div>
     </div>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- check for sessions -->
+   <script src="../vendor/jquery/jquery.min.js"></script>
+   <script src="./js/sessions.js"></script>
+
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard | Boompanda</title>
+   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+   <link rel="shortcut icon" href="../assets/favicon.ico">
+   <link rel="manifest" href="../assets/site.webmanifest">
+
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+   <!-- font awesome -->
+   <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+   <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+   <!-- custom css -->
+   <link rel="stylesheet" href="./css/style.css">
+   <link rel="stylesheet" href="./css/responsive.css">
+
+   <!-- important scripts -->
+   <!-- includes -->
+   <script src="./js/include.js"></script>
+
+</head>
+
+<body>
+
+   <div class="wrapper">
+      <!-- ! ======================================================== -->
+      <!-- ! VERTICAL NAV -->
+      <!-- ! ======================================================== -->
+      <div id="vertical-nav"></div>
+      <!-- ! ======================================================== -->
+      <!-- ! VERTICAL NAV -->
+      <!-- ! ======================================================== -->
+
+      <div class="main-section">
+         <!-- ! ======================================================== -->
+         <!-- ! NAV -->
+         <!-- ! ======================================================== -->
+         <nav>
+            <div class="page-loc">
+               <p class="m-0"><span class="text-muted">Account / </span> Edit Profile</p>
+            </div>
+            <div id="navigation-bar"></div>
+         </nav>
+         <!-- ! ======================================================== -->
+         <!-- ! NAV -->
+         <!-- ! ======================================================== -->
+
+         <!-- ! ======================================================== -->
+         <!-- ! CONTENT -->
+         <!-- ! ======================================================== -->
+         <div class="content-wrapper">
+            <div class="card">
+               <div class="card-header text-muted">
+                  <i class="fas fa-user"></i> User profile
+               </div>
+               <div class="card-body">
+
+                  <!-- LOADING ANIMATION -->
+                  <!-- ======================================================== -->
+                  <div class="loading" id="loading">
+                     <i class="far fa-sync fa-spin"></i>
+                  </div>
+
+                  <!-- PROFILE FORM (students) -->
+                  <!-- ======================================================== -->
+                  <form action="" class="form appear-form" id="student-edit-profile-form">
+                     <!-- making two columns -->
+                     <div class="row">
+                        <div class="col-lg-7 col-md-7 col-12">
+                           <!-- personal info column -->
+                           <div class="row">
+                              <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                 <!-- profile -->
+                                 <div class="profile-wrapper">
+                                    <div class="profile">
+                                       <img src="../assets/img/profile.jpg" id="profile-img" class="img-fluid" alt="">
+                                       <label class="clickable" for="profileImage">
+                                          <i class="far fa-paperclip"></i>
+                                          <p>Change profile</p>
+                                       </label>
+                                    </div>
+                                    <input type="file" name="" id="profileImage" class="d-none"
+                                       onchange="previewFile(event)">
+                                    <div class="error" id="profile-error"></div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-7 col-md-7 col-12">
+                                 <div class="form-group">
+                                    <label for="">Full Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Full name">
+                                    <div class="error" id="name-error"></div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                    <div class="error" id="username-error"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Email</label>
+                                 <input type="text" class="form-control" id="email" placeholder="Email" disabled>
+                                 <div class="error"></div>
+                              </div>
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Mobile Number</label>
+                                 <input type="text" class="form-control number" id="mobile" placeholder="Mobile number">
+                                 <div class="error" id="mobile-error"></div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Gender</label>
+                                 <div class="d-flex align-items-center flex-wrap radio-group-wrapper">
+                                    <div class="radio-group">
+                                       <input type="radio" id="radio1" name="gender" value="male">
+                                       <label for="radio1">
+                                          <div class="radio"></div>Male
+                                       </label>
+                                    </div>
+                                    <div class="radio-group">
+                                       <input type="radio" id="radio2" name="gender" value="female">
+                                       <label for="radio2">
+                                          <div class="radio"></div>Female
+                                       </label>
+                                    </div>
+                                    <div class="radio-group">
+                                       <input type="radio" id="radio3" name="gender" value="other">
+                                       <label for="radio3">
+                                          <div class="radio"></div>Genderqueer / Non-Binary
+                                       </label>
+                                    </div>
+                                 </div>
+                                 <div class="error" id="gender-error"></div>
+                              </div>
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Date of Birth</label>
+                                 <input type="date" class="form-control" value="dd/mm/yyyy" id="dob">
+                                 <div class="error" id="dob-error"></div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">College Name</label>
+                                 <div id="college-list"></div>
+                                 <div class="error" id="college-error"></div>
+                              </div>
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Course Name</label>
+                                 <div id="course-list"></div>
+                                 <div class="error" id="course-error"></div>
+                              </div>
+                           </div>
+                           <script>
+                              $.get("./include/college.html", function (data) {
+                                 $("#college-list").replaceWith(data);
+                              });
+                              $.get("./include/courses.html", function (data) {
+                                 $("#course-list").replaceWith(data);
+                              });
+                           </script>
+                           <div class="row">
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">State</label>
+                                 <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt"
+                                    class="form-control"></select>
+                                 <div class="error" id="state-error"></div>
+                              </div>
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">City</label>
+                                 <select id="state" class="form-control"></select>
+                                 <div class="error" id="city-error"></div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Permanent Address</label>
+                                 <textarea name="" class="form-control" id="permanant-address" cols="30" rows="3"
+                                    placeholder="Address"></textarea>
+                                 <div class="error" id="permanant-address-error"></div>
+                              </div>
+                              <div class="form-group col-lg-6 col-12">
+                                 <label for="">Current Address</label>
+                                 <textarea name="" class="form-control" id="current-address" cols="30" rows="3"
+                                    placeholder="Address"></textarea>
+                                 <div class="error" id="current-address-error"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-12">
+                           <!-- additional info column -->
+                           <div class="row">
+                              <div class="form-group col-lg-12 col-12">
+                                 <label for="">Interests</label>
+                                 <div class="d-flex align-items-center flex-wrap checkbox-group-wrapper">
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox1" name="interest"
+                                          value="Latest tech & gadgets">
+                                       <label for="checkbox1">
+                                          <div class="checkbox"></div>Latest tech & Gadgets
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox2" name="interest" value="Music & Singing">
+                                       <label for="checkbox2">
+                                          <div class="checkbox"></div>Music & Singing
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox3" name="interest" value="Theatre & Acting">
+                                       <label for="checkbox3">
+                                          <div class="checkbox"></div>Theatre & Acting
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox4" name="interest" value="Health & Fitness">
+                                       <label for="checkbox4">
+                                          <div class="checkbox"></div>Health & Fitness
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox5" name="interest" value="Novels & Writing">
+                                       <label for="checkbox5">
+                                          <div class="checkbox"></div>Novels & Writing
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox6" name="interest" value="Movies & TV series">
+                                       <label for="checkbox6">
+                                          <div class="checkbox"></div>Movies & TV series
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox7" name="interest"
+                                          value="Drawing & Designing">
+                                       <label for="checkbox7">
+                                          <div class="checkbox"></div>Drawing & Designing
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox8" name="interest" value="Finance">
+                                       <label for="checkbox8">
+                                          <div class="checkbox"></div>Finance
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox9" name="interest" value="Sales & Marketing">
+                                       <label for="checkbox9">
+                                          <div class="checkbox"></div>Sales & Marketing
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox10" name="interest"
+                                          value="Entrepreneurship & Startups">
+                                       <label for="checkbox10">
+                                          <div class="checkbox"></div>Entrepreneurship & Startups
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox11" name="interest" value="Current affairs">
+                                       <label for="checkbox11">
+                                          <div class="checkbox"></div>Current affairs
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox12" name="interest" value="Social impact">
+                                       <label for="checkbox12">
+                                          <div class="checkbox"></div>Social impact
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox13" name="interest" value="Climate">
+                                       <label for="checkbox13">
+                                          <div class="checkbox"></div>Climate
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox14" name="interest" value="Self improvement">
+                                       <label for="checkbox14">
+                                          <div class="checkbox"></div>Self improvement
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox15" name="interest" value="Sports">
+                                       <label for="checkbox15">
+                                          <div class="checkbox"></div>Sports
+                                       </label>
+                                    </div>
+                                    <div class="checkbox-group">
+                                       <input type="checkbox" id="checkbox16" name="interest" value="Other">
+                                       <label for="checkbox16">
+                                          <div class="checkbox"></div>Other
+                                       </label>
+                                    </div>
+                                 </div>
+                                 <div class="error" id="interest-error"></div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="form-group col-lg-12 col-12">
+                                 <label for="">Where do you stay?</label>
+                                 <div class="d-flex align-items-center radio-group-wrapper">
+                                    <div class="radio-group">
+                                       <input type="radio" id="stayRadio1" name="stay" value="College hostel">
+                                       <label for="stayRadio1">
+                                          <div class="radio"></div>College hostel
+                                       </label>
+                                    </div>
+                                    <div class="radio-group">
+                                       <input type="radio" id="stayRadio2" name="stay" value="Outside college campus">
+                                       <label for="stayRadio2">
+                                          <div class="radio"></div>Outside college campus
+                                       </label>
+                                    </div>
+                                 </div>
+                                 <div class="error" id="stay-error"></div>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label for="">Bio</label>
+                              <textarea name="" class="form-control" id="bio" cols="30" rows="3"
+                                 placeholder="Bio"></textarea>
+                              <div class="error" id="bio-error"></div>
+                           </div>
+                           <div class="form-group">
+                              <label for="">Link Account</label>
+                              <br>
+                              <a href="#" class="small text-danger"><i class="far fa-link"></i> Instagram</a>
+                              <div class="error"></div>
+                           </div>
+                           <div class="form-group">
+                              <label for="">Referral Code</label>
+                              <input type="text" class="form-control" id="referral" placeholder="Referral Code">
+                              <div class="error" id="referral-error"></div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- buttons -->
+                     <div class="row mt-3">
+                        <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
+                           <button class="btn btn-solid" id="edit-profile-btn" type="submit">Update Profile</button>
+                           <button class="btn btn-transparent" type="reset">Reset</button>
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                        </div>
+                     </div>
+                  </form>
+
+                  <!-- PROFILE FORM (admins) -->
+                  <!-- ======================================================== -->
+                  <form action="" class="form appear-form" id="admin-edit-profile-form">
+                     <div class="row">
+                        <div class="col-12 flex-center">
+                           <!-- profile -->
+                           <div class="profile-wrapper">
+                              <div class="profile">
+                                 <img src="../assets/img/profile.jpg" id="admin-profile-img" class="img-fluid" alt="">
+                                 <label class="clickable" for="admin-profileImage">
+                                    <i class="far fa-paperclip"></i>
+                                    <p>Change profile</p>
+                                 </label>
+                              </div>
+                              <input type="file" name="" id="admin-profileImage" class="d-none"
+                                 onchange="adminPreviewFile(event)">
+                              <div class="error" id="profile-error"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" placeholder="Name" id="name">
+                        <div class="error" id="name-error"></div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">Email</label>
+                           <input type="text" class="form-control" placeholder="Email" id="email" disabled>
+                           <div class="error" id="email-error"></div>
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">Username</label>
+                           <input type="text" class="form-control" placeholder="Username" id="username">
+                           <div class="error" id="username-error"></div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="">Mobile Number</label>
+                        <input type="text" class="form-control" placeholder="Mobile number" id="mobile">
+                        <div class="error" id="mobile-error"></div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">Date of Birth</label>
+                           <input type="date" class="form-control" placeholder="Mobile number" id="dob"
+                              value="dd/mm/yyyy">
+                           <div class="error" id="dob-error"></div>
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">Gender</label>
+                           <div class="d-flex align-items-center radio-group-wrapper">
+                              <div class="radio-group">
+                                 <input type="radio" id="admin-gender1" name="admin-gender" value="Male">
+                                 <label for="admin-gender1">
+                                    <div class="radio"></div>Male
+                                 </label>
+                              </div>
+                              <div class="radio-group">
+                                 <input type="radio" id="admin-gender2" name="admin-gender" value="Female">
+                                 <label for="admin-gender2">
+                                    <div class="radio"></div>Female
+                                 </label>
+                              </div>
+                              <div class="radio-group">
+                                 <input type="radio" id="admin-gender3" name="admin-gender" value="Other">
+                                 <label for="admin-gender3">
+                                    <div class="radio"></div>Genderqueer / Non-Binary
+                                 </label>
+                              </div>
+                           </div>
+                           <div class="error"></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">State</label>
+                           <select onchange="print_city('city', this.selectedIndex);" id="state1" name="state"
+                              class="form-control"></select>
+                           <div class="error" id="state-error"></div>
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                           <label for="">City</label>
+                           <select id="city" class="form-control"></select>
+                           <div class="error" id="city-error"></div>
+                        </div>
+                     </div>
+
+                     <!-- buttons -->
+                     <div class="row mt-3">
+                        <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
+                           <button class="btn btn-solid" id="edit-profile-btn" type="submit">Update Profile</button>
+                           <button class="btn btn-transparent" type="reset">Reset</button>
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </div>
+         </div>
+         <!-- ! ======================================================== -->
+         <!-- ! CONTENT -->
+         <!-- ! ======================================================== -->
+
+         <!-- ! ======================================================== -->
+         <!-- ! FOOTER -->
+         <!-- ! ======================================================== -->
+         <div id="footer"></div>
+         <!-- ! ======================================================== -->
+         <!-- ! FOOTER -->
+         <!-- ! ======================================================== -->
+      </div>
+   </div>
+
+
+   <!-- bootstrap js -->
+   <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+   <!-- bootstrap notify -->
+   <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+   <!-- custom js -->
+   <script src="./js/cities.js"></script>
+   <script src="./js/main.js"></script>
+   <script src="./js/edit-profile.js"></script>
+</body>
+
+</html>

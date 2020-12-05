@@ -319,6 +319,14 @@ a,a:hover,a:focus{
     border: 3px solid var(--color-red);
     margin-right: 10px;
 }
+.wrapper .links .userType{
+    margin: 0;
+    padding: 1rem;
+    font-size: 10px !important;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 
 /* !FOOTER */
 .wrapper footer .footer-content{
@@ -373,6 +381,7 @@ a,a:hover,a:focus{
 .content-wrapper form .form-group{
     position: relative;
     margin: 0.5rem 0;
+    height: auto;
 }
 .content-wrapper form .form-group label{
     font-size: 0.9rem;
@@ -391,6 +400,9 @@ a,a:hover,a:focus{
     border: 1px solid var(--color-red2) !important;
     font-size: 0.9rem;
     border-radius: 0;
+    font-weight: 500;
+    color: black;
+    font-family: var(--font-poppins);
 }
 .content-wrapper form .form-group .form-control:focus{
     box-shadow: none !important;
@@ -399,7 +411,8 @@ a,a:hover,a:focus{
 }
 .content-wrapper form .form-group .form-control::placeholder{
     font-size: 0.9rem;
-    color: var(--color-gray);
+    color: rgb(167, 167, 167);
+    font-weight: 300;
 }
 
 /* radio button & checkboxes */
@@ -413,7 +426,7 @@ a,a:hover,a:focus{
 }
 .content-wrapper form .form-group .radio-group-wrapper,
 .content-wrapper form .form-group .checkbox-group-wrapper{
-    height: 2rem;
+    min-height: 2rem;
 }
 .content-wrapper form .form-group .radio-group .radio,
 .content-wrapper form .form-group .checkbox-group .checkbox{
@@ -481,6 +494,77 @@ a,a:hover,a:focus{
 .content-wrapper form .form-group .btn.btn-solid{
     background: var(--color-red);
     color: white;
+}
+.content-wrapper form .checkbox-group,
+.content-wrapper form .radio-group{
+    margin: 0.5rem 0.5rem 0.5rem 0;
+}
+/* profile */
+.content-wrapper form .profile-wrapper{
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+.content-wrapper form .profile-wrapper .profile{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.content-wrapper form .profile-wrapper .profile .clickable{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    cursor: pointer;
+    background: var(--color-red2);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+}
+.content-wrapper form .profile-wrapper .profile img{
+    width: 100%;
+    height: 100%;
+}
+.content-wrapper form .profile-wrapper .profile .clickable i{
+    font-size: 1.5rem;
+}
+.content-wrapper form .profile-wrapper .profile .clickable p{
+    margin: 0;
+    font-weight: bold;
+}
+.content-wrapper form .profile-wrapper:hover .clickable{
+    opacity: 1;
+    visibility: visible;
+}
+.content-wrapper .loading{
+    color: var(--color-red);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content-wrapper .loading i{
+    font-size: 50px;
+}
+.content-wrapper .appear-form{
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+}
+.content-wrapper .appear-form.active{
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
 }
 
 /* tables */

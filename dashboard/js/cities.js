@@ -61,3 +61,4 @@ function print_city(city_id, city_index) {
 }
 
 print_state("sts");
+print_state("state1");
