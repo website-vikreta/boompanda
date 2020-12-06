@@ -58,74 +58,81 @@
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
-            <div class="content-wrapper row">
-                <div class="card col-lg-6 col-md-6 col-12">
-                    <div class="card-header text-muted">
-                        <i class="fas fa-user-plus mr-2"></i> Add new admin
-                    </div>
-                    <div class="card-body">
-                        <form action="" class="form" id="add-admin-form">
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter name" id="name">
-                                <div class="error" id="name-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" class="form-control" placeholder="Enter email" id="email">
-                                <div class="error" id="email-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Create Password</label>
-                                <input type="password" class="form-control" placeholder="Enter password" id="password">
-                                <div class="error" id="password-error"></div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">State</label>
-                                    <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt"
-                                        class="form-control"></select>
-                                    <div class="error" id="state-error"></div>
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="card col-lg-6 col-md-6 col-12">
+                        <div class="card-header text-muted">
+                            <i class="fas fa-user-plus mr-2"></i> Add new admin
+                        </div>
+                        <div class="card-body">
+                            <form action="" class="form" id="add-admin-form">
+                                <div class="form-group">
+                                    <label for="">Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter name" id="name">
+                                    <div class="error" id="name-error"></div>
                                 </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">City</label>
-                                    <select id="state" class="form-control"></select>
-                                    <div class="error" id="city-error"></div>
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="text" class="form-control" placeholder="Enter email" id="email">
+                                    <div class="error" id="email-error"></div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Language</label>
-                                <input type="text" class="form-control" placeholder="Enter language" id="language">
-                                <div class="error" id="language-error"></div>
-                            </div>
+                                <div class="form-group">
+                                    <label for="">Create Password</label>
+                                    <input type="password" class="form-control" placeholder="Enter password"
+                                        id="password">
+                                    <div class="error" id="password-error"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-12">
+                                        <label for="">State</label>
+                                        <select onchange="print_city('state', this.selectedIndex);" id="sts" name="stt"
+                                            class="form-control"></select>
+                                        <div class="error" id="state-error"></div>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-12">
+                                        <label for="">City</label>
+                                        <select id="state" class="form-control"></select>
+                                        <div class="error" id="city-error"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Language</label>
+                                    <input type="text" class="form-control" placeholder="Enter language" id="language">
+                                    <div class="error" id="language-error"></div>
+                                </div>
 
-                            <!-- buttons -->
-                            <div class="row mt-3">
-                                <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
-                                    <button class="btn btn-solid" id="add-admin-btn">Add admin</button>
-                                    <button type="reset" class="btn btn-transparent">Reset</button>
+                                <!-- buttons -->
+                                <div class="row mt-3">
+                                    <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
+                                        <button class="btn btn-solid" id="add-admin-btn">Add admin</button>
+                                        <button type="reset" class="btn btn-transparent">Reset</button>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-12">
+                                    </div>
                                 </div>
-                                <div class="form-group col-lg-6 col-12">
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="px-5 col-lg-6 col-md-6 col-12 small">
-                    <h3>Instructions</h3>
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, exercitationem?</li>
-                        <li>Lorem ipsum dolor sit amet.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quas necessitatibus beatae
-                            debitis facere temporibus, eaque explicabo molestiae deleniti, minima quisquam voluptatibus
-                            velit doloremque sequi consequuntur quaerat veritatis ratione repudiandae.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, exercitationem?</li>
-                        <li>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Tempore, ex quod nihil fuga corrupti natus hic! Fugiat labore eius ducimus nesciunt id
-                            delectus laborum! Harum repellendus maiores necessitatibus reprehenderit adipisci assumenda
-                            eius fuga totam consequuntur veritatis ad quod veniam ipsum deserunt, odio earum quibusdam
-                            ea voluptatum culpa iure aliquam sapiente.</li>
-                    </ul>
+                    <div class="px-5 col-lg-6 col-md-6 col-12 small">
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, exercitationem?</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quas necessitatibus
+                                beatae
+                                debitis facere temporibus, eaque explicabo molestiae deleniti, minima quisquam
+                                voluptatibus
+                                velit doloremque sequi consequuntur quaerat veritatis ratione repudiandae.</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, exercitationem?</li>
+                            <li>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Tempore, ex quod nihil fuga corrupti natus hic! Fugiat labore eius ducimus nesciunt id
+                                delectus laborum! Harum repellendus maiores necessitatibus reprehenderit adipisci
+                                assumenda
+                                eius fuga totam consequuntur veritatis ad quod veniam ipsum deserunt, odio earum
+                                quibusdam
+                                ea voluptatum culpa iure aliquam sapiente.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!-- ! ======================================================== -->

@@ -59,7 +59,7 @@
                 <a href="./edit-profile.html">
                     <li>Edit Profile</li>
                 </a>
-                <a href="#">
+                <a href="./settings.html">
                     <li>Account Settings</li>
                 </a>
                 <hr class="m-0">
