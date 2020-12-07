@@ -66,27 +66,31 @@
                                 <i class="fas fa-lock"></i> Change Password
                             </div>
                             <div class="card-body">
-                                <form action="" class="form">
+                                <form action="" class="form" id="change-password-form">
                                     <div class="form-group">
                                         <label for="">Current Password</label>
-                                        <input type="text" class="form-control" placeholder="Current password">
-                                        <div class="error"></div>
+                                        <input type="password" class="form-control" placeholder="Current password"
+                                            id="cpassword">
+                                        <div class="error" id="cpassword-error"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Create New Password</label>
-                                        <input type="text" class="form-control" placeholder="New password">
-                                        <div class="error"></div>
+                                        <input type="password" class="form-control" placeholder="New password"
+                                            id="npassword">
+                                        <div class="error" id="npassword-error"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Re-enter Password</label>
-                                        <input type="text" class="form-control" placeholder="Re-enter password">
-                                        <div class="error"></div>
+                                        <input type="password" class="form-control" placeholder="Re-enter password"
+                                            id="rpassword">
+                                        <div class="error" id="rpassword-error"></div>
                                     </div>
 
                                     <!-- buttons -->
                                     <div class="row mt-3">
-                                        <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
-                                            <button class="btn btn-solid" type="submit">Change password</button>
+                                        <div class="form-group col-12 flex-center justify-content-start">
+                                            <button class="btn btn-solid" type="submit" id="change-password-btn">Change
+                                                password</button>
                                             <button class="btn btn-transparent" type="reset">Reset</button>
                                         </div>
                                         <div class="form-group col-lg-6 col-12">
@@ -107,17 +111,24 @@
                                 <i class="fas fa-envelope"></i> Change Email
                             </div>
                             <div class="card-body">
-                                <form action="" class="form">
+                                <form action="" class="form" id="change-email-form">
+                                    <p>
+                                        Changing email address will shift everything to the new email address.
+                                        All your login, task submissions, offers, money etc. will be change to
+                                        the new email. By clicking, "Change Email" you agree to the consent of
+                                        changing email.
+                                    </p>
                                     <div class="form-group">
                                         <label for="">New email</label>
-                                        <input type="password" class="form-control" placeholder="Email">
-                                        <div class="error"></div>
+                                        <input type="text" class="form-control" placeholder="Email" id="email">
+                                        <div class="error" id="email-error"></div>
                                     </div>
 
                                     <!-- buttons -->
                                     <div class="row mt-3">
-                                        <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
-                                            <button class="btn btn-solid" type="submit">Change email</button>
+                                        <div class="form-group col-12 flex-center justify-content-start">
+                                            <button class="btn btn-solid" type="submit" id="change-email-btn">Change
+                                                email</button>
                                             <button class="btn btn-transparent" type="reset">Reset</button>
                                         </div>
                                         <div class="form-group col-lg-6 col-12">
@@ -139,7 +150,7 @@
                                 <i class="fas fa-trash"></i> Delete Account
                             </div>
                             <div class="card-body">
-                                <form action="" class="form">
+                                <form action="" class="form" id="delete-account-form">
                                     <!-- buttons -->
                                     <div class="row">
                                         <div class="col-lg-8 col-mg-8 col-12">
@@ -151,7 +162,8 @@
                                             </p>
                                         </div>
                                         <div class="form-group col-lg-4 col-md-4 col-12 flex-center">
-                                            <button class="btn btn-solid">Delete Account</button>
+                                            <button class="btn btn-solid" type="submit" id="delete-account-btn">Delete
+                                                Account</button>
                                         </div>
                                     </div>
                                 </form>

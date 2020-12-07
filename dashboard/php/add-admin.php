@@ -109,7 +109,7 @@
             // generating token
             $token = openssl_random_pseudo_bytes(32); //random string
             $token = bin2hex($token); //convert binary into hexadecimal
-            $token=time()."".$token;
+            $token = time()."".$token;
             
             
             // insert data into db
