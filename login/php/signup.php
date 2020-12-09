@@ -19,7 +19,8 @@
         }else{
             $username = mysqli_real_escape_string($conn, $_POST['username']);
             // check whether username contains only alpha numeric chars or nor
-            if(!ctype_alnum ($username)){
+            $allowed = array("_");
+            if(!ctype_alnum (str_replace($allowed, '', $username))){
                 $response['usernameErr'] = "Username must contain letters & numbers only";
                 $flag = 1;
             }else{

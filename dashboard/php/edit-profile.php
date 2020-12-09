@@ -38,7 +38,8 @@
         // username validation
         if(!empty($_POST['username'])){
             $username = mysqli_real_escape_string($conn, $_POST['username']);
-            if(preg_match("/[^A-Za-z0-9'-]/", $username)){
+            $allowed = array("_");
+            if(!ctype_alnum (str_replace($allowed, '', $username))){
                 $response['usernameErr'] = "Username contains only letters & numbers";
                 $flag = 1;
             }else{

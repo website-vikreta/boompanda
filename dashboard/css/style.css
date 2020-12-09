@@ -23,6 +23,7 @@
     --color-white : white;
     --color-light: #f8f9fa;
     --color-whitesmoke: whitesmoke;
+    --color-gray: #ddd;
     
 }
 /* GLOBAL STYLES */
@@ -60,6 +61,10 @@ a,a:hover,a:focus{
     outline: none;
     box-shadow: none;
 }
+
+/* zoom in effect for modals */
+.modal.fade .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(.5);transform: translate(0,0)scale(.5);}
+.modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
 
 /* skeleton */
 .wrapper{
@@ -608,6 +613,34 @@ a,a:hover,a:focus{
     visibility: visible;
     height: 100%;
 }
+/* top button group & it's dropdown */
+.content-wrapper .top-button-group{
+    position: relative;
+}
+.content-wrapper .top-button-group .dropdown-card{
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: none;
+    border: 1px solid var(--color-gray);
+    background: white;
+    display: none;
+}
+.content-wrapper .top-button-group .dropdown-card.active{
+    display: block;
+}
+.content-wrapper .top-button-group .dropdown-card:before{
+    content: '';
+    position: absolute;
+    top: -0.8rem;
+    right: 2rem;
+    width: 1.2rem;
+    height: 0.8rem;
+    background: var(--color-gray);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
 
 /* tables */
 .content-wrapper table{
@@ -640,7 +673,7 @@ a,a:hover,a:focus{
     justify-content: center;
     align-items: center;
     font-size: 0.8rem;
-    margin: 0 5px;
+    margin: 0 2px;
     border-radius: 50px !important;
     border: none;
     box-shadow: var(--box-shadow5);
@@ -732,4 +765,29 @@ a,a:hover,a:focus{
 }
 [data-notify="container"] [data-notify="title"]{
     font-weight: bold !important;
+}
+
+/* !================================== */
+/* ! BOOTSTRAP MODAL */
+/* !================================== */
+.modal .modal-content{
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: var(--box-shadow) !important;
+}
+.modal .modal-content .btn{
+    border: 1px solid var(--color-red);
+    border-radius: 0;
+    box-shadow: var(--box-shadow5);
+    font-family: var(--font-poppins);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-black3);
+}
+.modal .modal-content .btn:active{
+    transform: scale(0.9);
+}
+.modal .modal-content .btn.btn-solid{
+    background: var(--color-red);
+    color: white;
 }

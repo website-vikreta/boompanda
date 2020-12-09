@@ -69,3 +69,9 @@
         margin: 0.3rem 0;
     }
 }
+
+@media (max-width: 600px){
+    .wrapper footer .footer-content{
+        justify-content: center
+    }
+}
