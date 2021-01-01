@@ -203,3 +203,56 @@ function DeleteUser(deleteid) {
         });
     }
 }
+
+// View User
+function ViewUser(userid) {
+    $.ajax({
+        type: "POST",
+        url: "./php/users.php",
+        data: {
+            userid: userid
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+
+            // profile
+            var pattern = /^((http|https|ftp):\/\/)/;
+            if (response.profile == "") {
+                $('#user-info #profile-img').attr('src', '../assets/img/profile.jpg');
+            } else if (!pattern.test(response.profile)) {
+                $('#user-info #profile-img').attr('src', response.profile.substring(3));
+            } else {
+                $('#user-info #profile-img').attr('src', response.profile);
+            }
+
+            $("#user-info #name").text(response.name);
+            $("#user-info #username").text(response.username);
+            $("#user-info #email").text(response.email);
+            $("#user-info #mobile").text(response.mobile);
+            $("#user-info #gender").text(response.gender);
+            $("#user-info #dob").text(response.dob);
+            $("#user-info #college").text(response.college_name);
+            $("#user-info #course").text(response.course);
+            $("#user-info #year").text(response.year);
+            $("#user-info #state").text(response.state);
+            $("#user-info #city").text(response.city);
+            $("#user-info #permanant_address").text(response.permanant_address);
+            $("#user-info #current_address").text(response.current_address);
+            $("#user-info #interest").text(response.interests);
+            $("#user-info #stay").text(response.stay);
+            $("#user-info #bio").text(response.bio);
+
+            $("#user-info #loading").css('display', 'none');
+            $("#user-info .info-block").css('display', 'flex');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            // console.log(message);
+            notification('Ooops...', message, 'error');
+        }
+    });
+}

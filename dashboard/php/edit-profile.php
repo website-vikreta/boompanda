@@ -23,7 +23,7 @@
         $response = array();
         $response['success'] = false;
         $name = $username = $mobile = $gender = $dob = $state = $city = $permanant_address = $current_address = $bio = "";
-        $stay = $referral = $interest = $college = $course = "";
+        $stay = $referral = $interest = $college = $course = $college_name = $year = "";
         $flag = 0;
 
         // name validation
@@ -77,8 +77,14 @@
         if($_POST['college'] != "-1+-1"){
             $college = mysqli_real_escape_string($conn, $_POST['college']);
         }
+        if(!empty($_POST['college_name'])){
+            $college_name = mysqli_real_escape_string($conn, $_POST['college_name']);
+        }
         if($_POST['course'] != "-1"){
             $course = mysqli_real_escape_string($conn, $_POST['course']);
+        }
+        if($_POST['year'] != "0"){
+            $year = mysqli_real_escape_string($conn, $_POST['year']);
         }
 
         // state & city
@@ -176,7 +182,7 @@
                 // move_uploaded_file($_FILES['profile']['tmp_name'],$location);
             }
             // launch Update query
-            $sql = "UPDATE `user_info` SET `mobile_number`='$mobile',`gender`='$gender',`dob`='$dob',`college` = '$college',`course` = '$course', `state`='$state',`city`='$city', `permanant_address`='$permanant_address',`current_address`='$current_address',`interests`='$interest',`stay`='$stay',`bio`='$bio',`referral`='$referral' WHERE `email` = '$email' AND `userType` = '$userType' ";
+            $sql = "UPDATE `user_info` SET `mobile_number`='$mobile',`gender`='$gender',`dob`='$dob',`college` = '$college', `college_name` = '$college_name', `course` = '$course', `year` = '$year', `state`='$state',`city`='$city', `permanant_address`='$permanant_address',`current_address`='$current_address',`interests`='$interest',`stay`='$stay',`bio`='$bio',`referral`='$referral' WHERE `email` = '$email' AND `userType` = '$userType' ";
             $result = mysqli_query($conn, $sql);
             if($location != ""){
                 $sql1 = "UPDATE `user` SET `username` = '$username', `profile` = '$location', `name` = '$name' WHERE `email` = '$email' AND `userType` = '$userType'";

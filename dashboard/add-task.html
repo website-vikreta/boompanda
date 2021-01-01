@@ -61,115 +61,273 @@
             <div class="content-wrapper">
                 <div class="card">
                     <div class="card-header text-muted">
-                        <i class="fas fa-user"></i> Card Heading
+                        <i class="fas fa-tasks"></i> Add New Task
                     </div>
                     <div class="card-body">
-                        <form action="" class="form">
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" class="form-control" placeholder="Name">
-                                <div class="error"></div>
-                            </div>
+
+                        <form action="" class="form" id="add-task-form">
                             <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Subjects</label>
-                                    <div class="d-flex align-items-center checkbox-group-wrapper">
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox1" name="gender">
-                                            <label for="checkbox1">
-                                                <div class="checkbox"></div>Male
-                                            </label>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                            <!-- profile -->
+                                            <div class="profile-wrapper">
+                                                <div class="profile">
+                                                    <img src="../assets/img/profile.jpg" id="gig-logo" class="img-fluid"
+                                                        alt="">
+                                                    <label class="clickable" for="gigLogo">
+                                                        <i class="far fa-paperclip"></i>
+                                                        <p>Change logo</p>
+                                                    </label>
+                                                </div>
+                                                <input type="file" name="" id="gigLogo" class="d-none"
+                                                    onchange="previewFile(event)" accept="image/*">
+                                                <div class="error" id="gigLogo-error"></div>
+                                            </div>
                                         </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox2" name="gender">
-                                            <label for="checkbox2">
-                                                <div class="checkbox"></div>Female
-                                            </label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="checkbox3" name="gender">
-                                            <label for="checkbox3">
-                                                <div class="checkbox"></div>Other
-                                            </label>
+                                        <div class="col-lg-7 col-md-7 col-12">
+                                            <div class="form-group">
+                                                <label for="">Gig Title</label>
+                                                <input type="text" class="form-control" placeholder="Gig title"
+                                                    id="gig-title">
+                                                <div class="gig-title-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Gig Category</label>
+                                                <select name="" id="gig-category" class="form-control">
+                                                    <option value="-1">---- Select one option ----</option>
+                                                    <option value="Instagram Promotion">Instagram Promotion</option>
+                                                    <option value="Whatsapp Promotion">Whatsapp Promotion</option>
+                                                    <option value="Review Posting">Review Posting</option>
+                                                    <option value="App Download">App Download</option>
+                                                    <option value="App Download">App Download</option>
+                                                    <option value="Survey">Survey</option>
+                                                    <option value="Signup / Register">Signup / Register</option>
+                                                    <option value="Telecalling">Telecalling</option>
+                                                    <option value="Influencer Marketing">Influencer Marketing</option>
+                                                    <option value="Content Creation">Content Creation</option>
+                                                </select>
+                                                <div class="gig-category-error"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="error"></div>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">---- Select one option ----</option>
-                                        <option value="">Value 1</option>
-                                        <option value="">Value 2</option>
-                                        <option value="">Value 3</option>
-                                        <option value="">Value 4</option>
-                                        <option value="">Value 5</option>
-                                    </select>
-                                    <div class="error"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">---- Select one option ----</option>
-                                        <option value="">Value 1</option>
-                                        <option value="">Value 2</option>
-                                        <option value="">Value 3</option>
-                                        <option value="">Value 4</option>
-                                        <option value="">Value 5</option>
-                                    </select>
-                                    <div class="error"></div>
-                                </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Gender</label>
-                                    <div class="d-flex align-items-center radio-group-wrapper">
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio1" name="gender">
-                                            <label for="radio1">
-                                                <div class="radio"></div>Male
-                                            </label>
+                                    <div class="form-group">
+                                        <label for="">Company Name</label>
+                                        <input type="text" class="form-control" placeholder="Company's name"
+                                            id="company-name">
+                                        <div class="company-name-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Company Description</label>
+                                        <textarea name="" class="form-control" id="company-description" cols="30"
+                                            rows="5" placeholder="Company's description"></textarea>
+                                        <div class="company-description-error"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12 form-group">
+                                            <label for="">Start Date</label>
+                                            <input type="date" class="form-control" value="dd/mm/yyyy" id="start-date">
+                                            <div class="start-date-error"></div>
                                         </div>
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio2" name="gender">
-                                            <label for="radio2">
-                                                <div class="radio"></div>Female
-                                            </label>
-                                        </div>
-                                        <div class="radio-group">
-                                            <input type="radio" id="radio3" name="gender">
-                                            <label for="radio3">
-                                                <div class="radio"></div>Other
-                                            </label>
+                                        <div class="col-lg-6 col-md-6 col-12 form-group">
+                                            <label for="">End Date</label>
+                                            <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                            <div class="end-date-error"></div>
                                         </div>
                                     </div>
-                                    <div class="error"></div>
+
+                                    <div class="form-group">
+                                        <label for="">Boomcoins Earn</label>
+                                        <input type="number" class="form-control" placeholder="Boom coins"
+                                            id="boom-coins">
+                                        <div class="boom-coins-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Complexity</label>
+                                        <div class="d-flex align-items-center radio-group-wrapper">
+                                            <div class="radio-group">
+                                                <input type="radio" id="radio1" name="complexity" value="Easy">
+                                                <label for="radio1">
+                                                    <div class="radio"></div>Easy
+                                                </label>
+                                            </div>
+                                            <div class="radio-group">
+                                                <input type="radio" id="radio2" name="complexity" value="Medium">
+                                                <label for="radio2">
+                                                    <div class="radio"></div>Medium
+                                                </label>
+                                            </div>
+                                            <div class="radio-group">
+                                                <input type="radio" id="radio3" name="complexity" value="Hard">
+                                                <label for="radio3">
+                                                    <div class="radio"></div>Hard
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="complexity-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Sample Proofs</label>
+                                        <input type="file" class="form-control" accept="image/*" name="sample-proofs[]"
+                                            id="sample-proofs" multiple>
+                                        <p class="small font-italic text-success">
+                                            (You can select multiple files. Rename the files in ascending order in which
+                                            they will appear on users screen.)
+                                        </p>
+                                        <div class="sample-proofs-error"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="">Tutorial Link</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Paste URL (https://www.boompanda.in)" id="tutorial-link">
+                                        <div class="tutorial-link-error"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">File</label>
-                                    <input type="file" class="form-control">
-                                    <div class="error"></div>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="">Requirements</label>
+                                        <textarea name="" class="form-control" id="requirements" cols="30" rows="5"
+                                            placeholder="Requirements to complete this gig."></textarea>
+                                        <div class="requirements-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Task Completion</label>
+                                        <textarea name="" class="form-control" id="completion" cols="30" rows="5"
+                                            placeholder="How to complete this gig?"></textarea>
+                                        <div class="completion-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Interests</label>
+                                        <div class="d-flex align-items-center flex-wrap checkbox-group-wrapper">
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox1" name="interest"
+                                                    value="Latest tech & gadgets">
+                                                <label for="checkbox1">
+                                                    <div class="checkbox"></div>Latest tech & Gadgets
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox2" name="interest"
+                                                    value="Music & Singing">
+                                                <label for="checkbox2">
+                                                    <div class="checkbox"></div>Music & Singing
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox3" name="interest"
+                                                    value="Theatre & Acting">
+                                                <label for="checkbox3">
+                                                    <div class="checkbox"></div>Theatre & Acting
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox4" name="interest"
+                                                    value="Health & Fitness">
+                                                <label for="checkbox4">
+                                                    <div class="checkbox"></div>Health & Fitness
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox5" name="interest"
+                                                    value="Novels & Writing">
+                                                <label for="checkbox5">
+                                                    <div class="checkbox"></div>Novels & Writing
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox6" name="interest"
+                                                    value="Movies & TV series">
+                                                <label for="checkbox6">
+                                                    <div class="checkbox"></div>Movies & TV series
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox7" name="interest"
+                                                    value="Drawing & Designing">
+                                                <label for="checkbox7">
+                                                    <div class="checkbox"></div>Drawing & Designing
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox8" name="interest" value="Finance">
+                                                <label for="checkbox8">
+                                                    <div class="checkbox"></div>Finance
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox9" name="interest"
+                                                    value="Sales & Marketing">
+                                                <label for="checkbox9">
+                                                    <div class="checkbox"></div>Sales & Marketing
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox10" name="interest"
+                                                    value="Entrepreneurship & Startups">
+                                                <label for="checkbox10">
+                                                    <div class="checkbox"></div>Entrepreneurship & Startups
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox11" name="interest"
+                                                    value="Current affairs">
+                                                <label for="checkbox11">
+                                                    <div class="checkbox"></div>Current affairs
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox12" name="interest"
+                                                    value="Social impact">
+                                                <label for="checkbox12">
+                                                    <div class="checkbox"></div>Social impact
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox13" name="interest" value="Climate">
+                                                <label for="checkbox13">
+                                                    <div class="checkbox"></div>Climate
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox14" name="interest"
+                                                    value="Self improvement">
+                                                <label for="checkbox14">
+                                                    <div class="checkbox"></div>Self improvement
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox15" name="interest" value="Sports">
+                                                <label for="checkbox15">
+                                                    <div class="checkbox"></div>Sports
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="checkbox16" name="interest" value="Other">
+                                                <label for="checkbox16">
+                                                    <div class="checkbox"></div>Other
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="error" id="interest-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Who can apply?</label>
+                                        <textarea name="" class="form-control" id="apply" cols="30" rows="5"
+                                            placeholder="Who can apply?"></textarea>
+                                        <div class="apply-error"></div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-lg-6 col-12">
-                                    <label for="">Name</label>
-                                    <input type="text" class="form-control">
-                                    <div class="error"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <textarea name="" class="form-control" id="" cols="30" rows="5"
-                                    placeholder="Enter text"></textarea>
-                                <div class="error"></div>
                             </div>
 
                             <!-- buttons -->
                             <div class="row mt-3">
                                 <div class="form-group col-lg-6 col-12 flex-center justify-content-start">
-                                    <button class="btn btn-solid">Submit button</button>
-                                    <button class="btn btn-transparent">Clear button</button>
+                                    <button class="btn btn-solid" id="add-task-btn" type="submit">Add Task</button>
+                                    <button class="btn btn-transparent" type="reset">Reset</button>
                                 </div>
                                 <div class="form-group col-lg-6 col-12">
                                 </div>
@@ -195,8 +353,11 @@
 
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- custom js -->
     <script src="./js/main.js"></script>
+    <script src="./js/add-task.js"></script>
 </body>
 
 </html>

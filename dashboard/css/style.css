@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Poppins&family=Raleway:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Poppins:wght@500;600&family=Raleway:wght@400;500;600;700&display=swap');
 /* VARIABLES */
 :root{
     /* fonts */
@@ -790,4 +790,25 @@ a,a:hover,a:focus{
 .modal .modal-content .btn.btn-solid{
     background: var(--color-red);
     color: white;
+}
+.modal .modal-body .profile{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid white;
+    box-shadow: var(--box-shadow2);
+    margin: 0.5rem 1rem;
+}
+.modal .modal-body p{
+    padding: 0.5rem 1rem;
+    margin: 0;
+    font-size: 0.9rem;
+}
+.modal .modal-body p span{
+    font-family: var(--font-poppins);
+    font-weight: 500;
+}
+.modal .modal-body .info-block{
+    display: none;
 }

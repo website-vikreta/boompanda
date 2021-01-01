@@ -9,6 +9,7 @@
     if(!empty($_POST['readrecord'])){
 
         $data = "
+        <div class='table-responsive'>
             <table class='table-responsive-sm table-striped' id='myTable' width='100%'>
                 <thead>
                     <td><b>Sr No</b></td>
@@ -67,6 +68,11 @@
                 $number++;
             }
         }
+        $data .= "
+            </tbody>
+            </table>
+            </div>
+        ";
         // $data .= "</table>";
         echo $data;
     }

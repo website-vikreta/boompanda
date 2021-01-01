@@ -121,7 +121,8 @@
     if(!empty($_POST['readrecord'])){
 
         $data = "
-            <table class='table-responsive-sm table-striped' id='myTable' width='100%'>
+            <div class='table-responsive'>
+            <table class='table-striped' id='myTable' width='100%'>
                 <thead>
                     <td><b>Sr No</b></td>
                     <td><b>Name</b></td>
@@ -149,7 +150,7 @@
                 <tbody>
         ";
         // sql query with inner join
-        $sql = "SELECT `user`.id, `user`.`name`, `user`.`email`, `user`.`status`, `user`.`userType`, `user_info`.`state`, `user_info`.`city`, `user_info`.`college`, `user_info`.`course`, `user_info`.`year` 
+        $sql = "SELECT `user`.id, `user`.`name`, `user`.`email`, `user`.`status`, `user`.`userType`, `user_info`.`state`, `user_info`.`city`, `user_info`.`college_name`, `user_info`.`course`, `user_info`.`year` 
                 FROM `user` INNER JOIN `user_info` ON `user`.`email` = `user_info`.`email` AND `user`.`userType` = `user_info`.`userType`
                 WHERE `user`.`userType` <> 'admin' AND `user`.`userType` <> 'superadmin'";
         $result=mysqli_query($conn,$sql);
@@ -162,15 +163,15 @@
                         <td class='text-center'>".$number."</td>
                         <td>".$row['name']."</td>
                         <td>".$row['email']."</td>
-                        <td>".$row['college']."</td>
+                        <td>".$row['college_name']."</td>
                         <td>".$row['course']."</td>
                         <td class='text-center'>".$row['year']."</td>
                         <td>".$row['state']."</td>
                         <td>".$row['city']."</td>
                         <td>".$row['userType']."</td>
                         <td class='d-flex justify-content-end'>
-                            <button class='btn solid rounded btn-info user-".$row['id']."' title='View complete info'><i class='far fa-eye' data-toggle='modal' data-target='#view-user-modal'></i></button>
-                            <button class='btn solid rounded btn-warning user-".$row['id']."' title='Send message'><i class='far fa-paper-plane'></i></button>
+                            <button class='btn solid rounded btn-info user-".$row['id']."' title='View complete info' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' data-toggle='modal' data-target='#view-user-modal'><i class='far fa-eye'></i></button>
+                            <button class='btn solid rounded btn-warning user-".$row['id']."' title='Send message' data-toggle='modal' data-target='#send-message-modal'><i class='far fa-paper-plane'></i></button>
                 ";
                 if($row['status'] == "not verified"){
                     $data .= "
@@ -190,6 +191,11 @@
                 $number++;
             }
         }
+        $data .= "
+            </tbody>
+            </table>
+            </div>
+        ";
         // $data .= "</table>";
         echo $data;
     }
@@ -237,4 +243,17 @@
         }else{
             echo "error";
         }
+    }
+
+    // * ====================================
+    // * READ SINGLE RECORD
+    // * ====================================
+    if(isset($_POST['userid'])){
+        $userid = $_POST['userid'];
+        $sql = "SELECT `user`.*, `user_info`.*
+                FROM `user` INNER JOIN `user_info` ON `user`.`email` = `user_info`.`email` AND `user`.`userType` = `user_info`.`userType`
+                WHERE `user`.`id` = '$userid'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode($row);
     }

@@ -79,6 +79,7 @@ $(document).ready(function () {
                 var selectdata = data.college.split("+");
                 $("#student-edit-profile-form #college option[data-id='" + selectdata[0] + "'][data-collegepincode='" + selectdata[1] + "']").attr("selected", true);
                 $('#student-edit-profile-form #course').val(data.course);
+                $('#student-edit-profile-form #year').val(data.year);
 
                 // state & city dropdown
                 $('#student-edit-profile-form #sts').val(data.state);
@@ -133,7 +134,9 @@ $(document).ready(function () {
 
         // college & courses
         formData.append('college', $("#student-edit-profile-form #college option:selected").attr("data-id") + '+' + $("#student-edit-profile-form #college option:selected").attr("data-collegepincode"));
+        formData.append('college_name', $("#student-edit-profile-form #college option:selected").text());
         formData.append('course', $("#student-edit-profile-form #course").val());
+        formData.append('year', $("#student-edit-profile-form #year").val());
 
         // checkbox, interest
         interest_list = Array();

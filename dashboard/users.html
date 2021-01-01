@@ -162,8 +162,36 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-
+                            <div class="modal-body" id="user-info">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="row info-block">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="profile">
+                                            <img src="../assets/img/profile.jpg" class="img-fluid" alt=""
+                                                id="profile-img">
+                                        </div>
+                                        <p>Name: <b><span id="name"></span></b></p>
+                                        <p>Username: <b><span id="username"></span></b></p>
+                                        <p>Email: <b><span id="email"></span></b></p>
+                                        <p>Mobile: <b><span id="mobile"></span></b></p>
+                                        <p>Gender: <b><span id="gender"></span></b></p>
+                                        <p>DOB: <b><span id="dob"></span></b></p>
+                                        <p>College: <b><span id="college"></span></b></p>
+                                        <p>Course: <b><span id="course"></span></b></p>
+                                        <p>Year: <b><span id="year"></span></b></p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <p>State: <b><span id="state"></span></b></p>
+                                        <p>City: <b><span id="city"></span></b></p>
+                                        <p>Permanant Address: <b><span id="permanant_address"></span></b></p>
+                                        <p>Current Address: <b><span id="current_address"></span></b></p>
+                                        <p>Interest: <b><span id="interest"></span></b></p>
+                                        <p>Stay: <b><span id="stay"></span></b></p>
+                                        <p>Bio: <b><span id="bio"></span></b></p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-solid" data-dismiss="modal">Close</button>
@@ -173,6 +201,46 @@
                 </div>
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW USER MODAL -->
+                <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! SEND MESSAGE MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="send-message-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom " role="document">
+                        <div class="modal-content">
+                            <form action="" id="send-message-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Send message to user</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="form-group">
+                                        <label for="">Message</label>
+                                        <textarea name="" id="" cols="30" rows="5" class="form-control"
+                                            placeholder="Your message"></textarea>
+                                        <div class="error" id="username-error"></div>
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid">
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! SEND MESSAGE MODAL -->
                 <!-- ! ======================================================== -->
 
             </div>
