@@ -35,7 +35,7 @@
 
         // validating gig title
         if(empty($_POST['gig-title'])){
-            $response['gig-titleErr'] = "Required!";
+            $response['gigTitleErr'] = "Required!";
             $flag = 1;
         }else{
             $title = mysqli_real_escape_string($conn, $_POST['gig-title']);
@@ -43,7 +43,7 @@
 
         // validating gig category
         if($_POST['gig-category'] == "-1"){
-            $response['gig-categoryErr'] = "Select one option";
+            $response['gigCategoryErr'] = "Select one option";
             $flag = 1;
         }else{
             $category = mysqli_real_escape_string($conn, $_POST['gig-category']);
@@ -51,19 +51,19 @@
 
         // validating company name
         if(empty($_POST['company-name'])){
-            $response['company-nameErr'] = 'Required!';
+            $response['companyNameErr'] = 'Required!';
             $flag = 1;
         }else{
             $name = mysqli_real_escape_string($conn, $_POST['company-name']);
             if(preg_match("/[^A-Za-z0-9 '-]/", $name)){
-                $response['company-nameErr'] = "Must be alphanumeric";
+                $response['companyNameErr'] = "Must be alphanumeric";
                 $flag = 1;
             }
         }
 
         // validating company's description
         if(empty($_POST['company-description'])){
-            $response['company-descriptionErr'] = "Required!";
+            $response['companyDescriptionErr'] = "Required!";
             $flag = 1;
         }else{
             $description = mysqli_real_escape_string($conn, $_POST['company-description']);
@@ -71,7 +71,7 @@
 
         // validating start date
         if(empty($_POST['start-date'])){
-            $response['start-dateErr'] = 'Required!';
+            $response['startDateErr'] = 'Required!';
             $flag = 1;
         }else{
             $startdate = mysqli_real_escape_string($conn, $_POST['start-date']);
@@ -79,7 +79,7 @@
 
         // validating end date
         if(empty($_POST['end-date'])){
-            $response['end-dateErr'] = 'Required!';
+            $response['endDateErr'] = 'Required!';
             $flag = 1;
         }else{
             $enddate = mysqli_real_escape_string($conn, $_POST['end-date']);
@@ -87,7 +87,7 @@
 
         // validating boom coins
         if(empty($_POST['boom-coins'])){
-            $response['boom-coinsErr'] = 'Required!';
+            $response['boomCoinsErr'] = 'Required!';
             $flag = 1;
         }else{
             $boomcoins = mysqli_real_escape_string($conn, $_POST['boom-coins']);
@@ -107,12 +107,12 @@
 
         // tutorial link
         if(empty($_POST['tutorial-link'])){
-            $response['tutorial-linkErr'] = 'Required!';
+            $response['tutorialLinkErr'] = 'Required!';
             $flag = 1;
         }else{
             $tutorialLink = mysqli_real_escape_string($conn, $_POST['tutorial-link']);
             if (!filter_var($tutorialLink, FILTER_VALIDATE_URL)) {
-                $response['tutorial-linkErr'] = 'Invalid URL';
+                $response['tutorialLinkErr'] = 'Invalid URL';
                 $flag = 1;
             }
         }
@@ -122,7 +122,7 @@
         if (isset($_FILES['sample-proofs']) && !empty($_FILES['sample-proofs'])) {
             $no_files = count($_FILES["sample-proofs"]['name']); //counting total number of files for iterations
         } else {
-            $response['sample-proofsErr'] = "Required!";
+            $response['sampleProofsErr'] = "Required!";
             $flag = 1;
         }
 
@@ -146,7 +146,7 @@
         $interest_list = json_decode($_POST['interests']);
         if(sizeof($interest_list) > 0){
             if(sizeof($interest_list) < 2){
-                $response['interestErr'] = "Choose atleast 2 interest.";
+                $response['interestsErr'] = "Choose atleast 2 interest.";
                 $flag = 1;
             }else{
                 $interests = mysqli_real_escape_string($conn, implode(',', $interest_list));
@@ -182,7 +182,7 @@
             $gigSampleLocation = '../media/tasks'.$foldertimestamp.'/samples/';
             for ($i = 0; $i < $no_files; $i++) {
                 if ($_FILES["sample-proofs"]["error"][$i] > 0) {
-                    $response['sample-proofsErr'] = "Error: " . $_FILES["sample-proofs"]["error"][$i] . "<br>";
+                    $response['sampleProofsErr'] = "Error: " . $_FILES["sample-proofs"]["error"][$i] . "<br>";
                     $flag = 1;
                 } else {
                     compress_image($_FILES["sample-proofs"]["tmp_name"][$i], "../media/tasks/" . $foldertimestamp . "/samples/".$_FILES["sample-proofs"]["name"][$i] , 50);
@@ -190,8 +190,8 @@
             }
 
             if($flag == 0){
-                $sql = "INSERT INTO `tasks`(`title`, `category`, `gigLogo`, `companyName`, `companyDescription`, `startDate`, `endDate`, `boomcoins`, `complexity`, `sampleProofs`, `tutorialLink`, `requirements`, `completion`, `interests`, `apply`) 
-                        VALUES ('$title', '$category', '$gigLogoLocation', '$name', '$description', '$startdate', '$enddate', '$boomcoins', '$complexity', '$gigSampleLocation', '$tutorialLink', '$requirements', '$completion', '$interests', '$apply')";
+                $sql = "INSERT INTO `tasks`(`title`, `category`, `gigLogo`, `companyName`, `companyDescription`, `startDate`, `endDate`, `boomcoins`, `complexity`, `sampleProofs`, `tutorialLink`, `requirements`, `completion`, `interests`, `apply`, `status`) 
+                        VALUES ('$title', '$category', '$gigLogoLocation', '$name', '$description', '$startdate', '$enddate', '$boomcoins', '$complexity', '$gigSampleLocation', '$tutorialLink', '$requirements', '$completion', '$interests', '$apply', `Not Active`)";
                 $result = mysqli_query($conn, $sql);
                 if($result){
                     $response['success'] = true;

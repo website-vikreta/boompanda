@@ -61,7 +61,88 @@ $(document).ready(function () {
             dataType: 'json',
             cache: false,
             success: function (response) {
-                console.log(response);
+                // console.log(response);
+
+                if (response.gigLogoErr) {
+                    $("#add-task-form #gigLogo-error").html(response.gigLogoErr);
+                } else {
+                    $("#add-task-form #gigLogo-error").html("");
+                }
+                if (response.gigTitleErr) {
+                    $("#add-task-form #gig-title-error").html(response.gigTitleErr);
+                } else {
+                    $("#add-task-form #gig-title-error").html("");
+                }
+                if (response.gigCategoryErr) {
+                    $("#add-task-form #gig-category-error").html(response.gigCategoryErr);
+                } else {
+                    $("#add-task-form #gig-category-error").html("");
+                }
+                if (response.companyNameErr) {
+                    $("#add-task-form #company-name-error").html(response.companyNameErr);
+                } else {
+                    $("#add-task-form #company-name-error").html("");
+                }
+                if (response.companyDescriptionErr) {
+                    $("#add-task-form #company-description-error").html(response.companyDescriptionErr);
+                } else {
+                    $("#add-task-form #company-description-error").html("");
+                }
+                if (response.startDateErr) {
+                    $("#add-task-form #start-date-error").html(response.startDateErr);
+                } else {
+                    $("#add-task-form #start-date-error").html("");
+                }
+                if (response.endDateErr) {
+                    $("#add-task-form #end-date-error").html(response.endDateErr);
+                } else {
+                    $("#add-task-form #end-date-error").html("");
+                }
+                if (response.boomCoinsErr) {
+                    $("#add-task-form #boom-coins-error").html(response.boomCoinsErr);
+                } else {
+                    $("#add-task-form #boom-coins-error").html("");
+                }
+                if (response.complexityErr) {
+                    $("#add-task-form #complexity-error").html(response.complexityErr);
+                } else {
+                    $("#add-task-form #complexity-error").html("");
+                }
+                if (response.sampleProofsErr) {
+                    $("#add-task-form #sample-proofs-error").html(response.sampleProofsErr);
+                } else {
+                    $("#add-task-form #sample-proofs-error").html("");
+                }
+                if (response.tutorialLinkErr) {
+                    $("#add-task-form #tutorial-link-error").html(response.tutorialLinkErr);
+                } else {
+                    $("#add-task-form #tutorial-link-error").html("");
+                }
+                if (response.requirementsErr) {
+                    $("#add-task-form #requirements-error").html(response.requirementsErr);
+                } else {
+                    $("#add-task-form #requirements-error").html("");
+                }
+                if (response.completionErr) {
+                    $("#add-task-form #completion-error").html(response.completionErr);
+                } else {
+                    $("#add-task-form #completion-error").html("");
+                }
+                if (response.interestsErr) {
+                    $("#add-task-form #interest-error").html(response.interestsErr);
+                } else {
+                    $("#add-task-form #interest-error").html("");
+                }
+                if (response.applyErr) {
+                    $("#add-task-form #apply-error").html(response.applyErr);
+                } else {
+                    $("#add-task-form #apply-error").html("");
+                }
+
+                if (response.success == true) {
+                    $("#add-task-form").trigger("reset");
+                    notification('Heads up!', 'Task Added Successfully.', 'success');
+                }
 
                 $(_temp).removeAttr("disabled");
                 $(_temp).html('Add Task');
