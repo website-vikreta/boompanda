@@ -20,16 +20,12 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="../vendor/fontawesome/all.css">
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
-    <!-- data tables -->
-    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
-
     <!-- important scripts -->
     <!-- includes -->
     <script src="./js/include.js"></script>
-
 </head>
 
 <body>
@@ -49,7 +45,7 @@
             <!-- ! ======================================================== -->
             <nav>
                 <div class="page-loc">
-                    <p class="m-0"><span class="text-muted">Tasks / </span> View all tasks</p>
+                    <p class="m-0">Tasks</p>
                 </div>
                 <div id="navigation-bar"></div>
             </nav>
@@ -61,11 +57,37 @@
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
             <div class="content-wrapper">
-                <div class="table-wrapper">
 
-                    <!-- response from php is added in this div -->
-                    <div id="responsecontainer"></div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-toggle="tab" href="#active">Active</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" href="#applied">Applied</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" href="#completed">Completed</button>
+                    </li>
+                </ul>
 
+                <div class="tab-content">
+                    <div id="active" class="container-fluid tab-pane active"><br>
+                        <div class="flex-wrapper">
+
+                            <!-- active record response cotainer -->
+                            <div id="activeRecords"></div>
+                        </div>
+                    </div>
+                    <div id="applied" class="container tab-pane fade"><br>
+                        <h3>Menu 1</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat.</p>
+                    </div>
+                    <div id="completed" class="container tab-pane fade"><br>
+                        <h3>Menu 2</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam.</p>
+                    </div>
                 </div>
 
 
@@ -185,41 +207,24 @@
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW TASK MODAL -->
                 <!-- ! ======================================================== -->
+
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
-            <!-- ! ======================================================== -->
-
-            <!-- ! ======================================================== -->
-            <!-- ! FOOTER -->
-            <!-- ! ======================================================== -->
-            <div id="footer"></div>
-            <!-- ! ======================================================== -->
-            <!-- ! FOOTER -->
             <!-- ! ======================================================== -->
         </div>
     </div>
 
 
-
+    <!-- jquery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
-    <!-- datatables -->
-    <script src="../vendor/datatables/datatables.min.js"></script>
-    <!-- bootstrap notify -->
-    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- custom js -->
-    <script src="./js/view-tasks.js"></script>
     <script src="./js/main.js"></script>
+    <script src="./js/tasks.js"></script>
     <script>
-
-        //calling read record function for admin
-        readAdmins();
-
-
-        $(document).ready(function () {
-
-        })
+        readActiveTasks();
     </script>
 </body>
 

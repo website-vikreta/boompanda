@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Poppins:wght@500;600&family=Raleway:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Poppins:wght@400;500;600&family=Raleway:wght@400;500;600;700&display=swap');
 /* VARIABLES */
 :root{
     /* fonts */
@@ -811,4 +811,91 @@ a,a:hover,a:focus{
 }
 .modal .modal-body .info-block{
     display: none;
+}
+
+
+/* nav tabs & pills */
+.nav.nav-tabs li{
+    padding: initial !important;
+}
+.nav.nav-tabs li button{
+    padding: 0.6rem 1rem !important;
+    border: none;
+    background: none;
+    outline: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    transition: 0.2s ease;
+    font-family: var(--font-poppins);
+    font-weight: normal !important;
+}
+.nav.nav-tabs li button.active{
+    background: var(--color-red);
+    color: white;
+}
+.tab-content{
+    border: 1px solid #ddd;
+    padding: 0 !important;
+}
+.tab-content .tab-pane.container-fluid{
+    padding: 0 20px;
+}
+
+/* card cayout for tab-content */
+.tab-content .flex-wrapper{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.tab-content .flex-wrapper .card{
+    max-width: 210px;
+    padding: 10px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    margin: 10px;
+}
+.tab-content .flex-wrapper .card .image{
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow2);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tab-content .flex-wrapper .card h3{
+    font-family: var(--font-montserrat);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 10px;
+}
+.tab-content .flex-wrapper .card p{
+    font-size: 0.8rem;
+    text-align: justify;
+    margin: 0;
+}
+.tab-content .flex-wrapper .card p.gig-description{
+    flex-grow: 1;
+}
+.tab-content .flex-wrapper .card p span{
+    color: var(--color-red);
+    font-weight: bold;
+}
+.tab-content .flex-wrapper .card hr{
+    margin: 10px 0;
+}
+.tab-content .flex-wrapper .card button{
+    background: var(--color-red);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+.tab-content .flex-wrapper .card button:active{
+    transform: scale(0.95);
 }
