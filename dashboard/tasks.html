@@ -73,7 +73,6 @@
                 <div class="tab-content">
                     <div id="active" class="container-fluid tab-pane active"><br>
                         <div class="flex-wrapper">
-
                             <!-- active record response cotainer -->
                             <div id="activeRecords"></div>
                         </div>
@@ -199,7 +198,13 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-solid" data-dismiss="modal">Close</button>
+                                <form action="" id="task-apply-form">
+                                    <input type="hidden" name="" id="hiddenid">
+                                    <span class="error small text-danger" id="modal-error"></span>
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="apply-btn">Apply Now</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -220,6 +225,8 @@
     <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- custom js -->
     <script src="./js/main.js"></script>
     <script src="./js/tasks.js"></script>

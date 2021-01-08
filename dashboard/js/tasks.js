@@ -1,6 +1,57 @@
 $(document).ready(function () {
 
+    // ! =======================================
+    // ! APPLY TO THE TASK
+    // ! =======================================
+    $("#task-apply-form #apply-btn").on('click', function (e) {
+        e.preventDefault();
 
+        // disable button & add spinner class
+        $(this).prop('disabled', true);
+        var _temp = this;
+        $(_temp).html('Applying <i class="fa fa-spinner fa-spin"></i>');
+
+        formData = new FormData();
+        formData.append('applyid', $("#task-apply-form #hiddenid").val());
+        // ajax function
+        $.ajax({
+            enctype: 'multipart/form-data',
+            url: "./php/tasks.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            cache: false,
+            success: function (response) {
+                // console.log(response);
+                if (response.modalErr) {
+                    $("#task-apply-form #modal-error").html(response.modalErr);
+                } else {
+                    $("#task-apply-form #modal-error").html("");
+                }
+                if (response.success == true) {
+                    // throw notification
+                    notification('Heads up!', 'Your application has been submitted.', 'success');
+
+                    $('#view-task-modal').modal("hide");
+                    readActiveTasks();
+                }
+
+                $(_temp).removeAttr("disabled");
+                $(_temp).html('Apply Now');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var message = errorThrown;
+                if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                    message = jqXHR.responseText;
+                }
+                console.log(message);
+                $(_temp).removeAttr("disabled");
+                $(_temp).html('Apply Now');
+            }
+        });
+    })
 
 })
 
@@ -34,6 +85,8 @@ function ViewTask(taskid) {
         },
         dataType: 'json',
         success: function (response) {
+            $("#hiddenid").val(response.id);
+            $("#task-apply-form #modal-error").html("");
             $("#gig-title").text(response.title);
             $("#task-info #title").text(response.title);
             $("#task-info #category").text(response.category);
