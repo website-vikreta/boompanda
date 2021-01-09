@@ -20,12 +20,16 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="../vendor/fontawesome/all.css">
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
+
     <!-- important scripts -->
     <!-- includes -->
     <script src="./js/include.js"></script>
+
 </head>
 
 <body>
@@ -45,7 +49,7 @@
             <!-- ! ======================================================== -->
             <nav>
                 <div class="page-loc">
-                    <p class="m-0">Tasks</p>
+                    <p class="m-0"><span class="text-muted">Tasks / </span> View all tasks</p>
                 </div>
                 <div id="navigation-bar"></div>
             </nav>
@@ -57,40 +61,11 @@
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
             <div class="content-wrapper">
+                <div class="table-wrapper">
 
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-toggle="tab" href="#active">Active</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#applied"
-                            onclick="readAppliedTasks()">Applied</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#completed">Completed</button>
-                    </li>
-                </ul>
+                    <!-- response from php is added in this div -->
+                    <div id="responsecontainer"></div>
 
-                <div class="tab-content">
-                    <div id="active" class="container-fluid tab-pane active"><br>
-                        <div class="flex-wrapper">
-                            <!-- active record response cotainer -->
-                            <div id="activeRecords"></div>
-                        </div>
-                    </div>
-                    <div id="applied" class="container tab-pane fade"><br>
-                        <!-- loader -->
-                        <div class="loading" id="loading">
-                            <i class="far fa-sync fa-spin"></i>
-                        </div>
-                        <!-- applied record response container -->
-                        <div id="appliedRecords"></div>
-                    </div>
-                    <div id="completed" class="container tab-pane fade"><br>
-                        <h3>Menu 2</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam.</p>
-                    </div>
                 </div>
 
 
@@ -202,13 +177,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <form action="" id="task-apply-form">
-                                    <input type="hidden" name="" id="hiddenid">
-                                    <span class="error small text-danger" id="modal-error"></span>
-                                    <button type="button" class="btn btn-transparent"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-solid" id="apply-btn">Apply Now</button>
-                                </form>
+                                <button type="button" class="btn btn-solid" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -216,26 +185,41 @@
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW TASK MODAL -->
                 <!-- ! ======================================================== -->
-
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
             <!-- ! ======================================================== -->
         </div>
     </div>
 
 
-    <!-- jquery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
     <!-- bootstrap notify -->
     <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- custom js -->
+    <script src="./js/pending-approvals.js"></script>
     <script src="./js/main.js"></script>
-    <script src="./js/tasks.js"></script>
     <script>
-        readActiveTasks();
+
+        //calling read record function for admin
+        readAdmins();
+
+
+        $(document).ready(function () {
+
+        })
     </script>
 </body>
 

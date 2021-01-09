@@ -859,6 +859,7 @@ a,a:hover,a:focus{
     padding-top: 50px;
     background: var(--color-red3);
     padding: 20px;
+    flex-grow: 1;
 }
 .tab-content .flex-wrapper .card .time{
     padding: 10px;
@@ -905,21 +906,7 @@ a,a:hover,a:focus{
     font-weight: 600;
     text-align: center;
     margin-top: 10px;
-}
-.tab-content .flex-wrapper .card p{
-    font-size: 0.8rem;
-    text-align: justify;
-    margin: 0;
-}
-.tab-content .flex-wrapper .card p.gig-description{
     flex-grow: 1;
-}
-.tab-content .flex-wrapper .card p span{
-    color: var(--color-red);
-    font-weight: bold;
-}
-.tab-content .flex-wrapper .card hr{
-    margin: 10px 0;
 }
 .tab-content .flex-wrapper .card button{
     background: var(--color-red);
@@ -932,4 +919,21 @@ a,a:hover,a:focus{
 }
 .tab-content .flex-wrapper .card button:active{
     transform: scale(0.95);
+}
+.tab-content .flex-wrapper .card hr{
+    margin: 0;
+    margin-top: 10px;
+}
+.tab-content .flex-wrapper .card .btn-group button{
+    margin: 0;
+    max-width: 40px;
+}
+.tab-content .flex-wrapper .card .btn-group span{
+    font-size: 0.8rem;
+    font-family: var(--font-poppins);
+    color: var(--color-black3);
+    margin: 0 !important;
+    text-transform: capitalize;
+    padding: 0 5px;
+    cursor: initial !important;
 }

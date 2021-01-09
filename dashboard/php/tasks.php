@@ -46,6 +46,52 @@
     }
 
     // * ====================================
+    // * APPLIED TASKS
+    // * ====================================
+    if(!empty($_POST['readapplied'])){
+        $data = "<div class='flex-wrapper'>";
+        // sql query with inner join
+        $sql = "SELECT * FROM `applications` WHERE `email` = '$email' AND `userType` = '$userType' ORDER BY `id` DESC";
+        $result=mysqli_query($conn,$sql);
+    
+        if(mysqli_num_rows($result) > 0){
+            $number = 1;
+            while($row1 = mysqli_fetch_assoc($result)){
+                $sql = "SELECT * FROM `tasks` WHERE `id` = '".$row1['taskid']."'";
+                $res = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($res);
+                $data .= "
+                    <div class='card'>
+                        <div class='amount'>₹ ".$row['boomcoins']."</div>
+                        <div class = 'head'>
+                            <div class='image'>
+                                <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
+                            </div>
+                            <h3 class='gig-title'>".$row['title']."</h3>
+                        </div>
+                        <div class='time flex-center justify-content-between'>
+                            <span><i class='far fa-calendar-week'></i> ".$row['startDate']."</span>
+                            <span><i class='far fa-chart-bar'></i> ".$row['complexity']."</span>
+                        </div>
+                        <a>".$row['category']."</a>
+                        <hr>
+                        <div class='flex-center justify-content-between btn-group'>
+                            <span class='btn solid w-80'>".$row1['status']."</span>
+                            <button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>
+                        </div>
+                    </div>
+                ";
+                    
+            }
+        }else{
+            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any task / gig yet. Apply to task by click Active task button on top.</p>";
+        }
+        $data .= "</div>";
+        // $data .= "</table>";
+        echo $data;
+    }
+
+    // * ====================================
     // * READ SINGLE RECORD
     // * ====================================
     if(isset($_POST['taskid'])){

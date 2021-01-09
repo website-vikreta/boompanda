@@ -1,112 +1,33 @@
-$(document).ready(function () {
-
-    // ! =======================================
-    // ! APPLY TO THE TASK
-    // ! =======================================
-    $("#task-apply-form #apply-btn").on('click', function (e) {
-        e.preventDefault();
-
-        // disable button & add spinner class
-        $(this).prop('disabled', true);
-        var _temp = this;
-        $(_temp).html('Applying <i class="fa fa-spinner fa-spin"></i>');
-
-        formData = new FormData();
-        formData.append('applyid', $("#task-apply-form #hiddenid").val());
-        // ajax function
-        $.ajax({
-            enctype: 'multipart/form-data',
-            url: "./php/tasks.php",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            cache: false,
-            success: function (response) {
-                // console.log(response);
-                if (response.modalErr) {
-                    $("#task-apply-form #modal-error").html(response.modalErr);
-                } else {
-                    $("#task-apply-form #modal-error").html("");
-                }
-                if (response.success == true) {
-                    // throw notification
-                    notification('Heads up!', 'Your application has been submitted.', 'success');
-
-                    $('#view-task-modal').modal("hide");
-                    readActiveTasks();
-                }
-
-                $(_temp).removeAttr("disabled");
-                $(_temp).html('Apply Now');
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                var message = errorThrown;
-                if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
-                    message = jqXHR.responseText;
-                }
-                console.log(message);
-                $(_temp).removeAttr("disabled");
-                $(_temp).html('Apply Now');
-            }
-        });
-    })
-
-})
-
-// read active tasks
-function readActiveTasks() {
+// read records
+function readAdmins() {
     var readrecord = 'readrecord';
     $.ajax({    //create an ajax request to display.php
         type: "POST",
-        url: "./php/tasks.php",
+        url: "./php/pending-approvals.php",
         data: {
             readrecord: readrecord
         },
         dataType: "html",   //expect html to be returned                
         success: function (response) {
-            // console.log(response);
-            $("#activeRecords").html(response);
-        },
-        error: function () {
-            console.log("error");
-        }
-    });
-}
-// read applied tasks
-function readAppliedTasks() {
-    var readapplied = 'readapplied';
-    $.ajax({    //create an ajax request to display.php
-        type: "POST",
-        url: "./php/tasks.php",
-        data: {
-            readapplied: readapplied
-        },
-        dataType: "html",   //expect html to be returned                
-        success: function (response) {
-            console.log(response);
-            $("#appliedRecords").html(response);
-            $(".loading").css('display', 'none');
-        },
-        error: function () {
-            console.log("error");
+            $("#responsecontainer").html(response);
+            $('#myTable').DataTable();
         }
     });
 }
 
-// view detailed gig
+// View User
 function ViewTask(taskid) {
     $.ajax({
         type: "POST",
-        url: "./php/tasks.php",
+        url: "./php/pending-approvals.php",
         data: {
             taskid: taskid
         },
         dataType: 'json',
         success: function (response) {
-            $("#hiddenid").val(response.id);
-            $("#task-apply-form #modal-error").html("");
+            console.log(response);
+
+
             $("#gig-title").text(response.title);
             $("#task-info #title").text(response.title);
             $("#task-info #category").text(response.category);
@@ -154,6 +75,69 @@ function ViewTask(taskid) {
             }
             // console.log(message);
             notification('Ooops...', message, 'error');
+        }
+    });
+}
+
+function ActiveTask(approveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .task-" + approveid;
+    var _temp = "#approve" + approveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/pending-approvals.php",
+        data: {
+            approveid: approveid
+        },
+        success: function (response) {
+            if (response == 'success') {
+                notification('Heads up!', 'This gig is now running...', 'success');
+                readAdmins();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-play'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .task-" + approveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-play'></i>");
+        }
+    });
+}
+
+// dis approve record
+function InactiveTask(disapproveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .task-" + disapproveid;
+    var _temp = "#disapprove" + disapproveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/pending-approvals.php",
+        data: {
+            disapproveid: disapproveid
+        },
+        success: function (response) {
+            if (response == 'success') {
+                notification('Heads up!', 'Task is now stopped!', 'success');
+                readAdmins();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-stop'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .task-" + disapproveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-stop'></i>");
         }
     });
 }
