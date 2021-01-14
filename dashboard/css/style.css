@@ -848,7 +848,7 @@ a,a:hover,a:focus{
     flex-wrap: wrap;
 }
 .tab-content .flex-wrapper .card{
-    max-width: 210px;
+    width: 210px;
     /* padding: 10px; */
     box-shadow: none;
     border: 1px solid #ddd;

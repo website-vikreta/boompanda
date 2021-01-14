@@ -72,107 +72,47 @@
 
 
                 <!-- ! ======================================================== -->
-                <!-- ! VIEW TASK MODAL -->
+                <!-- ! VIEW USER MODAL -->
                 <!-- ! ======================================================== -->
-                <style>
-                    .modal p b {
-                        font-family: poppins;
-                    }
-
-                    .modal .small {
-                        font-size: 0.8rem !important;
-                    }
-
-                    .modal .bg-light {
-                        background: rgba(255, 0, 0, 0.2) !important;
-                        padding: 3px 5px !important;
-                        border-radius: 3px;
-                        font-size: 0.8rem !important;
-                        font-family: poppins;
-                    }
-
-                    .modal .stats {
-                        text-align: center;
-                        margin: 20px 0;
-                    }
-
-                    .modal .stats span {
-                        font-weight: bold;
-                        font-family: poppins;
-                        font-size: 30px;
-                    }
-
-                    .modal .stats .line {
-                        height: 50px;
-                        width: 5px;
-                        background: #ddd;
-                    }
-                </style>
-                <div class="modal fade" id="view-task-modal" tabindex="-1" role="dialog"
+                <div class="modal fade" id="view-user-modal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel4" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">View Task</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">User Profile</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="outline: none;">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body" id="task-info">
+                            <div class="modal-body" id="user-info">
                                 <div class="loading" id="loading">
                                     <i class="far fa-sync fa-spin"></i>
                                 </div>
                                 <div class="row info-block">
-                                    <div class="col-lg-8 col-md-7 col-12">
-                                        <div class="title-group">
-                                            <h4 id="title" class="m-0 p-0"></h4>
-                                            <span id="category" class="m-0 p-0 bg-light"></span>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="profile">
+                                            <img src="../assets/img/profile.jpg" class="img-fluid" alt=""
+                                                id="profile-img">
                                         </div>
-
-                                        <div class="flex-center justify-content-start">
-                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                    style="font-family: poppins;"></b></p>
-                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
-                                                    style="font-family: poppins;"></b></p>
-                                        </div>
-                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b></p>
-                                        <p class="m-0 p-0">Complexity: <b id="complexity"></b></p>
-                                        <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
-                                        <p class="m-0 mt-2 p-0">How to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
-                                        <p class="m-0 mt-2 p-0">Interests</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="interests"></p>
-                                        <p class="m-0 mt-2 p-0">Who can apply?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="apply"></p>
-                                        <p class="m-0 p-0 mt-2">Tutorial: <b><a id="tutorial"
-                                                    class="text-primary"></a></b></p>
+                                        <p>Name: <b><span id="name"></span></b></p>
+                                        <p>Username: <b><span id="username"></span></b></p>
+                                        <p>Email: <b><span id="email"></span></b></p>
+                                        <p>Mobile: <b><span id="mobile"></span></b></p>
+                                        <p>Gender: <b><span id="gender"></span></b></p>
+                                        <p>DOB: <b><span id="dob"></span></b></p>
+                                        <p>College: <b><span id="college"></span></b></p>
+                                        <p>Course: <b><span id="course"></span></b></p>
+                                        <p>Year: <b><span id="year"></span></b></p>
                                     </div>
-                                    <div class="col-lg-4 col-md-5 col-12">
-
-                                        <div class="company-info text-center">
-                                            <img src="" alt="" id="gigLogo" class="img-fluid"
-                                                style="border-radius: 50%; width: 120px; height: 120px; padding: 10px; box-shadow: var(--box-shadow3)">
-                                            <h4 id="companyName" class="my-2" style="font-family: poppins;"></h4>
-                                            <p class="m-0 p-0 small text-justify text-muted" id="companyDescription">
-                                            </p>
-                                        </div>
-                                        <div class="flex-center justify-content-between stats">
-                                            <div class="card1">
-                                                <span id="noOfApplications"></span>
-                                                <p class="text-muted p-0">Number of Applications</p>
-                                            </div>
-                                            <div class="line"></div>
-                                            <div class="card1">
-                                                <span id="noOfSubmissions"></span>
-                                                <p class="text-muted small p-0">Number of Submissions</p>
-                                            </div>
-                                        </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <p>State: <b><span id="state"></span></b></p>
+                                        <p>City: <b><span id="city"></span></b></p>
+                                        <p>Permanant Address: <b><span id="permanant_address"></span></b></p>
+                                        <p>Current Address: <b><span id="current_address"></span></b></p>
+                                        <p>Interest: <b><span id="interest"></span></b></p>
+                                        <p>Stay: <b><span id="stay"></span></b></p>
+                                        <p>Bio: <b><span id="bio"></span></b></p>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +123,7 @@
                     </div>
                 </div>
                 <!-- ! ======================================================== -->
-                <!-- ! VIEW TASK MODAL -->
+                <!-- ! VIEW USER MODAL -->
                 <!-- ! ======================================================== -->
             </div>
             <!-- ! ======================================================== -->
@@ -214,7 +154,7 @@
     <script>
 
         //calling read record function for admin
-        readAdmins();
+        readApplications();
 
 
         $(document).ready(function () {

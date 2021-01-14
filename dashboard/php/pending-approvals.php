@@ -64,9 +64,9 @@
                         <td class='d-flex justify-content-center p-2' style='height: 100%'>
                 ";
                 $data .= "                        
-                        <button class='btn solid rounded btn-primary task-".$row['id']."' title='View complete task information' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal'><i class='far fa-eye'></i></button>
-                        <button class='btn solid rounded btn-success user-".$row['id']."' id='approve".$row['id']."' onclick='ApproveUser(".$row['id'].")' data-toggle='tooltip' title='Verify'><i class='far fa-check'></i></button>
-                        <button class='btn solid rounded btn-danger task-".$row['id']."' id='delete".$row['id']."' onclick='DeleteAdmin(".$row['id'].")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
+                        <button class='btn solid rounded btn-primary user-".$row['id']."' title='View student profile' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' data-toggle='modal' data-target='#view-user-modal'><i class='far fa-eye'></i></button>
+                        <button class='btn solid rounded btn-success user-".$row['id']."' id='approve".$row['id']."' onclick='ApproveUser(".$row['id'].")' data-toggle='tooltip' title='Allow student for submission'><i class='far fa-check'></i></button>
+                        <button class='btn solid rounded btn-danger user-".$row['id']."' id='delete".$row['id']."' onclick='DeleteUser(".$row['id'].")' data-toggle='tooltip' title='Delete Application'><i class='far fa-trash'></i></button>
                     </td>
                 </tr>
                 ";
@@ -99,7 +99,36 @@
     // * ====================================
     if(isset($_POST['approveid'])){
         $approveid = $_POST['approveid'];
-        $sql = "UPDATE `tasks` SET `status`='Active' WHERE `id`= '$approveid'";
+        $sql = "UPDATE `applications` SET `status`= 'accepted' WHERE `id` = '$approveid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            $tasksql = "SELECT * FROM `tasks` WHERE `id` = (SELECT `taskid` FROM `applications` WHERE `id` = '$approveid')";
+            $res = mysqli_query($conn, $tasksql);
+            $r = mysqli_fetch_assoc($res);
+            $emailsql = "SELECT `email` FROM `applications` WHERE `id` = '$approveid'";
+            $res1 = mysqli_query($conn, $emailsql);
+            $r1 = mysqli_fetch_assoc($res1);
+            include_once "./actions/sendemail.php";
+            $subject = "Boompanda - Update regarding your application";
+            $body = "
+                <h2>Hurrayyyy!</h2>
+                <p>Your application for <b>".$r['title']."</b> has been accepted.</p>
+                <p>(<a href = '".$r['tutorialLink']."'>Click Here</a>) to know how to perform this task.</p>
+                <p>Kindly login to your boompanda portal for more information & submit the task to earn credits.</p>
+            ";
+            $emailsend = sendEmail($r1['email'], $subject, $body);
+            echo "success";          
+        }else{
+            echo "error";
+        }
+    }
+
+     // * ====================================
+    // * DELETE USERS
+    // * ====================================
+    if(isset($_POST['deleteid'])){
+        $deleteid = $_POST['deleteid'];
+        $sql = "DELETE FROM `applications` WHERE `id` = '$deleteid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";
@@ -107,16 +136,22 @@
             echo "error";
         }
     }
+
+
     // * ====================================
-    // * INACTIVE TASKS
+    // * READ USER INFO
     // * ====================================
-    if(isset($_POST['disapproveid'])){
-        $disapproveid = $_POST['disapproveid'];
-        $sql = "UPDATE `tasks` SET `status`='Not Active' WHERE `id`= '$disapproveid'";
+    if(isset($_POST['userinfo'])){
+        $userid = $_POST['userinfo'];
+        $sql = "SELECT `email`, `userType` FROM `applications` WHERE `id` = '$userid'";
+        $res = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($res);
+        $email = $row['email'];
+        $userType = $row['userType'];
+        $sql = "SELECT `user`.*, `user_info`.*
+                FROM `user` INNER JOIN `user_info` ON `user`.`email` = `user_info`.`email` AND `user`.`userType` = `user_info`.`userType`
+                WHERE `user`.`email` = '$email' AND `user`.`userType` = '$userType'";
         $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode($row);
     }

@@ -229,7 +229,7 @@ function ViewUser(userid) {
             $("#user-info #name").text(response.name);
             $("#user-info #username").text(response.username);
             $("#user-info #email").text(response.email);
-            $("#user-info #mobile").text(response.mobile);
+            $("#user-info #mobile").text(response.mobile_number);
             $("#user-info #gender").text(response.gender);
             $("#user-info #dob").text(response.dob);
             $("#user-info #college").text(response.college_name);

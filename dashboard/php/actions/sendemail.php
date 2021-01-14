@@ -14,7 +14,7 @@
             ;
             $mailer = new Swift_Mailer($transport);
             $message = (new Swift_Message($subject))
-                ->setFrom(['admin@boompanda.in' => 'Boompanda'])
+                ->setFrom(['admboompanda@gmail.com' => 'Boompanda'])
                 ->setTo([$to])
                 ->setBody($body, 'text/html')
             ;
