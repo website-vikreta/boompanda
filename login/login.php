@@ -50,8 +50,20 @@ if(isset($_GET["code"]))
         $sql = "SELECT `id` FROM `user` WHERE `email` = '$email' AND `userType` = 'google' ";
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) < 1){
+
+            // generating unique number
+            $uid = 0;
+            while(1){
+                $uid = mt_rand(100000, 999999)                ;
+                $sql = "SELECT * FROM `user_info` WHERE `uid` = '$uid'";
+                if(mysqli_num_rows(mysqli_query($conn, $sql)))
+                    continue;
+                else
+                    break;
+            }
+
             $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', 'verified', '$token_val')";
-            $sql1 = "INSERT INTO `user_info` (`email`, `userType`) VALUES('$email', 'google')";
+            $sql1 = "INSERT INTO `user_info` (`email`, `userType`, `uid`) VALUES('$email', 'google', '$uid')";
             $res = mysqli_query($conn, $sql);
             $res1 = mysqli_query($conn, $sql1);
         }

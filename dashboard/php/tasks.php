@@ -75,9 +75,15 @@
                         </div>
                         <a>".$row['category']."</a>
                         <hr>
-                        <div class='flex-center justify-content-between btn-group'>
-                            <span class='btn solid w-80'>".$row1['status']."</span>
-                            <button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>
+                        <div class='flex-center justify-content-between btn-group'>";
+
+                        if($row1['status'] == 'accepted'){
+                            $data .= "<button class = 'btn submit w-80'>Submit Task</button>";
+                        }else{
+                            $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                        }
+                            
+                        $data .="    <button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>
                         </div>
                     </div>
                 ";
@@ -127,8 +133,9 @@
                 $year = $row['year'];
                 $state = $row['state'];
                 $city = $row['city'];
+                $uid = $row['uid'];
 
-                if(empty($college_name) OR empty($course) OR empty($year) OR empty($state) OR empty($city)){
+                if(empty($college_name) OR empty($course) OR empty($year) OR empty($state) OR empty($city) OR empty($uid)){
                     $response['modalErr'] = "You cannot apply. Kindly complete your profile first.";
                     $flag = 1;
                 }
@@ -140,9 +147,10 @@
 
         if($flag == 0){   
             $sql = "INSERT INTO `applications`(`email`, `userType`, `UID`, `college_name`, `course`, `year`, `state`, `city`, `taskid`, `status`) 
-                    VALUES ('$email', '$userType', '000000', '$college_name', '$course', '$year', '$state', '$city', '$applyid', 'under review')";
+                    VALUES ('$email', '$userType', '$uid', '$college_name', '$course', '$year', '$state', '$city', '$applyid', 'under review')";
             $result = mysqli_query($conn, $sql);
             if($result){
+                mysqli_query($conn, "UPDATE `tasks` SET `noOfApplications` = `noOfApplications` + 1 WHERE `id` = '$applyid'");
                 $response['success'] = true;
             }
         }

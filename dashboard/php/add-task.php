@@ -191,7 +191,7 @@
 
             if($flag == 0){
                 $sql = "INSERT INTO `tasks`(`title`, `category`, `gigLogo`, `companyName`, `companyDescription`, `startDate`, `endDate`, `boomcoins`, `complexity`, `sampleProofs`, `tutorialLink`, `requirements`, `completion`, `interests`, `apply`, `status`) 
-                        VALUES ('$title', '$category', '$gigLogoLocation', '$name', '$description', '$startdate', '$enddate', '$boomcoins', '$complexity', '$gigSampleLocation', '$tutorialLink', '$requirements', '$completion', '$interests', '$apply', `Not Active`)";
+                        VALUES ('$title', '$category', '$gigLogoLocation', '$name', '$description', '$startdate', '$enddate', '$boomcoins', '$complexity', '$gigSampleLocation', '$tutorialLink', '$requirements', '$completion', '$interests', '$apply', 'Not Active')";
                 $result = mysqli_query($conn, $sql);
                 if($result){
                     $response['success'] = true;

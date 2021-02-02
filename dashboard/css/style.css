@@ -887,6 +887,7 @@ a,a:hover,a:focus{
     top: 0;
     left: 0;
     padding: 0.5rem;
+    font-size: 0.8rem;
 }
 .tab-content .flex-wrapper .card .image{
     width: 80px;
@@ -927,6 +928,17 @@ a,a:hover,a:focus{
 .tab-content .flex-wrapper .card .btn-group button{
     margin: 0;
     max-width: 40px;
+    height: 100%;
+}
+.tab-content .flex-wrapper .card .btn-group button.submit{
+    max-width: initial !important;
+    width: 80%;
+    background: white;
+    color: var(--color-red);
+    font-size: 0.8rem;
+    font-family: var(--font-poppins);
+    border: 2px solid var(--color-red);
+    font-weight: bold;
 }
 .tab-content .flex-wrapper .card .btn-group span{
     font-size: 0.8rem;

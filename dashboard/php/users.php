@@ -83,12 +83,23 @@
             $token = openssl_random_pseudo_bytes(32); //random string
             $token = bin2hex($token); //convert binary into hexadecimal
             $token=time()."".$token;
+
+            // generating unique number
+            $uid = 0;
+            while(1){
+                $uid = mt_rand(100000, 999999)                ;
+                $sql = "SELECT * FROM `user_info` WHERE `uid` = '$uid'";
+                if(mysqli_num_rows(mysqli_query($conn, $sql)))
+                    continue;
+                else
+                    break;
+            }
             
             
             // insert data into db
             $sql = "INSERT INTO `user`(`username`, `password`, `email`, `userType`, `status`, `token`) VALUES ('$username', '$password', '$email', 'boompanda', 'verified', '$token')";;
             $result = mysqli_query($conn, $sql);
-            $sql1 = "INSERT INTO `user_info`(`email`, `userType`) VALUES ('$email', 'boompanda')";
+            $sql1 = "INSERT INTO `user_info`(`email`, `userType`, `uid`) VALUES ('$email', 'boompanda', '$uid')";
             $result1 = mysqli_query($conn, $sql1);
             if($result && $result1){
 

@@ -114,10 +114,10 @@ function ViewTask(taskid) {
             $("#task-info #end-date").text(response.endDate);
             $("#task-info #boomcoins").text(response.boomcoins);
             $("#task-info #complexity").text(response.complexity);
-            $("#task-info #requirements").text(response.requirements);
-            $("#task-info #completion").text(response.completion);
+            $("#task-info #requirements").html(response.requirements.replaceAll("\r\n", "<br>"));
+            $("#task-info #completion").html(response.completion.replaceAll("\r\n", "<br>"));
             $("#task-info #interests").text(response.interests);
-            $("#task-info #apply").text(response.apply);
+            $("#task-info #apply").html(response.apply.replaceAll("\r\n", "<br>"));
 
             $("#task-info #tutorial").text(response.tutorialLink);
             $("#task-info #tutorial").attr('href', response.tutorialLink);
@@ -125,7 +125,7 @@ function ViewTask(taskid) {
 
             $("#task-info #gigLogo").attr('src', response.gigLogo.substring(3));
             $("#task-info #companyName").text(response.companyName);
-            $("#task-info #companyDescription").text(response.companyDescription);
+            $("#task-info #companyDescription").html(response.companyDescription.replaceAll("\r\n", "<br>"));
             $("#task-info #noOfApplications").text(response.noOfApplications);
             $("#task-info #noOfSubmissions").text(response.noOfSubmissions);
             // $("#user-info #username").text(response.username);
