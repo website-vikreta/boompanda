@@ -79,6 +79,9 @@
 
                         if($row1['status'] == 'accepted'){
                             $data .= "<button class='btn submit w-80' id='view".$row['id']."' onclick='SubmitTask(".$row['id'].")' data-toggle='modal' data-target='#submit-task-modal' title='Submit task proofs'>Submit Task</button>";
+                        }else if($row1['status'] == 'submitted'){
+                            $data .= "<span class='btn solid w-70'>".$row1['status']."</span>";
+                            $data .= "<button class='btn solid w-10 mx-1' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
                         }else{
                             $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
                         }
@@ -169,9 +172,9 @@
         $response['success'] = false;
         // $response['proof_array'] = json_decode($proof_array);
         $flag = 0;
-        
-        for($i=0;$i<count($proof_array);$i++){
+        for($i=0; $i<count($proof_array); $i++){
             // some values
+            $response[$i] = $proof_array[$i];
             $name = $proof_array[$i]['name'];
             $pemail = $proof_array[$i]['email'];
             $mobile = $proof_array[$i]['mobile'];
@@ -180,7 +183,7 @@
             $college_name = $proof_array[$i]['college_name'];
             $details = $proof_array[$i]['details'];
             
-            $sql = "INSERT INTO `submissions`(`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', 'Not Approve')";
+            $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', '', 'not approved')";
             $result = mysqli_query($conn, $sql);
 
             if(!$result){
@@ -190,20 +193,12 @@
         if($flag == 2){
             $response['success'] = "Some entries are not uploaded. Try again later";
         }else{
-            $response['success'] = true;
+            $sql1 = "UPDATE `applications` SET `status`= 'submitted' WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$taskid' ";
+            $result1 = mysqli_query($conn, $sql1);
+            if($result1)
+                $response['success'] = true;
         }
         
-                // some values
-                // $name = $temp['name'];
-                // $pemail = $temp['email'];
-                // $mobile = $temp['mobile'];
-                // $state = $temp['state'];
-                // $city = $temp['city'];
-                // $college_name = $temp['college_name'];
-                // $details = $temp['details'];
-                
-                // $sql = "INSERT INTO `submissions`(`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', 'Not Approve')";
-                // $result = mysqli_query($conn, $sql);
 
         echo json_encode($response);
     }

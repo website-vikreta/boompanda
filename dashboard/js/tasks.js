@@ -137,6 +137,7 @@ function readActiveTasks() {
         }
     });
 }
+
 // read applied tasks
 function readAppliedTasks() {
     var readapplied = 'readapplied';
@@ -157,6 +158,7 @@ function readAppliedTasks() {
         }
     });
 }
+
 // view detailed gig
 function ViewTask(taskid) {
     $.ajax({
@@ -219,20 +221,20 @@ function SubmitTask(taskid) {
             var proof_array = [];
             $("#submit-task-modal .entries").html('');
             $("#submit-task-form").trigger("reset");
-            $("#hiddenid").val(response.id);
+            $("#submit-task-modal #hiddenid").val(response.id);
             $("#task-apply-form #modal-error").html("");
-            $("#gig-title").text(response.title);
-            $("#task-info #title").text(response.title);
-            $("#task-info #category").text(response.category);
-            $("#task-info #requirements").html(response.requirements.replaceAll("\r\n", "<br>"));
-            $("#task-info #completion").html(response.completion.replaceAll("\r\n", "<br>"));
 
-            $("#task-info #tutorial").text(response.tutorialLink);
-            $("#task-info #tutorial").attr('href', response.tutorialLink);
-            $("#task-info #tutorial").attr('target', '_blank');
+            $("#submit-task-modal #task-info #title").text(response.title);
+            $("#submit-task-modal #task-info #category").text(response.category);
+            $("#submit-task-modal #task-info #requirements").html(response.requirements.replaceAll("\r\n", "<br>"));
+            $("#submit-task-modal #task-info #completion").html(response.completion.replaceAll("\r\n", "<br>"));
 
-            $("#task-info #loading").css('display', 'none');
-            $("#task-info .info-block").css('display', 'flex');
+            $("#submit-task-modal #task-info #tutorial").text(response.tutorialLink);
+            $("#submit-task-modal #task-info #tutorial").attr('href', response.tutorialLink);
+            $("#submit-task-modal #task-info #tutorial").attr('target', '_blank');
+
+            $("#submit-task-modal #task-info #loading").css('display', 'none');
+            $("#submit-task-modal #task-info .info-block").css('display', 'flex');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var message = errorThrown;
@@ -270,20 +272,18 @@ $("#add-proof-form #add-proof-btn").click(function (e) {
         $("#add-proof-form #email-error").text("Required!");
         flag = 1;
     }
+
     var details = $("#add-proof-form #details").val();
     var state = $("#add-proof-form #sts").val();
     var city = $("#add-proof-form #state").val();
     var college_name = $("#add-proof-form #college option:selected").text();
-    var sample_proofs = [];
-    var ins = document.getElementById('proofs-upload').files.length;
-    if (ins < 1) {
+
+    if (document.getElementById('proofs-upload').files.length == 0) {
         $("#add-proof-form #proofs-upload-error").html("Required!");
         flag = 1;
     } else {
         $("#add-proof-form #proofs-upload-error").text("");
-        for (var x = 0; x < ins; x++) {
-            sample_proofs.push(document.getElementById('proofs-upload').files[x]);
-        }
+        sample_proof = $('#add-proof-form #proofs-upload')[0].files[0];
     }
 
     // on zero error
@@ -297,7 +297,7 @@ $("#add-proof-form #add-proof-btn").click(function (e) {
             'state': state,
             'city': city,
             'college_name': college_name,
-            // 'sample_proofs': sample_proofs,
+            'sample_proofs': sample_proof,
             'uid': time
         }
         proof_array.push(dict);
