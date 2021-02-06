@@ -179,7 +179,7 @@
             $gigLogoLocation = '../media/tasks/'. $foldertimestamp.'/'.$filename;
             compress_image($_FILES['gigLogo']['tmp_name'], $gigLogoLocation, 50);
             // copying sample files
-            $gigSampleLocation = '../media/tasks'.$foldertimestamp.'/samples/';
+            $gigSampleLocation = '../media/tasks/'.$foldertimestamp.'/samples/';
             for ($i = 0; $i < $no_files; $i++) {
                 if ($_FILES["sample-proofs"]["error"][$i] > 0) {
                     $response['sampleProofsErr'] = "Error: " . $_FILES["sample-proofs"]["error"][$i] . "<br>";

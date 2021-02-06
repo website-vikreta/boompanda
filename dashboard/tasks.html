@@ -132,6 +132,66 @@
                         width: 5px;
                         background: #ddd;
                     }
+
+                    .modal .gallery-wrapper {
+                        width: 100%;
+                        min-height: 50vh;
+                        border: 2px dashed var(--red);
+                        align-items: flex-start;
+                        padding: 1rem;
+                    }
+
+                    .modal .gallery-wrapper label {
+                        cursor: pointer;
+                    }
+
+                    .modal .gallery-wrapper .gallery {
+                        display: grid;
+                        grid-template-columns: repeat(3, auto);
+                        grid-gap: 1rem;
+                    }
+
+                    .modal .gallery-wrapper img {
+                        max-width: 100%;
+                    }
+
+                    .modal .modal-footer {
+                        position: relative;
+                    }
+
+                    .modal .modal-footer .approve {
+                        position: absolute;
+                        bottom: 100%;
+                        right: 2%;
+                        z-index: 1000;
+                        max-width: 300px;
+                        padding: 1rem;
+                        border-radius: 10px;
+                        background: white;
+                        box-shadow: var(--box-shadow2);
+                        bottom: 0;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: 0.2s ease;
+                    }
+
+                    .modal .modal-footer .approve.active {
+                        bottom: 100%;
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    .modal .modal-footer .approve::after {
+                        content: '';
+                        position: absolute;
+                        z-index: -1;
+                        top: 90%;
+                        right: 5%;
+                        width: 20px;
+                        height: 20px;
+                        background: white;
+                        transform: rotate(45deg);
+                    }
                 </style>
                 <div class="modal fade" id="view-task-modal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel4" aria-hidden="true">
@@ -216,83 +276,159 @@
 
                 <div class="modal fade" id="submit-task-modal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel4" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">View Task</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                    style="outline: none;">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="task-info">
-                                <div class="loading" id="loading">
-                                    <i class="far fa-sync fa-spin"></i>
+                    <form action="" id="submit-task-form">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">How to perform task? & Submissions</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
                                 </div>
-                                <div class="row info-block">
-                                    <div class="col-lg-8 col-md-7 col-12">
-                                        <div class="title-group">
-                                            <h4 id="title" class="m-0 p-0"></h4>
-                                            <span id="category" class="m-0 p-0 bg-light"></span>
-                                        </div>
-
-                                        <div class="flex-center justify-content-start">
-                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                    style="font-family: poppins;"></b></p>
-                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
-                                                    style="font-family: poppins;"></b></p>
-                                        </div>
-                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b></p>
-                                        <p class="m-0 p-0">Complexity: <b id="complexity"></b></p>
-                                        <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
-                                        <p class="m-0 mt-2 p-0">How to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
-                                        <p class="m-0 mt-2 p-0">Interests</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="interests"></p>
-                                        <p class="m-0 mt-2 p-0">Who can apply?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="apply"></p>
-                                        <p class="m-0 p-0 mt-2">Tutorial: <b><a id="tutorial"
-                                                    class="text-primary"></a></b></p>
+                                <div class="modal-body" id="task-info">
+                                    <div class="loading" id="loading">
+                                        <i class="far fa-sync fa-spin"></i>
                                     </div>
-                                    <div class="col-lg-4 col-md-5 col-12">
-
-                                        <div class="company-info text-center">
-                                            <img src="" alt="" id="gigLogo" class="img-fluid"
-                                                style="border-radius: 50%; width: 120px; height: 120px; padding: 10px; box-shadow: var(--box-shadow3)">
-                                            <h4 id="companyName" class="my-2" style="font-family: poppins;"></h4>
-                                            <p class="m-0 p-0 small text-justify text-muted" id="companyDescription">
-                                            </p>
-                                        </div>
-                                        <div class="flex-center justify-content-between stats">
-                                            <div class="card1">
-                                                <span id="noOfApplications"></span>
-                                                <p class="text-muted p-0">Number of Applications</p>
+                                    <div class="row info-block">
+                                        <!--Dont forget to rename this class to info-block-->
+                                        <div class="col-lg-8 col-md-7 col-12">
+                                            <div class="title-group">
+                                                <h4 id="title" class="m-0 p-0"></h4>
+                                                <span id="category" class="m-0 p-0 bg-light"></span>
                                             </div>
-                                            <div class="line"></div>
-                                            <div class="card1">
-                                                <span id="noOfSubmissions"></span>
-                                                <p class="text-muted small p-0">Number of Submissions</p>
+
+                                            <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
+                                            <hr class="my-1 mx-0">
+                                            <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
+                                            <p class="m-0 mt-2 p-0">How to complete this gig?</p>
+                                            <hr class="my-1 mx-0">
+                                            <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
+                                            <p class="m-0 mt-2 p-0">Sample Proofs</p>
+                                            <hr class="my-1 mx-0">
+                                            <p class="m-0 mt-2 p-0 small text-muted" id="proofs"></p>
+                                            <p class="m-0 p-0 mt-2">Tutorial: <b><a id="tutorial"
+                                                        class="text-primary"></a></b></p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-5 col-12">
+                                            <div class="gallery-wrapper">
+                                                <button for="gallery-photo-add" class="btn solid modal-btn"
+                                                    data-toggle='modal' data-target='#add-proof-modal'>
+                                                    Add Proof
+                                                </button>
+                                                <div class="entries"></div>
+                                                <script>
+                                                    $(".modal-btn").click(function (e) {
+                                                        e.preventDefault();
+                                                        $("#add-proof-modal").modal("show");
+                                                    })
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <form action="" id="task-apply-form">
+                                <div class="modal-footer">
                                     <input type="hidden" name="" id="hiddenid">
                                     <span class="error small text-danger" id="modal-error"></span>
                                     <button type="button" class="btn btn-transparent"
                                         data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-solid" id="apply-btn">Apply Now</button>
-                                </form>
+                                    <span class="btn btn-solid" onclick="showApprove()">Submit</span>
+                                    <div class="approve">
+                                        <p class="para small">
+                                            Are you sure you want to submit? You cannot update the information after
+                                            submission nor add new record.
+                                        </p>
+                                        <div class="buttons text-right">
+                                            <span class="btn btn-transparent" onclick="showApprove()">No</span>
+                                            <button type="submit" class="btn btn-solid" id="submit-btn">Yes</button>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function showApprove() {
+                                            $(".modal .modal-footer .approve").toggleClass('active');
+                                        }
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
+
+                <!-- add proof modal -->
+                <div class="modal fade secondary" id="add-proof-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                    <form action="" id="add-proof-form" class="form">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Proof</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="task-info">
+                                    <div class="form-group">
+                                        <label for="">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name" id="name">
+                                        <div class="error" id="name-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Phone</label>
+                                        <input type="text" class="form-control" placeholder="Phone Number" id="mobile">
+                                        <div class="error" id="mobile-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input type="text" class="form-control" placeholder="Email Address" id="email">
+                                        <div class="error" id="email-error"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-12 py-0 my-0">
+                                            <label for="">State</label>
+                                            <select onchange="print_city('state', this.selectedIndex);" id="sts"
+                                                name="stt" class="form-control"></select>
+                                            <div class="error" id="state-error"></div>
+                                        </div>
+                                        <div class="form-group col-lg-6 col-12 py-0 my-0">
+                                            <label for="">City</label>
+                                            <select id="state" class="form-control"></select>
+                                            <div class="error" id="city-error"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">College Name</label>
+                                        <div id="college-list"></div>
+                                        <div class="error" id="college-error"></div>
+                                    </div>
+                                    <script>
+                                        $.get("./include/college.html", function (data) {
+                                            $("#college-list").replaceWith(data);
+                                        });
+                                    </script>
+                                    <div class="form-group">
+                                        <label for="">Details</label>
+                                        <textarea name="" class="form-control" id="details" cols="30" rows="5"
+                                            placeholder="Enter text"></textarea>
+                                        <div class="details-error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Upload Proofs</label>
+                                        <input type="file" class="form-control" accept="image/*" name="proofs-upload[]"
+                                            id="proofs-upload" multiple>
+                                        <div class="error" id="proofs-upload-error"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="" id="hiddenid">
+                                    <span class="error small text-danger" id="modal-error"></span>
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="add-proof-btn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW TASK MODAL -->
@@ -306,13 +442,12 @@
     </div>
 
 
-    <!-- jquery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
     <!-- bootstrap notify -->
     <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- custom js -->
+    <script src="./js/cities.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/tasks.js"></script>
     <script>

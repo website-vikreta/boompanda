@@ -78,7 +78,7 @@
                         <div class='flex-center justify-content-between btn-group'>";
 
                         if($row1['status'] == 'accepted'){
-                            $data .= "<button class = 'btn submit w-80'>Submit Task</button>";
+                            $data .= "<button class='btn submit w-80' id='view".$row['id']."' onclick='SubmitTask(".$row['id'].")' data-toggle='modal' data-target='#submit-task-modal' title='Submit task proofs'>Submit Task</button>";
                         }else{
                             $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
                         }
@@ -154,6 +154,56 @@
                 $response['success'] = true;
             }
         }
+
+        echo json_encode($response);
+    }
+
+    // * ====================================
+    // * SUBMIT TASK
+    // * ====================================
+    if(isset($_POST['submit_task'])){
+        $taskid = $_POST['submit_task'];
+        $proof_array = json_decode($_POST['proof_array'], true);
+        // print_r($proof_array);
+        $response = array();
+        $response['success'] = false;
+        // $response['proof_array'] = json_decode($proof_array);
+        $flag = 0;
+        
+        for($i=0;$i<count($proof_array);$i++){
+            // some values
+            $name = $proof_array[$i]['name'];
+            $pemail = $proof_array[$i]['email'];
+            $mobile = $proof_array[$i]['mobile'];
+            $state = $proof_array[$i]['state'];
+            $city = $proof_array[$i]['city'];
+            $college_name = $proof_array[$i]['college_name'];
+            $details = $proof_array[$i]['details'];
+            
+            $sql = "INSERT INTO `submissions`(`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', 'Not Approve')";
+            $result = mysqli_query($conn, $sql);
+
+            if(!$result){
+                $flag = 2;
+            }
+        }
+        if($flag == 2){
+            $response['success'] = "Some entries are not uploaded. Try again later";
+        }else{
+            $response['success'] = true;
+        }
+        
+                // some values
+                // $name = $temp['name'];
+                // $pemail = $temp['email'];
+                // $mobile = $temp['mobile'];
+                // $state = $temp['state'];
+                // $city = $temp['city'];
+                // $college_name = $temp['college_name'];
+                // $details = $temp['details'];
+                
+                // $sql = "INSERT INTO `submissions`(`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', 'Not Approve')";
+                // $result = mysqli_query($conn, $sql);
 
         echo json_encode($response);
     }

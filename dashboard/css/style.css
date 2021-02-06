@@ -49,6 +49,11 @@ section{
     align-items: center;
     flex-wrap: wrap;
 }
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 a,a:hover,a:focus{
     outline: none;
     color: inherit;
@@ -63,6 +68,10 @@ a,a:hover,a:focus{
 }
 
 /* zoom in effect for modals */
+.modal{
+    max-height: 100% !important;
+    overflow-y: auto !important;
+}
 .modal.fade .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(.5);transform: translate(0,0)scale(.5);}
 .modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
 
@@ -948,4 +957,10 @@ a,a:hover,a:focus{
     text-transform: capitalize;
     padding: 0 5px;
     cursor: initial !important;
+}
+
+.divEntry{
+    box-shadow: var(--box-shadow3);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
 }
