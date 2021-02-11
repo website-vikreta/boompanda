@@ -79,14 +79,16 @@
 
                         if($row1['status'] == 'accepted'){
                             $data .= "<button class='btn submit w-80' id='view".$row['id']."' onclick='SubmitTask(".$row['id'].")' data-toggle='modal' data-target='#submit-task-modal' title='Submit task proofs'>Submit Task</button>";
+                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
                         }else if($row1['status'] == 'submitted'){
-                            $data .= "<span class='btn solid w-70'>".$row1['status']."</span>";
-                            $data .= "<button class='btn solid w-10 mx-1' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
+                            $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTaskSubmission(".$row['id'].")' data-toggle='modal' data-target='#view-submission-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
                         }else{
                             $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
                         }
                             
-                        $data .="    <button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>
+                        $data .="    
                         </div>
                     </div>
                 ";
@@ -182,8 +184,8 @@
             $city = $proof_array[$i]['city'];
             $college_name = $proof_array[$i]['college_name'];
             $details = $proof_array[$i]['details'];
-            
-            $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', '', 'not approved')";
+            $proof = $proof_array[$i]['sample_proofs'];
+            $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', '$proof', 'not approved')";
             $result = mysqli_query($conn, $sql);
 
             if(!$result){
@@ -201,4 +203,25 @@
         
 
         echo json_encode($response);
+    }
+
+    // * ====================================
+    // * READ SUBMISSIONS
+    // * ====================================
+    if(isset($_POST['submissionid'])){
+        $submissionid = $_POST['submissionid'];
+        $sql = "SELECT * FROM `tasks` WHERE `id` = '$submissionid'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+
+        $sql1 = "SELECT * FROM `submissions` WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$submissionid'";
+        $res1 = mysqli_query($conn, $sql1);
+        $submission = array();
+        while($row1 = mysqli_fetch_assoc($res1)){
+            array_push($submission, $row1);
+        }
+        $output = array();
+        array_push($output, $row);
+        array_push($output, $submission);
+        echo json_encode($output);
     }

@@ -964,3 +964,8 @@ a,a:hover,a:focus{
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
 }
+.divEntry1{
+    box-shadow: var(--box-shadow2);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+}

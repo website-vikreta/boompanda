@@ -1,3 +1,16 @@
+<?php 
+    include_once "../php/db.php";
+
+    if(!empty($_SESSION['email']) && !empty($_SESSION['userType'])){
+        $email = $_SESSION['email'];
+        $userType = $_SESSION['userType'];
+    }
+
+    $sql = "SELECT `username`, `name`, `profile`, `userType` FROM `user` WHERE `email` = '$email' AND `userType` = '$userType'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+?>
+
 <div class="vertical-nav">
     <div class="logo">
         <img src="./assets/logo.png" alt="boompanda-logo" class="img-fluid">

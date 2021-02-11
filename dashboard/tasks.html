@@ -192,6 +192,11 @@
                         background: white;
                         transform: rotate(45deg);
                     }
+
+                    .modal .entries .small {
+                        font-family: var(--font-poppins);
+                        color: #666;
+                    }
                 </style>
                 <div class="modal fade" id="view-task-modal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel4" aria-hidden="true">
@@ -429,6 +434,65 @@
                             </div>
                         </div>
                     </form>
+                </div>
+
+                <!-- View Submission Modal -->
+                <div class="modal fade" id="view-submission-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Task Reports</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="task-info">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="row info-block">
+                                    <div class="col-lg-8 col-md-7 col-12">
+                                        <div class="title-group">
+                                            <h4 id="title" class="m-0 p-0"></h4>
+                                            <span id="category" class="m-0 p-0 bg-light"></span>
+                                        </div>
+
+                                        <div class="flex-center justify-content-start">
+                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
+                                                    style="font-family: poppins;"></b></p>
+                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
+                                                    style="font-family: poppins;"></b></p>
+                                        </div>
+                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b></p>
+                                        <p class="m-0 p-0">Complexity: <b id="complexity"></b></p>
+                                        <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
+                                        <hr class="my-1 mx-0">
+                                        <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
+                                        <p class="m-0 mt-2 p-0">How to complete this gig?</p>
+                                        <hr class="my-1 mx-0">
+                                        <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
+                                        <p class="m-0 mt-2 p-0">Interests</p>
+                                        <hr class="my-1 mx-0">
+                                        <p class="m-0 mt-2 p-0 small text-muted" id="interests"></p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-5 col-12">
+                                        <h4 class="mb-4">My Submissions</h4>
+                                        <div class="entries"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="" id="task-apply-form">
+                                    <input type="hidden" name="" id="hiddenid">
+                                    <span class="error small text-danger" id="modal-error"></span>
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW TASK MODAL -->

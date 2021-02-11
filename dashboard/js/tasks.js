@@ -96,7 +96,7 @@ $(document).ready(function () {
                         notification('Heads up!', 'Your application has been submitted.', 'success');
 
                         $('#submit-task-modal').modal("hide");
-                        readActiveTasks();
+                        readAppliedTasks();
                     }
 
                     $(_temp).removeAttr("disabled");
@@ -287,26 +287,37 @@ $("#add-proof-form #add-proof-btn").click(function (e) {
     }
 
     // on zero error
-    if (flag == 0) {
-        let time = $.now();
-        var dict = {
-            'name': name,
-            'mobile': mobile,
-            'email': email,
-            'details': details,
-            'state': state,
-            'city': city,
-            'college_name': college_name,
-            'sample_proofs': sample_proof,
-            'uid': time
+    if (document.getElementById('proofs-upload').files.length == 0) {
+        $("#add-proof-form #proofs-upload-error").html("Required!");
+        flag == 1;
+    } else {
+        $("#add-proof-form #proofs-upload-error").text("");
+        const fR = new FileReader();
+        fR.readAsDataURL($('#add-proof-form #proofs-upload')[0].files[0]);
+        fR.onload = () => {
+            if (flag == 0) {
+                let time = $.now();
+                var dict = {
+                    'name': name,
+                    'mobile': mobile,
+                    'email': email,
+                    'details': details,
+                    'state': state,
+                    'city': city,
+                    'college_name': college_name,
+                    'sample_proofs': fR.result,
+                    'uid': time
+                }
+                console.log(dict)
+                proof_array.push(dict);
+                var divEntry = "<div class='divEntry flex-between my-2 " + time + "'><p class='p-0 m-0'>" + name + "</p><button class='btn solid rounded btn-danger btn-sm text-light' id=" + time + " onclick = 'deleteclick(event, this.id)'><i class='far fa-trash'></i></button></div>"
+                $("#submit-task-modal .entries").append(divEntry);
+                $("#add-proof-form").trigger('reset');
+                $("#add-proof-modal").modal('hide');
+            }
         }
-        proof_array.push(dict);
-        var divEntry = "<div class='divEntry flex-between my-2 " + time + "'><p class='p-0 m-0'>" + name + "</p><button class='btn solid rounded btn-danger btn-sm text-light' id=" + time + " onclick = 'deleteclick(event, this.id)'><i class='far fa-trash'></i></button></div>"
-        $("#submit-task-modal .entries").append(divEntry);
-        $("#add-proof-form").trigger('reset');
-        $("#add-proof-modal").modal('hide');
-        // console.log(proof_array);
     }
+
 })
 // delete function
 function deleteclick(e, id) {
@@ -314,4 +325,49 @@ function deleteclick(e, id) {
     $("#submit-task-modal .entries .divEntry." + id).remove();
     proof_array = proof_array.filter(function (emp) { return emp.uid != id });
     // console.log(proof_array);
+}
+
+// view submission detailed gig
+function ViewTaskSubmission(submissionid) {
+    $.ajax({
+        type: "POST",
+        url: "./php/tasks.php",
+        data: {
+            submissionid: submissionid
+        },
+        dataType: 'json',
+        success: function (response) {
+            $("#hiddenid").val(response[0].id);
+            $("#task-apply-form #modal-error").html("");
+            $("#view-submission-modal .entries").html("");
+            $("#gig-title").text(response[0].title);
+            $("#task-info #title").text(response[0].title);
+            $("#task-info #category").text(response[0].category);
+            $("#task-info #start-date").text(response[0].startDate);
+            $("#task-info #end-date").text(response[0].endDate);
+            $("#task-info #boomcoins").text(response[0].boomcoins);
+            $("#task-info #complexity").text(response[0].complexity);
+            $("#task-info #requirements").html(response[0].requirements.replaceAll("\r\n", "<br>"));
+            $("#task-info #completion").html(response[0].completion.replaceAll("\r\n", "<br>"));
+            $("#task-info #interests").text(response[0].interests);
+
+            // submissions
+            for (var i = 0; i < response[1].length; i++) {
+                var divEntry = "<div class='divEntry1 my-3'> <p class='p-0 m-0 font-weight-bold'>" + response[1][i].name + "</p> <p class='p-0 m-0 text-muted'>" + response[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + response[1][i].email + "</p><p class='p-0 m-0 small'>" + response[1][i].mobile + "</p><p class='p-0 m-0 small'>" + response[1][i].city + ", " + response[1][i].state + "</p></div><a href='" + response[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div>";
+                $("#view-submission-modal .entries").append(divEntry);
+            }
+
+
+            $("#task-info #loading").css('display', 'none');
+            $("#task-info .info-block").css('display', 'flex');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            console.log(message);
+            notification('Ooops...', message, 'error');
+        }
+    });
 }
