@@ -15,7 +15,7 @@
     <div class="logo">
         <img src="./assets/logo.png" alt="boompanda-logo" class="img-fluid">
     </div>
-    <?php if($userType == 'superadmin'){ ?>
+    <?php if($userType == 'admin'){ ?>
     <ul class="nav-list">
         <a href="./index.html" class="nav-link">
             <li class="nav-tab">
@@ -36,6 +36,9 @@
                 </a>
                 <a href="view-tasks.html" class="nav-link">
                     <li>View tasks</li>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <li>Tasks</li>
                 </a>
                 <a href="pending-approvals.html" class="nav-link">
                     <li>Pending approvals</li>
@@ -92,35 +95,42 @@
                 </ul>
             </li>
         </div>
+        <div class="nav-link dropdown">
+            <li class="nav-tab">
+                <label for="toggle-check6" class="m-0 p-0">
+                    <div class="tab"><i class="far fa-exclamation-circle"></i> Components
+                    </div>
+                </label>
+                <!-- checkbox  to manage toggle -->
+                <input type="checkbox" name="" id="toggle-check6" class="toggle-check">
+                <i class="far fa-chevron-right toggle"></i>
+                <ul class="dropdown-menulist">
+                    <a href="forms.html" class="nav-link">
+                        <li>Form, button, links</li>
+                    </a>
+                    <a href="tables.html" class="nav-link">
+                        <li>Table</li>
+                    </a>
+                    <li>Card</li>
+                    <li>Modal</li>
+                </ul>
+            </li>
+        </div>
     </ul>
 
     <?php } else if($userType == 'admin'){ ?>
+    <?php } else { ?>
         <ul class="nav-list">
         <a href="./index.html" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
             </li>
         </a>
-        <li class="nav-tab dropdown">
-            <label for="toggle-check1" class="m-0 p-0">
-                <div class="tab"><i class="far fa-rupee-sign"></i> Tasks
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check1" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <a href="add-task.html" class="nav-link">
-                    <li>Add task</li>
-                </a>
-                <a href="view-tasks.html" class="nav-link">
-                    <li>View tasks</li>
-                </a>
-                <a href="pending-approvals.html" class="nav-link">
-                    <li>Pending approvals</li>
-                </a>
-            </ul>
-        </li>
+        <a href="tasks.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-rupee-sign"></i> Tasks</div>
+            </li>
+        </a>
         <li class="nav-tab dropdown">
             <label for="toggle-check2" class="m-0 p-0">
                 <div class="tab"><i class="far fa-chalkboard"></i> Learn
@@ -147,19 +157,51 @@
                 <li>View offers</li>
             </ul>
         </li>
-    </ul>
-    <?php } else { ?>
-        <ul class="nav-list">
-        <a href="./index.html" class="nav-link">
+        <a href="./users.html" class="nav-link">
             <li class="nav-tab">
-                <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
+                <div class="tab"><i class="far fa-users"></i> Users</div>
             </li>
         </a>
-        <a href="tasks.html" class="nav-link">
+        <div class="nav-link dropdown">
             <li class="nav-tab">
-                <div class="tab"><i class="far fa-rupee-sign"></i> Tasks</div>
+                <label for="toggle-check5" class="m-0 p-0">
+                    <div class="tab"><i class="far fa-user-cog"></i> Admins
+                    </div>
+                </label>
+                <!-- checkbox  to manage toggle -->
+                <input type="checkbox" name="" id="toggle-check5" class="toggle-check">
+                <i class="far fa-chevron-right toggle"></i>
+                <ul class="dropdown-menulist">
+                    <a href="add-admin.html" class="nav-link">
+                        <li>Add admin</li>
+                    </a>
+                    <a href="view-admins.html" class="nav-link">
+                        <li>View all admin</li>
+                    </a>
+                </ul>
             </li>
-        </a>
+        </div>
+        <div class="nav-link dropdown">
+            <li class="nav-tab">
+                <label for="toggle-check6" class="m-0 p-0">
+                    <div class="tab"><i class="far fa-exclamation-circle"></i> Components
+                    </div>
+                </label>
+                <!-- checkbox  to manage toggle -->
+                <input type="checkbox" name="" id="toggle-check6" class="toggle-check">
+                <i class="far fa-chevron-right toggle"></i>
+                <ul class="dropdown-menulist">
+                    <a href="forms.html" class="nav-link">
+                        <li>Form, button, links</li>
+                    </a>
+                    <a href="tables.html" class="nav-link">
+                        <li>Table</li>
+                    </a>
+                    <li>Card</li>
+                    <li>Modal</li>
+                </ul>
+            </li>
+        </div>
     </ul>
     <?php } ?>
 </div>

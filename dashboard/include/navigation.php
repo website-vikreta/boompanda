@@ -13,15 +13,15 @@
 <div class="links">
     <div class="wallet">
         <i class="far fa-wallet mr-2"></i>
-        <div class="amount">&#8377; 500</div>
+        <div class="amount">&#8377; 0</div>
     </div>
     <div class="notification">
         <div class="btn"><i class="far fa-bell"></i></div>
         <div class="notification-dropdown">
             <ul>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
-                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
+                <li>No Notifications</li>
+                <!-- <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li>
+                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto, enim.</li> -->
             </ul>
             <div class="link bg-light text-center text-primary small p-2"><a href="#">View All</a>
             </div>

@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // vertical nav
-    $.get("include/vertical-nav.html", function (data) {
+    $.get("include/vertical-nav.php", function (data) {
         $("#vertical-nav").replaceWith(data);
     });
 
