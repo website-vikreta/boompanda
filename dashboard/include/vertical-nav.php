@@ -38,7 +38,10 @@
                     <li>View tasks</li>
                 </a>
                 <a href="pending-approvals.html" class="nav-link">
-                    <li>Pending approvals</li>
+                    <li>Applications</li>
+                </a>
+                <a href="submissions.html" class="nav-link">
+                    <li>Submissions</li>
                 </a>
             </ul>
         </li>
@@ -117,7 +120,10 @@
                     <li>View tasks</li>
                 </a>
                 <a href="pending-approvals.html" class="nav-link">
-                    <li>Pending approvals</li>
+                    <li>Applications</li>
+                </a>
+                <a href="submissions.html" class="nav-link">
+                    <li>Submissions</li>
                 </a>
             </ul>
         </li>

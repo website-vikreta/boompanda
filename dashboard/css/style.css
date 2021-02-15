@@ -74,6 +74,100 @@ a,a:hover,a:focus{
 }
 .modal.fade .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(.5);transform: translate(0,0)scale(.5);}
 .modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
+.modal .small {
+    font-size: 0.8rem !important;
+}
+
+.modal .bg-light {
+    background: rgba(255, 0, 0, 0.2) !important;
+    padding: 3px 5px !important;
+    border-radius: 3px;
+    font-size: 0.8rem !important;
+    font-family: poppins;
+}
+
+.modal .stats {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.modal .stats span {
+    font-weight: bold;
+    font-family: poppins;
+    font-size: 30px;
+}
+
+.modal .stats .line {
+    height: 50px;
+    width: 5px;
+    background: #ddd;
+}
+
+.modal .gallery-wrapper {
+    width: 100%;
+    min-height: 50vh;
+    border: 2px dashed var(--red);
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+.modal .gallery-wrapper label {
+    cursor: pointer;
+}
+
+.modal .gallery-wrapper .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 1rem;
+}
+
+.modal .gallery-wrapper img {
+    max-width: 100%;
+}
+
+.modal .modal-footer {
+    position: relative;
+}
+
+.modal .modal-footer .approve {
+    position: absolute;
+    bottom: 100%;
+    right: 2%;
+    z-index: 1000;
+    max-width: 300px;
+    padding: 1rem;
+    border-radius: 10px;
+    background: white;
+    box-shadow: var(--box-shadow2);
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+}
+
+.modal .modal-footer .approve.active {
+    bottom: 100%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal .modal-footer .approve::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 90%;
+    right: 5%;
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: rotate(45deg);
+}
+
+.modal .entries .small {
+    font-family: var(--font-poppins);
+    color: #666;
+}
+
 
 /* skeleton */
 .wrapper{
@@ -968,4 +1062,8 @@ a,a:hover,a:focus{
     box-shadow: var(--box-shadow2);
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
+}
+
+.alert-success{
+    z-index: 10000 !important;
 }

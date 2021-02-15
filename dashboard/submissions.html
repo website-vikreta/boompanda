@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- check for sessions -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="./js/sessions.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+
+    <!-- important scripts -->
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+        <div id="vertical-nav"></div>
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+
+        <div class="main-section">
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0"><span class="text-muted">Tasks / </span> View all tasks</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper">
+                <div class="table-wrapper">
+
+                    <!-- response from php is added in this div -->
+                    <div id="responsecontainer"></div>
+
+                </div>
+
+
+
+
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW USER MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="view-submissions-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">User Submissions</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="user-info">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="row info-block">
+                                    <div class="col-lg-7 col-md-7 col-12">
+                                        <style>
+                                            #task-container {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: stretch;
+                                                flex-wrap: wrap;
+                                            }
+
+                                            #task-container .divEntry1 {
+                                                width: calc(50% - 20px) !important;
+                                                margin: 10px !important;
+                                            }
+
+                                            @media (max-width:768px) {
+                                                #task-container .divEntry1 {
+                                                    width: 100% !important;
+                                                    margin: 10px !important;
+                                                }
+                                            }
+                                        </style>
+                                        <div id="task-container"></div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-12 details">
+                                        <style>
+                                            .details p {
+                                                margin: 0 !important;
+                                                font-size: 0.8rem !important;
+                                                padding: 2px 1rem !important;
+                                            }
+
+                                            .details p.code {
+                                                padding: 1rem !important;
+                                                font-size: 1.2rem !important;
+                                                font-family: var(--font-poppins);
+                                                font-weight: bold;
+                                                border: 2px dashed var(--red);
+                                                margin: 2rem 5rem 0 1rem !important;
+                                                box-shadow: var(--box-shadow2);
+                                                max-width: 200px;
+                                            }
+                                        </style>
+                                        <div class="profile">
+                                            <img src="../assets/img/profile.jpg" class="img-fluid" alt=""
+                                                id="profile-img">
+                                        </div>
+                                        <p>Name: <b><span id="name"></span></b></p>
+                                        <p>Username: <b><span id="username"></span></b></p>
+                                        <p>Email: <b><span id="email"></span></b></p>
+                                        <p>Mobile: <b><span id="mobile"></span></b></p>
+                                        <p>Gender: <b><span id="gender"></span></b></p>
+                                        <p>DOB: <b><span id="dob"></span></b></p>
+                                        <p>College: <b><span id="college"></span></b></p>
+                                        <p>Course: <b><span id="course"></span></b></p>
+                                        <p>Year: <b><span id="year"></span></b></p>
+                                        <p>State: <b><span id="state"></span></b></p>
+                                        <p>City: <b><span id="city"></span></b></p>
+                                        <p class="code flex-center"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="" id="hiddenid">
+                                <span class="error small text-danger" id="modal-error"></span>
+                                <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
+                                <span class="btn btn-solid" onclick="showApprove()">Completed</span>
+                                <div class="approve">
+                                    <p class="para small">
+                                        Are you sure you want to set status as <b>Completed</b>? You cannot update, view
+                                        or delete the
+                                        information & submissions after completion.
+                                    </p>
+                                    <div class="buttons text-right">
+                                        <span class="btn btn-transparent" onclick="showApprove()">No</span>
+                                        <button type="submit" class="btn btn-solid" id="submit-btn">Yes</button>
+                                    </div>
+                                </div>
+                                <script>
+                                    function showApprove() {
+                                        $(".modal .modal-footer .approve").toggleClass('active');
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW USER MODAL -->
+                <!-- ! ======================================================== -->
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+        </div>
+    </div>
+
+
+
+    <!-- bootstrap js -->
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+    <script src="./js/submissions.js"></script>
+    <script>
+
+        //calling read record function for admin
+        readApplications();
+
+
+        $(document).ready(function () {
+
+        })
+    </script>
+</body>
+
+</html>
