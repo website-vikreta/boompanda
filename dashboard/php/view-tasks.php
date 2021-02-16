@@ -8,7 +8,7 @@
     if(!empty($_POST['readrecord'])){
 
         $data = "
-        <div class='table-responsive'>
+        <div class='table-responsive-xl'>
             <table class='table table-sm table-striped' id='myTable' width='100%'>
                 <thead>
                     <td style='max-width:20px'><b>Sr No</b></td>
@@ -35,7 +35,7 @@
                 <tbody>
         ";
         // sql query with inner join
-        $sql = "SELECT * FROM `tasks` ORDER BY `id` DESC";
+        $sql = "SELECT * FROM `tasks` WHERE `status` != 'Deleted' ORDER BY `id` DESC";
         $result=mysqli_query($conn,$sql);
     
         if(mysqli_num_rows($result) > 0){
@@ -65,7 +65,7 @@
                 $data .= "                        
                         <button class='btn solid rounded btn-primary task-".$row['id']."' title='View complete task information' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal'><i class='far fa-eye'></i></button>
                         <button class='btn solid rounded btn-secondary task-".$row['id']."'><i class='far fa-edit'></i></button>
-                        <button class='btn solid rounded btn-danger task-".$row['id']."' id='delete".$row['id']."' onclick='DeleteAdmin(".$row['id'].")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
+                        <button class='btn solid rounded btn-danger task-".$row['id']."' id='delete".$row['id']."' onclick='DeleteTask(".$row['id'].")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
                     </td>
                 </tr>
                 ";
@@ -112,6 +112,20 @@
     if(isset($_POST['disapproveid'])){
         $disapproveid = $_POST['disapproveid'];
         $sql = "UPDATE `tasks` SET `status`='Not Active' WHERE `id`= '$disapproveid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
+    }
+
+    // * ====================================
+    // * DELETE TASKS
+    // * ====================================
+    if(isset($_POST['deleteid'])){
+        $deleteid = $_POST['deleteid'];
+        $sql = "UPDATE `tasks` SET `status`='Deleted' WHERE `id`= '$deleteid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";

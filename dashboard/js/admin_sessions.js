@@ -1,5 +1,5 @@
 
-$.get('./php/checksessions.php?type=all', function (data) {
+$.get('./php/checksessions.php?type=admin', function (data) {
     // console.log(data);
     if (data == "false") {
         window.location.href = "../login/login.html";

@@ -141,3 +141,38 @@ function InactiveTask(disapproveid) {
         }
     });
 }
+
+// delete task
+function DeleteTask(deleteid) {
+
+
+    var confirmation = confirm("You want to delete this task? Later you might not be able to recover data for this record.");
+
+    if (confirmation == true) {
+        //buttons for disable & spinner class
+        var button = "#myTable .delete-" + deleteid;
+        var _temp = "#delete" + deleteid;
+        $(button).prop('disabled', true);
+        $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+        $.ajax({
+            type: "POST",
+            url: "./php/view-tasks.php",
+            data: {
+                deleteid: deleteid
+            },
+            success: function (response) {
+                if (response == 'success') {
+                    notification('Heads up!', 'Task deleted', 'success');
+                    readAdmins();
+                }
+            },
+            error: function () {
+                notification('Ooops...', 'Some error on server side', 'error');
+                // enable buttons & remove spinner
+                $(button).prop('disabled', false);
+                $(_temp).html("<i class='far fa-trash'></i>");
+            }
+        });
+    }
+}
