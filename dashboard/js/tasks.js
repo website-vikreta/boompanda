@@ -171,6 +171,7 @@ function ViewTask(taskid) {
         success: function (response) {
             $("#hiddenid").val(response.id);
             $("#task-apply-form #modal-error").html("");
+            $("#task-info #gallery-mg").html("");
             $("#gig-title").text(response.title);
             $("#task-info #title").text(response.title);
             $("#task-info #category").text(response.category);
@@ -192,6 +193,20 @@ function ViewTask(taskid) {
             $("#task-info #companyDescription").html(response.companyDescription.replaceAll("\r\n", "<br>"));
             $("#task-info #noOfApplications").text(response.noOfApplications);
             $("#task-info #noOfSubmissions").text(response.noOfSubmissions);
+
+            // sample proofs
+            var folder = response.sampleProofs.substring(1);
+
+            $.ajax({
+                url: folder,
+                success: function (data) {
+                    $(data).find("a").attr("href", function (i, val) {
+                        if (val.match(/\.(jpe?g|png|gif)$/)) {
+                            $("#task-info #gallery-mg").append("<a href='" + folder + val + "'></a>");
+                        }
+                    });
+                }
+            });
 
             $("#task-info #loading").css('display', 'none');
             $("#task-info .info-block").css('display', 'flex');
@@ -223,6 +238,7 @@ function SubmitTask(taskid) {
             $("#submit-task-form").trigger("reset");
             $("#submit-task-modal #hiddenid").val(response.id);
             $("#task-apply-form #modal-error").html("");
+            $("#task-info #gallery-mg").html("");
 
             $("#submit-task-modal #task-info #title").text(response.title);
             $("#submit-task-modal #task-info #category").text(response.category);
@@ -232,6 +248,19 @@ function SubmitTask(taskid) {
             $("#submit-task-modal #task-info #tutorial").text(response.tutorialLink);
             $("#submit-task-modal #task-info #tutorial").attr('href', response.tutorialLink);
             $("#submit-task-modal #task-info #tutorial").attr('target', '_blank');
+
+
+            var folder = response.sampleProofs.substring(1);
+            $.ajax({
+                url: folder,
+                success: function (data) {
+                    $(data).find("a").attr("href", function (i, val) {
+                        if (val.match(/\.(jpe?g|png|gif)$/)) {
+                            $("#task-info #gallery-mg").append("<a href='" + folder + val + "'></a>");
+                        }
+                    });
+                }
+            });
 
             $("#submit-task-modal #task-info #loading").css('display', 'none');
             $("#submit-task-modal #task-info .info-block").css('display', 'flex');

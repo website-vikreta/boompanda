@@ -1067,3 +1067,12 @@ a,a:hover,a:focus{
 .alert-success{
     z-index: 10000 !important;
 }
+
+
+/* magnific popup */
+.mfp-bg{
+    z-index: 9999998 !important;
+}
+.mfp-gallery{
+    z-index: 9999999 !important;
+}

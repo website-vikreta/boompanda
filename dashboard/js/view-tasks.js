@@ -25,9 +25,8 @@ function ViewTask(taskid) {
         },
         dataType: 'json',
         success: function (response) {
-            // console.log(response);
-
-
+            console.log(response);
+            $("#task-info #gallery-mg").html("");
             $("#gig-title").text(response.title);
             $("#task-info #title").text(response.title);
             $("#task-info #category").text(response.category);
@@ -49,21 +48,20 @@ function ViewTask(taskid) {
             $("#task-info #companyDescription").html(response.companyDescription.replaceAll("\r\n", "<br>"));
             $("#task-info #noOfApplications").text(response.noOfApplications);
             $("#task-info #noOfSubmissions").text(response.noOfSubmissions);
-            // $("#user-info #username").text(response.username);
-            // $("#user-info #email").text(response.email);
-            // $("#user-info #mobile").text(response.mobile);
-            // $("#user-info #gender").text(response.gender);
-            // $("#user-info #dob").text(response.dob);
-            // $("#user-info #college").text(response.college_name);
-            // $("#user-info #course").text(response.course);
-            // $("#user-info #year").text(response.year);
-            // $("#user-info #state").text(response.state);
-            // $("#user-info #city").text(response.city);
-            // $("#user-info #permanant_address").text(response.permanant_address);
-            // $("#user-info #current_address").text(response.current_address);
-            // $("#user-info #interest").text(response.interests);
-            // $("#user-info #stay").text(response.stay);
-            // $("#user-info #bio").text(response.bio);
+
+            // sample proofs
+            var folder = response.sampleProofs.substring(1);
+
+            $.ajax({
+                url: folder,
+                success: function (data) {
+                    $(data).find("a").attr("href", function (i, val) {
+                        if (val.match(/\.(jpe?g|png|gif)$/)) {
+                            $("#task-info #gallery-mg").append("<a href='" + folder + val + "'></a>");
+                        }
+                    });
+                }
+            });
 
             $("#task-info #loading").css('display', 'none');
             $("#task-info .info-block").css('display', 'flex');

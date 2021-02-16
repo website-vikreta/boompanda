@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
     <!-- data tables -->
     <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="../vendor/magnific-popup/magnific-popup.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
@@ -137,7 +139,10 @@
                                             <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                     style="font-family: poppins;"></b></p>
                                         </div>
-                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b></p>
+                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b> <i
+                                                class="text-muted small">(10
+                                                Boomcoins = ₹1)</i>
+                                        </p>
                                         <p class="m-0 p-0">Complexity: <b id="complexity"></b></p>
                                         <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
                                         <hr class="my-1 mx-0">
@@ -151,8 +156,13 @@
                                         <p class="m-0 mt-2 p-0">Who can apply?</p>
                                         <hr class="my-1 mx-0">
                                         <p class="m-0 mt-2 p-0 small text-muted" id="apply"></p>
+                                        <hr class="mt-5 mx-0">
                                         <p class="m-0 p-0 mt-2">Tutorial: <b><a id="tutorial"
                                                     class="text-primary"></a></b></p>
+                                        <div id="gallery-mg"></div>
+                                        <p class="m-0 p-0 mt-2">View sample proofs: <a href="#gallery-mg"
+                                                class="btn gallery-link">Click
+                                                Here</a></p>
                                     </div>
                                     <div class="col-lg-4 col-md-5 col-12">
 
@@ -209,6 +219,8 @@
     <script src="../vendor/datatables/datatables.min.js"></script>
     <!-- bootstrap notify -->
     <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- magnific popup -->
+    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
     <!-- custom js -->
     <script src="./js/view-tasks.js"></script>
     <script src="./js/main.js"></script>
@@ -216,7 +228,6 @@
 
         //calling read record function for admin
         readAdmins();
-
 
         $(document).ready(function () {
 
