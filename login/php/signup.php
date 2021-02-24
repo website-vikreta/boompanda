@@ -21,7 +21,7 @@
             // check whether username contains only alpha numeric chars or nor
             $allowed = array("_");
             if(!ctype_alnum (str_replace($allowed, '', $username))){
-                $response['usernameErr'] = "Username must contain letters & numbers only";
+                $response['usernameErr'] = "Username must contain letters, numbers & underscores only";
                 $flag = 1;
             }else{
                 // check whether it is present in db or not
@@ -104,7 +104,8 @@
                 include_once "./actions/sendemail.php";
                 $subject = "Verify your account";
                 $body = "
-                    <a href='localhost/boompanda/login/php/actions/verify.php?email=".$email."&token=".$token."'>Click here to verify</a>
+                    <h4>Hurray! you have successfully signup to boompanda's student community.</h4><p> One more step to login, kindly click below link to very yourself</p>
+                    <a href='https://boompanda.in/login/php/actions/verify.php?email=".$email."&token=".$token."'>Click here to verify</a>
                 ";
                 $emailsend = sendEmail($email, $subject, $body);
                 if($emailsend)

@@ -22,7 +22,7 @@
                 $response['emailErr'] = "Invalid email address";
                 $flag = 1;
             }else{
-                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email'"); //diff for google login
+                $result = mysqli_query($conn, "SELECT `id` FROM `user` WHERE `email` = '$email' AND (`userType` <> 'google' OR `userType` <> 'facebook')"); //diff for google login
                 if(mysqli_num_rows($result) <= 0){
                     $response['emailErr'] = "Oops, we cannot trace you, check email again!";
                     $flag = 1;
@@ -50,7 +50,7 @@
                 include_once "./actions/sendemail.php";
                 $subject = "Reset your password";
                 $body = "
-                    <a href='localhost/boompanda/login/php/actions/reset-password.php?email=".$email."&token=".$token."'>Click here to reset password</a>
+                    <a href='https://www.boompanda.in/login/php/actions/reset-password.php?email=".$email."&token=".$token."'>Click here to reset password</a>
                 ";
                 $emailsend = sendEmail($email, $subject, $body);
                 if($emailsend)

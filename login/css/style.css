@@ -228,14 +228,26 @@ div.error{
     transform: translatex(800px);
 }
 .container#blur.active{
-  filter:blur(10px);
+    /* filter:blur(1px) grayscale(0.2); */
+}
+.container#blur.active:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.5;
+    z-index: 10;
 }
 #popup{
     position: fixed;
     top:40%;
     left:50%;
     transform: translate(-50%,-50%);
-    width:600px;
+    width:90%;
+    max-width: 600px;
     padding:50px;
     box-shadow: 0 5px 30px rgba(0,0,0,.30);
     background: #fff;
@@ -251,8 +263,11 @@ div.error{
     opacity:1;
     transition:0.5s;
 }
+#popup form{padding: 0 0;}
 #popup .input-feild{
     margin: auto;
+    width: 100%;
+    font-size: 0.9rem;
 }
 #popup h3{
     text-align: center;
@@ -262,6 +277,7 @@ div.error{
 }  
 #popup .btn{
     min-width: 200px;
+    font-size: 0.8rem;
 }
 #popup .close{
     position: absolute;
@@ -330,15 +346,17 @@ div.error{
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        padding: 2.8rem 8%;
+        padding: 0 !important;
         /* bottom:30%; */
         grid-column: 1 / 2;
     }
     .right-panel {
         grid-row: 3 / 4;
+        max-height: 150px;
     }
     .left-panel {
         grid-row: 1 / 2;
+        max-height: 230px;
     }
     .image {
         width: 200px;
@@ -395,6 +413,17 @@ div.error{
     .container.sign-up-mode .signin-signup {
         top: 5%;
         transform: translate(-50%, 0);
+    }
+    #popup{
+        padding: 50px 20px;
+    }
+    #popup .error{
+        margin: 0 0 0 2rem;
+    }
+    #popup h1{
+        font-size: 1.5rem;
+    }#popup h3{
+        font-size: 1rem;
     }
 }
 @media (max-width: 570px) {

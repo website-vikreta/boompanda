@@ -21,7 +21,7 @@
             while($row = mysqli_fetch_assoc($result)){
                 $data .= "
                     <div class='card'>
-                        <div class='amount'>₹ ".$row['boomcoins']."</div>
+                        <div class='amount'><i class='far fa-life-ring'></i> ".$row['boomcoins']."</div>
                         <div class = 'head'>
                             <div class='image'>
                                 <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
@@ -65,7 +65,7 @@
                 if($row['status'] != 'Paused'){
                     $data .= "
                         <div class='card'>
-                            <div class='amount'>₹ ".$row['boomcoins']."</div>
+                            <div class='amount'><i class='far fa-life-ring'></i> ".$row['boomcoins']."</div>
                             <div class = 'head'>
                                 <div class='image'>
                                     <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
@@ -125,7 +125,7 @@
                 if($row['status'] == 'Paused'){
                     $data .= "
                         <div class='card'>
-                            <div class='amount'>₹ ".$row['boomcoins']."</div>
+                            <div class='amount'><i class='far fa-life-ring'></i> ".$row['boomcoins']."</div>
                             <div class = 'head'>
                                 <div class='image'>
                                     <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>

@@ -19,6 +19,8 @@
         <div class="forms-container">
             <div class="signin-signup">
                 <form action="" class="sign-in-form" id="login-form">
+                    <img src="../assets/logo.png" class="img-fluid" alt="Boompanda logo" style="max-height: 50px;">
+                    <hr style="width: 50px; margin: 0.5rem auto">
                     <h2 class="title">Sign in</h2>
                     <div class="input-feild">
                         <i class="fas fa-user"></i>
@@ -36,7 +38,7 @@
                     <a href="#" onclick="toggleForgot()">Forgot Password?</a>
                     <p class="social-text">Or sign in with social platform</p>
                     <div class="social-media">
-                        <a href="#" class="social-icon">
+                        <a href="#" class="social-icon" style="pointer-events: none;">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="./login.php" class="social-icon">
@@ -50,6 +52,8 @@
                 <!-- sign up -->
 
                 <form class="sign-up-form" id="signup-form">
+                    <img src="../assets/logo.png" class="img-fluid" alt="Boompanda logo" style="max-height: 50px;">
+                    <hr style="width: 50px; margin: 0.5rem auto">
                     <h2 class="title">Sign Up</h2>
                     <div class="input-feild">
                         <i class="fas fa-user"></i>
@@ -68,15 +72,6 @@
                     <div class="error" id="password-error"></div>
                     <div class="error" id="server-error"></div>
                     <button type="submit" value="sign up" class="btn solid" id="signup-btn">Sign Up</button>
-                    <p class="social-text">Or sign up with social platform</p>
-                    <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="./login.php" class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </a>
-                    </div>
                 </form>
 
 
@@ -86,11 +81,11 @@
         </div>
         <div class="panel-container">
             <div class="panel left-panel">
-                <div class="content">
+                <div class="content" style="width: 100%;">
                     <h3>New here?</h3>
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                        ex ratione. Aliquid!
+                        Together we create a loving community of purposeful learning that focuses on the whole child;
+                        body, mind, and spirit.
                     </p>
                     <button class="btn transparent" id="sign-up-btn">
                         Sign up
@@ -100,11 +95,10 @@
             </div>
 
             <div class="panel right-panel">
-                <div class="content">
+                <div class="content" style="width: 100%;">
                     <h3>One of us?</h3>
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                        ex ratione. Aliquid!
+                        Motivated achievers perform, learn, excel.
                     </p>
                     <button class="btn transparent" id="sign-in-btn">
                         Sign in
