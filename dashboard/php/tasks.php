@@ -39,6 +39,8 @@
                 ";
                     
             }
+        }else{
+            $data .= "<p class='text-muted text-center small p-5 w-100'>No active tasks available at this movement, try again after some time.</p>";
         }
         $data .= "</div>";
         // $data .= "</table>";
@@ -60,38 +62,100 @@
                 $sql = "SELECT * FROM `tasks` WHERE `id` = '".$row1['taskid']."'";
                 $res = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($res);
-                $data .= "
-                    <div class='card'>
-                        <div class='amount'>₹ ".$row['boomcoins']."</div>
-                        <div class = 'head'>
-                            <div class='image'>
-                                <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
+                if($row['status'] != 'Paused'){
+                    $data .= "
+                        <div class='card'>
+                            <div class='amount'>₹ ".$row['boomcoins']."</div>
+                            <div class = 'head'>
+                                <div class='image'>
+                                    <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
+                                </div>
+                                <h3 class='gig-title'>".$row['title']."</h3>
                             </div>
-                            <h3 class='gig-title'>".$row['title']."</h3>
-                        </div>
-                        <div class='time flex-center justify-content-between'>
-                            <span><i class='far fa-calendar-week'></i> ".$row['startDate']."</span>
-                            <span><i class='far fa-chart-bar'></i> ".$row['complexity']."</span>
-                        </div>
-                        <a>".$row['category']."</a>
-                        <hr>
-                        <div class='flex-center justify-content-between btn-group'>";
+                            <div class='time flex-center justify-content-between'>
+                                <span><i class='far fa-calendar-week'></i> ".$row['startDate']."</span>
+                                <span><i class='far fa-chart-bar'></i> ".$row['complexity']."</span>
+                            </div>
+                            <a>".$row['category']."</a>
+                            <hr>
+                            <div class='flex-center justify-content-between btn-group'>";
 
-                        if($row1['status'] == 'accepted'){
-                            $data .= "<button class='btn submit w-80' id='view".$row['id']."' onclick='SubmitTask(".$row['id'].")' data-toggle='modal' data-target='#submit-task-modal' title='Submit task proofs'>Submit Task</button>";
-                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
-                        }else if($row1['status'] == 'submitted'){
-                            $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
-                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTaskSubmission(".$row['id'].")' data-toggle='modal' data-target='#view-submission-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
-                        }else{
-                            $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
-                            $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
-                        }
-                            
-                        $data .="    
+                            if($row1['status'] == 'accepted'){
+                                $data .= "<button class='btn submit w-80' id='view".$row['id']."' onclick='SubmitTask(".$row['id'].")' data-toggle='modal' data-target='#submit-task-modal' title='Submit task proofs'>Submit Task</button>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
+                            }else if($row1['status'] == 'submitted'){
+                                $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTaskSubmission(".$row['id'].")' data-toggle='modal' data-target='#view-submission-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
+                            }else{
+                                $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
+                            }
+                                
+                            $data .="    
+                            </div>
                         </div>
-                    </div>
-                ";
+                    ";
+                }
+                    
+            }
+        }else{
+            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any task / gig yet. Apply to task by click Active task button on top.</p>";
+        }
+        $data .= "</div>";
+        // $data .= "</table>";
+        echo $data;
+    }
+
+
+    // * ====================================
+    // * COMPLETED TASKS
+    // * ====================================
+    if(!empty($_POST['readcompleted'])){
+        $data = "<div class='flex-wrapper'>";
+        // sql query with inner join
+        $sql = "SELECT * FROM `applications` WHERE `email` = '$email' AND `userType` = '$userType' ORDER BY `id` DESC";
+        $result=mysqli_query($conn,$sql);
+    
+        if(mysqli_num_rows($result) > 0){
+            $number = 1;
+            while($row1 = mysqli_fetch_assoc($result)){
+                $sql = "SELECT * FROM `tasks` WHERE `id` = '".$row1['taskid']."' AND `status` = 'Paused'";
+                $res = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($res);
+                if($row['status'] == 'Paused'){
+                    $data .= "
+                        <div class='card'>
+                            <div class='amount'>₹ ".$row['boomcoins']."</div>
+                            <div class = 'head'>
+                                <div class='image'>
+                                    <img src='".substr($row['gigLogo'], 1)."' class='img-fluid'>
+                                </div>
+                                <h3 class='gig-title'>".$row['title']."</h3>
+                            </div>
+                            <div class='time flex-center justify-content-between'>
+                                <span><i class='far fa-calendar-week'></i> ".$row['startDate']."</span>
+                                <span><i class='far fa-chart-bar'></i> ".$row['complexity']."</span>
+                            </div>
+                            <a>".$row['category']."</a>
+                            <hr>
+                            <div class='flex-center justify-content-between btn-group'>";
+
+                            if($row1['status'] == 'accepted'){
+                                $data .= "<span class='btn solid w-80' style='cursor:pointer !important;' id='view".$row['id']."' onclick='ViewTaskSubmission(".$row['id'].")' data-toggle='modal' data-target='#view-submission-modal' title='View submissions'><i class='fas fa-tasks'></i> View Submissions</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
+                            }else if($row1['status'] == 'submitted'){
+                                $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTaskSubmission(".$row['id'].")' data-toggle='modal' data-target='#view-submission-modal' title='View submissions'><i class='fas fa-tasks'></i></button>";
+                            }else{
+                                $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal' title='View gig information'><i class='fas fa-eye'></i></button>";
+                            }
+                                
+                            $data .="    
+                            </div>
+                        </div>
+                    ";
+                }
                     
             }
         }else{
@@ -110,7 +174,25 @@
         $sql = "SELECT * FROM `tasks` WHERE `id` = '$taskid'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
+        
         echo json_encode($row);
+    }
+    if(isset($_POST['taskid1'])){
+        $taskid = $_POST['taskid1'];
+        $sql = "SELECT * FROM `tasks` WHERE `id` = '$taskid'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        
+        $sql1 = "SELECT * FROM `submissions` WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$taskid'";
+        $res1 = mysqli_query($conn, $sql1);
+        $submission = array();
+        while($row1 = mysqli_fetch_assoc($res1)){
+            array_push($submission, $row1);
+        }
+        $output = array();
+        array_push($output, $row);
+        array_push($output, $submission);
+        echo json_encode($output);
     }
 
     // * ====================================
@@ -195,10 +277,7 @@
         if($flag == 2){
             $response['success'] = "Some entries are not uploaded. Try again later";
         }else{
-            $sql1 = "UPDATE `applications` SET `status`= 'submitted' WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$taskid' ";
-            $result1 = mysqli_query($conn, $sql1);
-            if($result1)
-                $response['success'] = true;
+            $response['success'] = true;
         }
         
 

@@ -18,7 +18,7 @@
                     <td><b>College</b></td></td>
                     <td><b>Location</b></td></td>
                     <td><b>UID</b></td></td>
-                    <td><b>Status</b></td>
+                    <td><b>Pending</b></td>
                     <td class='text-center'><b>Action</b></td>
                 </thead>
                 <tfoot>
@@ -29,13 +29,13 @@
                     <td><b>College</b></td></td>
                     <td><b>Location</b></td></td>
                     <td><b>UID</b></td></td>
-                    <td><b>Status</b></td>
+                    <td><b>Pending</b></td>
                     <td class='text-center'><b>Action</b></td>
                 </tfoot>
                 <tbody>
         ";
         // sql query with inner join
-        $sql = "SELECT * FROM `applications` WHERE `status` = 'submitted' OR `status` = 'completed' ORDER BY `status` DESC";
+        $sql = "SELECT * FROM `applications` WHERE `status` = 'accepted' OR `status` = 'completed' ORDER BY `status` DESC";
         $result=mysqli_query($conn,$sql);
     
         if(mysqli_num_rows($result) > 0){
@@ -48,6 +48,8 @@
                 $usersql = "SELECT `name` FROM `user` WHERE `email` = '".$row['email']."' AND `userType` = '".$row['userType']."'";
                 $userres = mysqli_query($conn, $usersql);
                 $row2 = mysqli_fetch_assoc($userres);
+                $countsql = "SELECT `id` FROM `submissions` WHERE `email` = '".$row['email']."' AND `userType` = '".$row['userType']."' AND `taskid` = '".$row['taskid']."' AND `status` = 'not approved' ";
+                $countres = mysqli_query($conn, $countsql);
                 $data .= "
                     <tr>
                         <td class='text-center'>".$number."</td>
@@ -57,16 +59,12 @@
                         <td>".$row['college_name']."</td>
                         <td>".$row['city'].", ".$row['state']."</td>
                         <td style='font-family:var(--font-poppins);'>".$row['UID']."</td>
-                        <td>".$row['status']."</td>
-                        <td class='d-flex justify-content-center p-2' style='height: 100%'>
-                ";
-                if($row['status'] == 'submitted'){
-                    $data .= "                        
+                        <td class='text-danger font-weight-bold text-center' style='font-family:var(--font-poppins); font-size:1rem'>".mysqli_num_rows($countres)."</td>
+                        <td class='d-flex justify-content-center p-2' style='height: 100%'>                       
                             <button class='btn solid rounded btn-primary user-".$row['id']."' title='View student submissions' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' data-toggle='modal' data-target='#view-submissions-modal'><i class='far fa-eye'></i></button>
                         </td>
                     </tr>
                     ";
-                }
                 $number++;
             }
         }

@@ -53,7 +53,7 @@
                         <td>".$row['status']."</td>
                         <td class='d-flex justify-content-center p-2' style='height: 100%'>
                 ";
-                if($row['status'] == "Not Active"){
+                if($row['status'] == "Not Active" || $row['status'] == "Paused"){
                     $data .= "
                     <button class='btn solid rounded btn-success task-".$row['id']."' id='approve".$row['id']."' onclick='ActiveTask(".$row['id'].")' data-toggle='tooltip' title='Run this gig'><i class='far fa-play'></i></button>
                     ";
@@ -111,7 +111,7 @@
     // * ====================================
     if(isset($_POST['disapproveid'])){
         $disapproveid = $_POST['disapproveid'];
-        $sql = "UPDATE `tasks` SET `status`='Not Active' WHERE `id`= '$disapproveid'";
+        $sql = "UPDATE `tasks` SET `status`='Paused' WHERE `id`= '$disapproveid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";

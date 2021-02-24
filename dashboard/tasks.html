@@ -70,7 +70,8 @@
                             onclick="readAppliedTasks()">Applied</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#completed">Completed</button>
+                        <button class="nav-link" data-toggle="tab" href="#completed"
+                            onclick="readCompletedTasks()">Completed</button>
                     </li>
                 </ul>
 
@@ -90,9 +91,12 @@
                         <div id="appliedRecords"></div>
                     </div>
                     <div id="completed" class="container tab-pane fade"><br>
-                        <h3>Menu 2</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam.</p>
+                        <!-- loader -->
+                        <div class="loading" id="loading">
+                            <i class="far fa-sync fa-spin"></i>
+                        </div>
+                        <!-- applied record response container -->
+                        <div id="completedRecords"></div>
                     </div>
                 </div>
 
@@ -196,9 +200,21 @@
                         transform: rotate(45deg);
                     }
 
-                    .modal .entries .small {
+                    .modal .entries .small,
+                    .modal .entries1 .small {
                         font-family: var(--font-poppins);
                         color: #666;
+                    }
+
+                    .modal .entries1 {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+
+                    .modal .entries1 .divEntry1 {
+                        width: 100%;
+                        max-width: 300px;
+                        margin: 1rem !important;
                     }
                 </style>
                 <div class="modal fade" id="view-task-modal" tabindex="-1" role="dialog"
@@ -296,7 +312,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">How to perform task & submissions?</h5>
+                                    <h5 class="modal-title">How to perform task? & submissions.</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                         style="outline: none;">
                                         <span aria-hidden="true">×</span>
@@ -308,28 +324,28 @@
                                     </div>
                                     <div class="row info-block">
                                         <!--Dont forget to rename this class to info-block-->
-                                        <div class="col-lg-8 col-md-7 col-12">
+                                        <div class="col-lg-4 col-md-4 col-12">
                                             <div class="title-group">
                                                 <h4 id="title" class="m-0 p-0"></h4>
                                                 <span id="category" class="m-0 p-0 bg-light"></span>
                                             </div>
 
-                                            <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
-                                            <hr class="my-1 mx-0">
-                                            <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
                                             <p class="m-0 mt-2 p-0">How to complete this gig?</p>
                                             <hr class="my-1 mx-0">
                                             <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
-                                            <p class="m-0 mt-2 p-0">Sample Proofs</p>
-                                            <hr class="my-1 mx-0">
-                                            <p class="m-0 mt-2 p-0 small text-muted" id="proofs"></p>
                                             <hr class="mt-5 mx-0">
                                             <p class="m-0 p-0 mt-2">Tutorial: <b><a id="tutorial"
                                                         class="text-primary"></a></b></p>
                                             <div id="gallery-mg"></div>
-                                            <p class="m-0 p-0 mt-2">View sample proofs: <a href="#gallery-mg"
+                                            <p class="m-0 p-0 mt-2 mb-3">View sample proofs: <a href="#gallery-mg"
                                                     class="btn gallery-link">Click
                                                     Here</a></p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-12 mb-3">
+                                            <h4 class="mb-4">My Submissions</h4>
+                                            <div class="submissions mb-3"
+                                                style="max-height: 60vh; overflow-y: scroll; padding: 0 1rem">
+                                            </div>
                                         </div>
                                         <div class="col-lg-4 col-md-5 col-12">
                                             <div class="gallery-wrapper">
@@ -464,38 +480,14 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body" id="task-info">
+                            <div class="modal-body" id="task-info1">
                                 <div class="loading" id="loading">
                                     <i class="far fa-sync fa-spin"></i>
                                 </div>
                                 <div class="row info-block">
-                                    <div class="col-lg-8 col-md-7 col-12">
-                                        <div class="title-group">
-                                            <h4 id="title" class="m-0 p-0"></h4>
-                                            <span id="category" class="m-0 p-0 bg-light"></span>
-                                        </div>
-
-                                        <div class="flex-center justify-content-start">
-                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                    style="font-family: poppins;"></b></p>
-                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
-                                                    style="font-family: poppins;"></b></p>
-                                        </div>
-                                        <p class="m-0 p-0">Boomcoins: <b id="boomcoins"></b></p>
-                                        <p class="m-0 p-0">Complexity: <b id="complexity"></b></p>
-                                        <p class="m-0 mt-2 p-0">Requirements to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="requirements"></p>
-                                        <p class="m-0 mt-2 p-0">How to complete this gig?</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
-                                        <p class="m-0 mt-2 p-0">Interests</p>
-                                        <hr class="my-1 mx-0">
-                                        <p class="m-0 mt-2 p-0 small text-muted" id="interests"></p>
-                                    </div>
-                                    <div class="col-lg-4 col-md-5 col-12">
+                                    <div class="col-lg-12 col-md-12 col-12">
                                         <h4 class="mb-4">My Submissions</h4>
-                                        <div class="entries"> </div>
+                                        <div class="entries1"> </div>
                                     </div>
                                 </div>
                             </div>

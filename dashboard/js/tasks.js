@@ -151,7 +151,28 @@ function readAppliedTasks() {
         success: function (response) {
             //console.log(response);
             $("#appliedRecords").html(response);
-            $(".loading").css('display', 'none');
+            $("#applied .loading").css('display', 'none');
+        },
+        error: function () {
+            console.log("error");
+        }
+    });
+}
+
+// read complted tasks
+function readCompletedTasks() {
+    var readcompleted = 'readcompleted';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/tasks.php",
+        data: {
+            readcompleted: readcompleted
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            //console.log(response);
+            $("#completedRecords").html(response);
+            $("#completed .loading").css('display', 'none');
         },
         error: function () {
             console.log("error");
@@ -169,6 +190,7 @@ function ViewTask(taskid) {
         },
         dataType: 'json',
         success: function (response) {
+            console.log(response);
             $("#hiddenid").val(response.id);
             $("#task-apply-form #modal-error").html("");
             $("#task-info #gallery-mg").html("");
@@ -229,28 +251,29 @@ function SubmitTask(taskid) {
         type: "POST",
         url: "./php/tasks.php",
         data: {
-            taskid: taskid
+            taskid1: taskid
         },
         dataType: 'json',
         success: function (response) {
+            console.log(response);
             var proof_array = [];
             $("#submit-task-modal .entries").html('');
             $("#submit-task-form").trigger("reset");
-            $("#submit-task-modal #hiddenid").val(response.id);
+            $("#submit-task-modal #hiddenid").val(response[0].id);
             $("#task-apply-form #modal-error").html("");
             $("#task-info #gallery-mg").html("");
+            $("#submit-task-modal .submissions").html("");
 
-            $("#submit-task-modal #task-info #title").text(response.title);
-            $("#submit-task-modal #task-info #category").text(response.category);
-            $("#submit-task-modal #task-info #requirements").html(response.requirements.replaceAll("\r\n", "<br>"));
-            $("#submit-task-modal #task-info #completion").html(response.completion.replaceAll("\r\n", "<br>"));
+            $("#submit-task-modal #task-info #title").text(response[0].title);
+            $("#submit-task-modal #task-info #category").text(response[0].category);
+            $("#submit-task-modal #task-info #requirements").html(response[0].requirements.replaceAll("\r\n", "<br>"));
+            $("#submit-task-modal #task-info #completion").html(response[0].completion.replaceAll("\r\n", "<br>"));
 
-            $("#submit-task-modal #task-info #tutorial").text(response.tutorialLink);
-            $("#submit-task-modal #task-info #tutorial").attr('href', response.tutorialLink);
+            $("#submit-task-modal #task-info #tutorial").text(response[0].tutorialLink);
+            $("#submit-task-modal #task-info #tutorial").attr('href', response[0].tutorialLink);
             $("#submit-task-modal #task-info #tutorial").attr('target', '_blank');
 
-
-            var folder = response.sampleProofs.substring(1);
+            var folder = response[0].sampleProofs.substring(1);
             $.ajax({
                 url: folder,
                 success: function (data) {
@@ -261,6 +284,12 @@ function SubmitTask(taskid) {
                     });
                 }
             });
+
+            // submissions
+            for (var i = 0; i < response[1].length; i++) {
+                var divEntry = "<div class='divEntry1'> <p class='p-0 m-0 font-weight-bold'>" + response[1][i].name + " <span class='text-danger font-weight-normal small'>(" + response[1][i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + response[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + response[1][i].email + "</p><p class='p-0 m-0 small'>" + response[1][i].mobile + "</p><p class='p-0 m-0 small'>" + response[1][i].city + ", " + response[1][i].state + "</p></div><a href='" + response[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div>";
+                $("#submit-task-modal .submissions").append(divEntry);
+            }
 
             $("#submit-task-modal #task-info #loading").css('display', 'none');
             $("#submit-task-modal #task-info .info-block").css('display', 'flex');
@@ -339,7 +368,7 @@ $("#add-proof-form #add-proof-btn").click(function (e) {
                 }
                 console.log(dict)
                 proof_array.push(dict);
-                var divEntry = "<div class='divEntry flex-between my-2 " + time + "'><p class='p-0 m-0'>" + name + "</p><button class='btn solid rounded btn-danger btn-sm text-light' id=" + time + " onclick = 'deleteclick(event, this.id)'><i class='far fa-trash'></i></button></div>"
+                var divEntry = "<div class='divEntry flex-between my-2" + time + "'><p class='p-0 m-0'>" + name + "</p><button class='btn solid rounded btn-danger btn-sm text-light' id=" + time + " onclick = 'deleteclick(event, this.id)'><i class='far fa-trash'></i></button></div>"
                 $("#submit-task-modal .entries").append(divEntry);
                 $("#add-proof-form").trigger('reset');
                 $("#add-proof-modal").modal('hide');
@@ -366,29 +395,16 @@ function ViewTaskSubmission(submissionid) {
         },
         dataType: 'json',
         success: function (response) {
-            $("#hiddenid").val(response[0].id);
-            $("#task-apply-form #modal-error").html("");
-            $("#view-submission-modal .entries").html("");
-            $("#gig-title").text(response[0].title);
-            $("#task-info #title").text(response[0].title);
-            $("#task-info #category").text(response[0].category);
-            $("#task-info #start-date").text(response[0].startDate);
-            $("#task-info #end-date").text(response[0].endDate);
-            $("#task-info #boomcoins").text(response[0].boomcoins);
-            $("#task-info #complexity").text(response[0].complexity);
-            $("#task-info #requirements").html(response[0].requirements.replaceAll("\r\n", "<br>"));
-            $("#task-info #completion").html(response[0].completion.replaceAll("\r\n", "<br>"));
-            $("#task-info #interests").text(response[0].interests);
-
+            $("#view-submission-modal .entries1").html("");
             // submissions
             for (var i = 0; i < response[1].length; i++) {
                 var divEntry = "<div class='divEntry1 my-3'> <p class='p-0 m-0 font-weight-bold'>" + response[1][i].name + "</p> <p class='p-0 m-0 text-muted'>" + response[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + response[1][i].email + "</p><p class='p-0 m-0 small'>" + response[1][i].mobile + "</p><p class='p-0 m-0 small'>" + response[1][i].city + ", " + response[1][i].state + "</p></div><a href='" + response[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div>";
-                $("#view-submission-modal .entries").append(divEntry);
+                $("#view-submission-modal .entries1").append(divEntry);
             }
 
 
-            $("#task-info #loading").css('display', 'none');
-            $("#task-info .info-block").css('display', 'flex');
+            $("#task-info1 #loading").css('display', 'none');
+            $("#task-info1 .info-block").css('display', 'flex');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var message = errorThrown;
