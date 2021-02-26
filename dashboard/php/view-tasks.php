@@ -13,7 +13,7 @@
                 <thead>
                     <td style='max-width:20px'><b>Sr No</b></td>
                     <td style='max-width:30px'><b>Gig Image</b></td>
-                    <td><b>Gig Title</b></td>
+                    <td><b>Task Details</b></td>
                     <td><b>Company Name</b></td></td>
                     <td style='max-width:30px'><b>Number of Applications</b></td></td>
                     <td style='max-width:30px'><b>Number of Submissions</b></td></td>
@@ -24,7 +24,7 @@
                 <tfoot>
                     <td><b>Sr No</b></td>
                     <td><b>Gig Image</b></td>
-                    <td><b>Gig Title</b></td>
+                    <td><b>Task Details</b></td>
                     <td><b>Company Name</b></td></td>
                     <td><b>Number of Applications</b></td></td>
                     <td><b>Number of Submissions</b></td></td>

@@ -37,12 +37,6 @@
                 <a href="view-tasks.html" class="nav-link">
                     <li>View tasks</li>
                 </a>
-                <a href="pending-approvals.html" class="nav-link">
-                    <li>Applications</li>
-                </a>
-                <a href="submissions.html" class="nav-link">
-                    <li>Submissions</li>
-                </a>
             </ul>
         </li>
         <li class="nav-tab dropdown">
@@ -119,12 +113,6 @@
                 <a href="view-tasks.html" class="nav-link">
                     <li>View tasks</li>
                 </a>
-                <a href="pending-approvals.html" class="nav-link">
-                    <li>Applications</li>
-                </a>
-                <a href="submissions.html" class="nav-link">
-                    <li>Submissions</li>
-                </a>
             </ul>
         </li>
         <li class="nav-tab dropdown">
@@ -153,6 +141,11 @@
                 <li>View offers</li>
             </ul>
         </li>
+        <a href="./users.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-users"></i> Users</div>
+            </li>
+        </a>
     </ul>
     <?php } else { ?>
         <ul class="nav-list">
