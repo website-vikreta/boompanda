@@ -17,6 +17,8 @@ function readAdmins() {
 
 // View User
 function ViewTask(taskid) {
+    $("#task-info #loading").css('display', 'flex');
+    $("#task-info .info-block").css('display', 'none');
     $.ajax({
         type: "POST",
         url: "./php/view-tasks.php",
@@ -25,7 +27,7 @@ function ViewTask(taskid) {
         },
         dataType: 'json',
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             $("#task-info #gallery-mg").html("");
             $("#gig-title").text(response.title);
             $("#task-info #title").text(response.title);
@@ -48,6 +50,7 @@ function ViewTask(taskid) {
             $("#task-info #companyDescription").html(response.companyDescription.replaceAll("\r\n", "<br>"));
             $("#task-info #noOfApplications").text(response.noOfApplications);
             $("#task-info #noOfSubmissions").text(response.noOfSubmissions);
+            $("#task-info #noOfApproved").text(response.noOfApproved);
 
             // sample proofs
             var folder = response.sampleProofs.substring(1);
@@ -144,7 +147,7 @@ function InactiveTask(disapproveid) {
 function DeleteTask(deleteid) {
 
 
-    var confirmation = confirm("You want to delete this task? Later you might not be able to recover data for this record.");
+    var confirmation = confirm("Are you sure about deleting the task? You will not be able to access it again. Click ok to continue");
 
     if (confirmation == true) {
         //buttons for disable & spinner class

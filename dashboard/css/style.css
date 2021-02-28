@@ -66,6 +66,9 @@ a,a:hover,a:focus{
     outline: none;
     box-shadow: none;
 }
+.poppins{
+    font-family: var(--font-poppins);
+}
 
 /* zoom in effect for modals */
 .modal{
@@ -74,7 +77,7 @@ a,a:hover,a:focus{
 }
 .modal.fade .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(.5);transform: translate(0,0)scale(.5);}
 .modal.show .modal-dialog.modal-dialog-zoom {-webkit-transform: translate(0,0)scale(1);transform: translate(0,0)scale(1);}
-.modal .small {
+.small {
     font-size: 0.8rem !important;
 }
 

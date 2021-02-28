@@ -207,13 +207,12 @@
         $checksql = "SELECT * FROM `applications` WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$applyid'";
         $checkres = mysqli_query($conn, $checksql);
         if(mysqli_num_rows($checkres) > 0){
-            $response['modalErr'] = "You cannot apply again. We encounter with duplicate application. Check applied tasks.";
+            $response['modalErr'] = "You cannot apply again. We encounter with duplicate application. Check applied tasks or contact admins.";
             $flag = 1;
         }else{
             $usersql = "SELECT * FROM `user_info` WHERE `email` = '$email' AND `userType` = '$userType'";
             $userres = mysqli_query($conn, $usersql);
             $row = mysqli_fetch_assoc($userres);
-
             if($row){
                 $college_name = $row['college_name'];
                 $course = $row['course'];
@@ -274,6 +273,8 @@
                 $flag = 2;
             }
         }
+        $cnt = count($proof_array);
+        mysqli_query($conn, "UPDATE `tasks` SET `noOfSubmissions` = `noOfSubmissions` + '$cnt' WHERE `id` = '$taskid'");
         if($flag == 2){
             $response['success'] = "Some entries are not uploaded. Try again later";
         }else{

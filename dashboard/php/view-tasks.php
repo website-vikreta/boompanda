@@ -8,26 +8,26 @@
     if(!empty($_POST['readrecord'])){
 
         $data = "
-        <div class='table-responsive-xl'>
+        <div class='table-responsive'>
             <table class='table table-sm table-striped' id='myTable' width='100%'>
                 <thead>
                     <td style='max-width:20px'><b>Sr No</b></td>
                     <td style='max-width:30px'><b>Gig Image</b></td>
-                    <td><b>Task Details</b></td>
-                    <td><b>Company Name</b></td></td>
-                    <td style='max-width:30px'><b>Number of Applications</b></td></td>
-                    <td style='max-width:30px'><b>Number of Submissions</b></td></td>
-                    <td><b>Amount Disbursed</b></td>
+                    <td><b>About Gig</b></td>
+                    <td><b>Applications</b></td></td>
+                    <td><b>Submissions</b></td></td>
+                    <td style='max-width:30px'><b>Approved Submissions</b></td></td>
+                    <td style='max-width:30px'><b>Amount Disbursed</b></td>
                     <td><b>Status</b></td>
                     <td class='text-center'><b>Action</b></td>
                 </thead>
                 <tfoot>
-                    <td><b>Sr No</b></td>
-                    <td><b>Gig Image</b></td>
-                    <td><b>Task Details</b></td>
-                    <td><b>Company Name</b></td></td>
-                    <td><b>Number of Applications</b></td></td>
-                    <td><b>Number of Submissions</b></td></td>
+                    <td style='max-width:20px'><b>Sr No</b></td>
+                    <td style='max-width:30px'><b>Gig Image</b></td>
+                    <td><b>About Gig</b></td>
+                    <td><b>Applications</b></td></td>
+                    <td><b>Submissions</b></td></td>
+                    <td><b>Approved Submissions</b></td></td>
                     <td><b>Amount Disbursed</b></td>
                     <td><b>Status</b></td>
                     <td class='text-center'><b>Action</b></td>
@@ -45,11 +45,11 @@
                     <tr>
                         <td class='text-center'>".$number."</td>
                         <td class='text-center'><img src='".substr($row['gigLogo'], 1)."' class='img-fluid' style='height: 20px'></td>
-                        <td>".$row['title']."</td>
-                        <td>".$row['companyName']."</td>
-                        <td class='text-center'>".$row['noOfApplications']."</td>
-                        <td class='text-center'>".$row['noOfSubmissions']."</td>
-                        <td></td>
+                        <td><b>".$row['title']."</b><br><i>".$row['companyName']."</i><p class='m-0'>End Date - <span style='font-family: poppins'>".$row['endDate']."</span></td>
+                        <td class='poppins'>".$row['noOfApplications']."</td>
+                        <td class='text-center poppins'>".$row['noOfSubmissions']."</td>
+                        <td class='text-center poppins font-weight-bold'>".$row['noOfApproved']."</td>
+                        <td class='text-center poppins'>0</td>
                         <td>".$row['status']."</td>
                         <td class='d-flex justify-content-center p-2' style='height: 100%'>
                 ";
@@ -64,6 +64,8 @@
                 }
                 $data .= "                        
                         <button class='btn solid rounded btn-primary task-".$row['id']."' title='View complete task information' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal'><i class='far fa-eye'></i></button>
+                        <button class='btn solid rounded btn-info task-".$row['id']."' title='View applications' id='application".$row['id']."' onclick='window.location.href= `./pending-approvals.html?id=".$row['id']."`'><i class='far fa-tasks'></i></button>
+                        <button class='btn solid rounded btn-warning task-".$row['id']."' title='View submissions' id='submission".$row['id']."' onclick='window.location.href= `./submissions.html?id=".$row['id']."`'><i class='far fa-share'></i></button>
                         <button class='btn solid rounded btn-secondary task-".$row['id']."'><i class='far fa-edit'></i></button>
                         <button class='btn solid rounded btn-danger task-".$row['id']."' id='delete".$row['id']."' onclick='DeleteTask(".$row['id'].")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
                     </td>

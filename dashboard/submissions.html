@@ -50,7 +50,7 @@
             <!-- ! ======================================================== -->
             <nav>
                 <div class="page-loc">
-                    <p class="m-0"><span class="text-muted">Tasks / </span> View all tasks</p>
+                    <p class="m-0"><span class="text-muted">Tasks / </span> View Submissions</p>
                 </div>
                 <div id="navigation-bar"></div>
             </nav>
@@ -181,6 +181,55 @@
                 <!-- ! ======================================================== -->
                 <!-- ! VIEW USER MODAL -->
                 <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! REJECT MODAL MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade secondary" id="reject-submission-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-sm" role="document">
+                        <div class="modal-content" style="box-shadow: 0 0 50px 0 rgba(100,100,100,0.5) !important;">
+                            <div class="modal-header">
+                                <p class="modal-title" id="exampleModalLabel">Reason for rejecting submission</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="" class="form m-0 p-0">
+                                <div class="modal-body" id="user-info">
+                                    <div class="form-group m-0 p-0">
+                                        <input type="text" class="form-control" placeholder="Reason" id="delete-reason">
+                                        <div class="error" id="delete-reason-error"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="" id="hiddenid">
+                                    <span class="error small text-danger" id="modal-error"></span>
+                                    <button type="button" class="btn btn-transparent btn-sm"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid btn-sm" id="reject-btn">Reject</button>
+                                    <!-- <span class="btn btn-solid" onclick="showApprove()">Completed</span>
+                                <div class="approve">
+                                    <p class="para small">
+                                        Are you sure you want to set status as <b>Completed</b>? You cannot update, view
+                                        or delete the
+                                        information & submissions after completion.
+                                    </p>
+                                    <div class="buttons text-right">
+                                        <span class="btn btn-transparent" onclick="showApprove()">No</span>
+                                    </div>
+                                </div>
+                                <script>
+                                    function showApprove() {
+                                        $(".modal .modal-footer .approve").toggleClass('active');
+                                    }
+                                </script> -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->

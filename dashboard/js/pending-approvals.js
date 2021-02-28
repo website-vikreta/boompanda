@@ -1,11 +1,16 @@
 // read records
+// getting GET parameter 'id'
+var params = new window.URLSearchParams(window.location.search);
+ApplicationId = params.get('id');
+
 function readApplications() {
     var readrecord = 'readrecord';
     $.ajax({    //create an ajax request to display.php
         type: "POST",
         url: "./php/pending-approvals.php",
         data: {
-            readrecord: readrecord
+            readrecord: readrecord,
+            applicationId: ApplicationId
         },
         dataType: "html",   //expect html to be returned                
         success: function (response) {
@@ -17,6 +22,9 @@ function readApplications() {
 
 // View User
 function ViewUser(userid) {
+    $("#user-info #loading").css('display', 'flex');
+    $("#user-info .info-block").css('display', 'none');
+
     $.ajax({
         type: "POST",
         url: "./php/pending-approvals.php",
@@ -25,7 +33,7 @@ function ViewUser(userid) {
         },
         dataType: 'json',
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
             // profile
             var pattern = /^((http|https|ftp):\/\/)/;

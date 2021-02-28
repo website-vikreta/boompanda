@@ -5,8 +5,8 @@
     // * ====================================
     // * READ RECORDS
     // * ====================================
-    if(!empty($_POST['readrecord'])){
-
+    if(!empty($_POST['readrecord']) && !empty($_POST['applicationId'])){
+        $applicationId = $_POST['applicationId'];
         $data = "
         <div class='table-responsive-xl'>
             <table class='table table-sm table-striped' id='myTable' width='100%' style='font-size: 0.8rem'>
@@ -35,7 +35,7 @@
                 <tbody>
         ";
         // sql query with inner join
-        $sql = "SELECT * FROM `applications` WHERE `status` = 'accepted' OR `status` = 'completed' ORDER BY `status` DESC";
+        $sql = "SELECT * FROM `applications` WHERE `taskid` = '$applicationId' AND (`status` = 'accepted' OR `status` = 'completed') ORDER BY `status` DESC";
         $result=mysqli_query($conn,$sql);
     
         if(mysqli_num_rows($result) > 0){
@@ -118,7 +118,7 @@
     // * ====================================
     if(isset($_POST['approveid'])){
         $approveid = $_POST['approveid'];
-        $sql = "UPDATE `submissions` SET `status`= 'accepted' WHERE `id` = '$approveid'";
+        $sql = "UPDATE `submissions` SET `status`= 'accepted', `deleteReason` = '' WHERE `id` = '$approveid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";          
@@ -132,44 +132,12 @@
     // * ====================================
     if(isset($_POST['rejectid'])){
         $rejectid = $_POST['rejectid'];
-        $sql = "UPDATE `submissions` SET `status`= 'rejected' WHERE `id` = '$rejectid'";
+        $reason = $_POST['reason'];
+        $sql = "UPDATE `submissions` SET `status`= 'rejected', `deleteReason` = '$reason' WHERE `id` = '$rejectid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";          
         }else{
             echo "error";
         }
-    }
-
-    // * ====================================
-    // * COMPLETE TASK
-    // * ====================================
-    if(isset($_POST['complete_task'])){
-        $complete_task = $_POST['complete_task'];
-        $sql = "UPDATE `applications` SET `status`= 'completed' WHERE `id` = '$complete_task'";
-        $result = mysqli_query($conn, $sql);
-        $sql1 = "SELECT `email` FROM `applications` WHERE `id` = '$complete_task'";
-        $res1 = mysqli_query($conn, $sql1);
-        $r1 = mysqli_fetch_assoc($res1);
-
-        $response = array();
-        $response['success'] = false;
-
-        // sending email
-        include_once "./actions/sendemail.php";
-        $subject = "Boompanda - Acceptance of submissions.";
-        $body = "
-            <h2>Hurrayyyy!</h2>
-            <p>We have successfully gone through you submissions. Kindly login to dashboard to see how many of them acepted & rejected. Your task is completed.</p>
-            <br>
-            <br>
-            <p>Regards,</p>
-            <p>Team Boompanda</p>
-        ";
-        $emailsend = sendEmail($r1['email'], $subject, $body);
-        
-        if($result and $emailsend){
-            $response['success'] = true;
-        }
-        echo json_encode($response);
     }

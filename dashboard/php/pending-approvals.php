@@ -5,8 +5,8 @@
     // * ====================================
     // * READ RECORDS
     // * ====================================
-    if(!empty($_POST['readrecord'])){
-
+    if(!empty($_POST['readrecord']) && !empty($_POST['applicationId'])){
+        $applicationId = $_POST['applicationId'];
         $data = "
         <div class='table-responsive'>
             <table class='table table-sm table-striped' id='myTable' width='100%' style='font-size: 0.8rem'>
@@ -37,7 +37,7 @@
                 <tbody>
         ";
         // sql query with inner join
-        $sql = "SELECT * FROM `applications` WHERE `status` = 'under review'";
+        $sql = "SELECT * FROM `applications` WHERE `taskid` = '$applicationId' AND `status` <> 'deleted' ORDER BY `status` DESC";
         $result=mysqli_query($conn,$sql);
     
         if(mysqli_num_rows($result) > 0){
@@ -64,9 +64,11 @@
                         <td class='d-flex justify-content-center p-2' style='height: 100%'>
                 ";
                 $data .= "                        
-                        <button class='btn solid rounded btn-primary user-".$row['id']."' title='View student profile' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' data-toggle='modal' data-target='#view-user-modal'><i class='far fa-eye'></i></button>
-                        <button class='btn solid rounded btn-success user-".$row['id']."' id='approve".$row['id']."' onclick='ApproveUser(".$row['id'].")' data-toggle='tooltip' title='Allow student for submission'><i class='far fa-check'></i></button>
-                        <button class='btn solid rounded btn-danger user-".$row['id']."' id='delete".$row['id']."' onclick='DeleteUser(".$row['id'].")' data-toggle='tooltip' title='Delete Application'><i class='far fa-trash'></i></button>
+                        <button class='btn solid rounded btn-primary user-".$row['id']."' title='View student profile' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' data-toggle='modal' data-target='#view-user-modal'><i class='far fa-eye'></i></button> ";
+                if($row['status'] == 'under review'){
+                    $data .= "<button class='btn solid rounded btn-success user-".$row['id']."' id='approve".$row['id']."' onclick='ApproveUser(".$row['id'].")' data-toggle='tooltip' title='Allow student for submission'><i class='far fa-check'></i></button>";
+                }
+                $data .= "<button class='btn solid rounded btn-danger user-".$row['id']."' id='delete".$row['id']."' onclick='DeleteUser(".$row['id'].")' data-toggle='tooltip' title='Delete Application'><i class='far fa-trash'></i></button>
                     </td>
                 </tr>
                 ";
@@ -128,7 +130,7 @@
     // * ====================================
     if(isset($_POST['deleteid'])){
         $deleteid = $_POST['deleteid'];
-        $sql = "DELETE FROM `applications` WHERE `id` = '$deleteid'";
+        $sql = "UPDATE `applications` SET `status`= 'deleted' WHERE `id` = '$deleteid'";
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";
