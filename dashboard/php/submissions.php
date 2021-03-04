@@ -106,10 +106,17 @@
         $res2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($res2);
 
+        // count of accepted submissions
+        $sqlstat = "SELECT COUNT(*) AS `accepted_submissions` FROM `submissions` WHERE `email` = '$u_email' AND `userType` = '$u_userType' AND `taskid` = '$u_taskid' AND `status` = 'accepted'";
+        $sqlstatres = mysqli_query($conn, $sqlstat);
+        $sqlstatrow = mysqli_fetch_assoc($sqlstatres);
+
         $output = array();
         array_push($output, $row);
         array_push($output, $submission);
         array_push($output, $row2);
+        array_push($output, count($submission));
+        array_push($output, $sqlstatrow);
         echo json_encode($output);
     }
 

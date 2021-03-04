@@ -2,6 +2,8 @@
 var params = new window.URLSearchParams(window.location.search);
 ApplicationId = params.get('id');
 
+var submissions = [];
+
 // read records
 function readApplications() {
     var readrecord = 'readrecord';
@@ -33,8 +35,12 @@ function ViewUser(userid) {
         },
         dataType: 'json',
         success: function (response) {
+            submissions = [];
             // console.log(response);
             $("#view-submissions-modal #task-container").html("");
+
+            $("#user-info #total-submission-stat").text(response[3]);
+            $("#user-info #accepted-submission-stat").text(response[4].accepted_submissions);
 
             // profile
             var pattern = /^((http|https|ftp):\/\/)/;
@@ -63,9 +69,9 @@ function ViewUser(userid) {
 
             // submissions
             for (var i = 0; i < response[1].length; i++) {
-                var divEntry = "<div class='divEntry1 my-3' id='card-" + response[1][i].id + "' title='" + response[1][i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + response[1][i].name + "</p> <p class='p-0 m-0 text-muted'>" + response[1][i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + response[1][i].email + "</p><p class='p-0 m-0 small'>" + response[1][i].mobile + "</p><p class='p-0 m-0 small'>" + response[1][i].city + ", " + response[1][i].state + "</p></div><a href='" + response[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + response[1][i].status + "</div><div class='buttons'><button class='btn btn-sm rounded solid' id='reject-" + response[1][i].id + "' onclick='rejectSubmission(" + response[1][i].id + ")'><i class='far fa-times'></i></button><button class='btn btn-sm btn-solid ml-2 rounded' id='accept-" + response[1][i].id + "' onclick='acceptSubmission(" + response[1][i].id + ")'><i class='far fa-check'></i></button></div></div></div>";
-                $("#view-submissions-modal #task-container").append(divEntry);
+                submissions.push(response[1][i]);
             }
+            showSubmissionCards("all");
 
             $("#user-info #loading").css('display', 'none');
             $("#user-info .info-block").css('display', 'flex');
@@ -98,8 +104,10 @@ function acceptSubmission(approveid) {
         },
         success: function (response) {
             if (response == 'success') {
+                var data = "<button class='btn btn-sm btn-solid ml-2 rounded' id='reject-" + approveid + "' onclick='rejectSubmission(" + approveid + ")'><i class='far fa-times'></i></button>";
                 $("#view-submissions-modal #card-" + approveid + " .status").text("accepted");
-                $("#view-submissions-modal #card-" + approveid).attr("title", "");
+                $("#view-submissions-modal #card-" + approveid + " .reason").html("");
+                $("#view-submissions-modal #card-" + approveid + " .buttons").html(data);
                 notification('Heads up!', 'Submission Approved', 'success');
             }
             // enable buttons & remove spinner
@@ -145,8 +153,10 @@ $("#reject-submission-modal #reject-btn").click(function (e) {
             },
             success: function (response) {
                 if (response == 'success') {
+                    var data = "<button class='btn btn-sm btn-solid ml-2 rounded' id='accept-" + rejectid + "' onclick='acceptSubmission(" + rejectid + ")'><i class='far fa-check'></i></button>";
                     $("#view-submissions-modal #card-" + rejectid + " .status").text("rejected");
-                    $("#view-submissions-modal #card-" + rejectid).attr("title", reason);
+                    $("#view-submissions-modal #card-" + rejectid + " .reason").html(reason);
+                    $("#view-submissions-modal #card-" + rejectid + " .buttons").html(data);;
                     $("#reject-submission-modal").modal("hide")
                     notification('Heads up!', 'Submission Rejected', 'success');
                 }
@@ -162,3 +172,38 @@ $("#reject-submission-modal #reject-btn").click(function (e) {
         });
     }
 });
+
+
+// sorting for submissions
+function showSubmissionCards(submission_type) {
+    // console.log(submissions);
+    $("#view-submissions-modal #task-container").html("");
+    if (submission_type == 'all') {
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'accepted') {
+                var divEntry = "<div class='divEntry1 my-3' id='card-" + submissions[i].id + "' title='" + submissions[i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + "</p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + submissions[i].status + "</div><div class='buttons'><button class='btn btn-sm btn-solid ml-2 rounded' id='reject-" + submissions[i].id + "' onclick='rejectSubmission(" + submissions[i].id + ")'><i class='far fa-times'></i></button></div></div><hr class='my-2'><p class='text-danger small p-0 m-0 reason'>" + submissions[i].deleteReason + "</p></div>";
+                $("#view-submissions-modal #task-container").append(divEntry);
+            } else if (submissions[i].status == 'rejected') {
+                var divEntry = "<div class='divEntry1 my-3' id='card-" + submissions[i].id + "' title='" + submissions[i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + "</p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + submissions[i].status + "</div><div class='buttons'><button class='btn btn-sm btn-solid ml-2 rounded' id='accept-" + submissions[i].id + "' onclick='acceptSubmission(" + submissions[i].id + ")'><i class='far fa-check'></i></button></div></div><hr class='my-2'><p class='text-danger small p-0 m-0 reason'>" + submissions[i].deleteReason + "</p></div>";
+                $("#view-submissions-modal #task-container").append(divEntry);
+            } else {
+                var divEntry = "<div class='divEntry1 my-3' id='card-" + submissions[i].id + "' title='" + submissions[i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + "</p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + submissions[i].status + "</div><div class='buttons'><button class='btn btn-sm rounded solid' id='reject-" + submissions[i].id + "' onclick='rejectSubmission(" + submissions[i].id + ")'><i class='far fa-times'></i></button><button class='btn btn-sm btn-solid ml-2 rounded' id='accept-" + submissions[i].id + "' onclick='acceptSubmission(" + submissions[i].id + ")'><i class='far fa-check'></i></button></div></div><hr class='my-2'><p class='text-danger small p-0 m-0 reason'>" + submissions[i].deleteReason + "</p></div>";
+                $("#view-submissions-modal #task-container").append(divEntry);
+            }
+        }
+    } else if (submission_type == 'accepted') {
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'accepted') {
+                var divEntry = "<div class='divEntry1 my-3' id='card-" + submissions[i].id + "' title='" + submissions[i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + "</p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + submissions[i].status + "</div><div class='buttons'><button class='btn btn-sm rounded solid' id='reject-" + submissions[i].id + "' onclick='rejectSubmission(" + submissions[i].id + ")'><i class='far fa-times'></i></button></div></div><hr class='my-2'><p class='text-danger small p-0 m-0 reason'>" + submissions[i].deleteReason + "</p></div>";
+                $("#view-submissions-modal #task-container").append(divEntry);
+            }
+        }
+    } else if (submission_type == 'rejected') {
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'rejected') {
+                var divEntry = "<div class='divEntry1 my-3' id='card-" + submissions[i].id + "' title='" + submissions[i].deleteReason + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + "</p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between wrapper'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div><hr class='mb-2'><div class='flex-between'><div class='status small text-primary'>" + submissions[i].status + "</div><div class='buttons'><button class='btn btn-sm btn-solid ml-2 rounded' id='accept-" + submissions[i].id + "' onclick='acceptSubmission(" + submissions[i].id + ")'><i class='far fa-check'></i></button></div></div><hr class='my-2'><p class='text-danger small p-0 m-0 reason'>" + submissions[i].deleteReason + "</p></div>";
+                $("#view-submissions-modal #task-container").append(divEntry);
+            }
+        }
+    }
+}

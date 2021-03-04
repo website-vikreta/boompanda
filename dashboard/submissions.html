@@ -92,6 +92,17 @@
                                 </div>
                                 <div class="row info-block">
                                     <div class="col-lg-7 col-md-7 col-12">
+                                        <form action="" class="form w-50 px-2">
+                                            <div class="form-group">
+                                                <h6 for="" class="mb-2">View Submissions</h6>
+                                                <select name="" id="submission-type" class="form-control"
+                                                    onchange="showSubmissionCards(this.options[this.selectedIndex].value)">
+                                                    <option value="all">All Submissions</option>
+                                                    <option value="accepted">Approved Submissions</option>
+                                                    <option value="rejected">Rejected Submissions</option>
+                                                </select>
+                                            </div>
+                                        </form>
                                         <style>
                                             #task-container {
                                                 display: flex;
@@ -133,6 +144,31 @@
                                                 max-width: 200px;
                                             }
                                         </style>
+                                        <div class="stats my-4">
+                                            <div class="flex-between">
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="total-submission-stat"></h2>
+                                                    <span class="small text-muted">Total Submissions</span>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="accepted-submission-stat"></h2>
+                                                    <span class="small text-muted">Accepted Submissions</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-between mt-3">
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="pending-boomcoins-stat">0</h2>
+                                                    <span class="small text-muted">Pending Boomcoins</span>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="disbursed-boomcoins-stat">0</h2>
+                                                    <span class="small text-muted">Boomcoins disbursed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
                                         <div class="profile">
                                             <img src="../assets/img/profile.jpg" class="img-fluid" alt=""
                                                 id="profile-img">
