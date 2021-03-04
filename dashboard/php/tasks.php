@@ -189,9 +189,16 @@
         while($row1 = mysqli_fetch_assoc($res1)){
             array_push($submission, $row1);
         }
+        
+        $sqlstat = "SELECT COUNT(*) AS `accepted_submissions` FROM `submissions` WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$taskid' AND `status` = 'accepted'";
+        $sqlstatres = mysqli_query($conn, $sqlstat);
+        $sqlstatrow = mysqli_fetch_assoc($sqlstatres);
+
         $output = array();
         array_push($output, $row);
         array_push($output, $submission);
+        array_push($output, count($submission));
+        array_push($output, $sqlstatrow);
         echo json_encode($output);
     }
 
@@ -203,7 +210,7 @@
         $response = array();
         $response['success'] = false;
         $flag = 0;
-
+        
         $checksql = "SELECT * FROM `applications` WHERE `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$applyid'";
         $checkres = mysqli_query($conn, $checksql);
         if(mysqli_num_rows($checkres) > 0){
@@ -213,8 +220,10 @@
             $usersql = "SELECT * FROM `user_info` WHERE `email` = '$email' AND `userType` = '$userType'";
             $userres = mysqli_query($conn, $usersql);
             $row = mysqli_fetch_assoc($userres);
+            
             if($row){
                 $college_name = $row['college_name'];
+                $college_name = str_replace("'", '', $college_name);
                 $course = $row['course'];
                 $year = $row['year'];
                 $state = $row['state'];
@@ -232,12 +241,15 @@
         }
 
         if($flag == 0){   
-            $sql = "INSERT INTO `applications`(`email`, `userType`, `UID`, `college_name`, `course`, `year`, `state`, `city`, `taskid`, `status`) 
-                    VALUES ('$email', '$userType', '$uid', '$college_name', '$course', '$year', '$state', '$city', '$applyid', 'under review')";
-            $result = mysqli_query($conn, $sql);
-            if($result){
+            $sql = "INSERT INTO `applications`(`email`, `userType`, `UID`, `college_name`, `course`, `year`, `state`, `city`, `taskid`, `status`) VALUES ('$email', '$userType', '$uid', '$college_name', '$course', '$year', '$state', '$city', '$applyid', 'under review')";
+            // $result = mysqli_query($conn, $sql);
+            $response['modalErr'] = $applyid;
+            if(mysqli_query($conn, $sql)){
                 mysqli_query($conn, "UPDATE `tasks` SET `noOfApplications` = `noOfApplications` + 1 WHERE `id` = '$applyid'");
                 $response['success'] = true;
+            }else{
+                $response['modalErr'] = "Something went wrong. Try again later (line2)";
+                // $response['modalErr'] = $college_name;
             }
         }
 
@@ -300,8 +312,27 @@
         while($row1 = mysqli_fetch_assoc($res1)){
             array_push($submission, $row1);
         }
+
         $output = array();
         array_push($output, $row);
         array_push($output, $submission);
         echo json_encode($output);
+    }
+
+    // * ====================================
+    // * DELETE SUBMISSIONS
+    // * ====================================
+    if(isset($_POST['deleteSubmissionId'])){
+        $deleteSubmissionId = $_POST['deleteSubmissionId'];
+        $response = array();
+        $a = "SELECT `taskid` FROM `submissions` WHERE `id` = '$deleteSubmissionId'";
+        $r = mysqli_fetch_assoc(mysqli_query($conn, $a));
+        $d = $r['taskid'];
+        $sql = "DELETE FROM `submissions` WHERE `id` = '$deleteSubmissionId'";
+        if(mysqli_query($conn, $sql)){
+            mysqli_query($conn, "UPDATE `tasks` SET `noOfSubmissions` = `noOfSubmissions` - 1 WHERE `id` = '$d'");
+            $response['success'] = true;
+        }
+
+        echo json_encode($response);
     }

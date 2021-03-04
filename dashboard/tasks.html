@@ -330,6 +330,31 @@
                                                 <span id="category" class="m-0 p-0 bg-light"></span>
                                             </div>
 
+                                            <div class="stats my-4">
+                                                <div class="flex-between">
+                                                    <div class="number" style="flex: 1;">
+                                                        <h2 class="poppins m-0" id="total-submission-stat"></h2>
+                                                        <span class="small text-muted">Total Submissions</span>
+                                                    </div>
+                                                    <div class="line"></div>
+                                                    <div class="number" style="flex: 1;">
+                                                        <h2 class="poppins m-0" id="accepted-submission-stat"></h2>
+                                                        <span class="small text-muted">Accepted Submissions</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-between mt-3">
+                                                    <div class="number" style="flex: 1;">
+                                                        <h2 class="poppins m-0" id="pending-boomcoins-stat">0</h2>
+                                                        <span class="small text-muted">Pending Boomcoins</span>
+                                                    </div>
+                                                    <div class="line"></div>
+                                                    <div class="number" style="flex: 1;">
+                                                        <h2 class="poppins m-0" id="disbursed-boomcoins-stat">0</h2>
+                                                        <span class="small text-muted">Boomcoins disbursed</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <p class="m-0 mt-2 p-0">How to complete this gig?</p>
                                             <hr class="my-1 mx-0">
                                             <p class="m-0 mt-2 p-0 small text-muted" id="completion"></p>
@@ -342,7 +367,17 @@
                                                     Here</a></p>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12 mb-3">
-                                            <h4 class="mb-4">My Submissions</h4>
+                                            <form action="" class="form">
+                                                <div class="form-group">
+                                                    <h6 for="" class="mb-2">View Submissions</h6>
+                                                    <select name="" id="submission-type" class="form-control"
+                                                        onchange="showSubmissionCards(this.options[this.selectedIndex].value)">
+                                                        <option value="all">All Submissions</option>
+                                                        <option value="accepted">Approved Submissions</option>
+                                                        <option value="rejected">Rejected Submissions</option>
+                                                    </select>
+                                                </div>
+                                            </form>
                                             <div class="submissions mb-3"
                                                 style="max-height: 60vh; overflow-y: scroll; padding: 0 1rem">
                                             </div>
@@ -372,8 +407,7 @@
                                     <span class="btn btn-solid" onclick="showApprove()">Submit</span>
                                     <div class="approve">
                                         <p class="para small">
-                                            Are you sure you want to submit? You cannot update the information after
-                                            submission nor add new record.
+                                            Are you sure you want to submit?
                                         </p>
                                         <div class="buttons text-right">
                                             <span class="btn btn-transparent" onclick="showApprove()">No</span>
@@ -451,8 +485,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Upload Proofs</label>
-                                        <input type="file" class="form-control" accept="image/*" name="proofs-upload"
-                                            id="proofs-upload">
+                                        <input type="file" class="form-control"
+                                            accept="image/jpg, image/jpeg, image/png, image/JPG, image/JPEG, image/PNG"
+                                            name="proofs-upload" id="proofs-upload">
                                         <div class="error" id="proofs-upload-error"></div>
                                     </div>
                                 </div>
