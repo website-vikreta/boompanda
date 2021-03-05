@@ -115,9 +115,11 @@
             // insert data into db
             $sql = "INSERT INTO `user`(`name`,`password`, `email`, `userType`, `status`, `token`) VALUES ('$name', '$password', '$email', 'admin', 'not verified', '$token')";;
             $sql1 = "INSERT INTO `user_info`(`email`, `userType`, `city`, `state`, `language`) VALUES ('$email', 'admin', '$city', '$state', '$language')";
+            $sql2 = "INSERT INTO `wallet`(`email`, `userType`) VALUES ('$email', 'admin',)";
             $result = mysqli_query($conn, $sql);
             $result1 = mysqli_query($conn, $sql1);
-            if($result && $result1){
+            $result2 = mysqli_query($conn, $sql2);
+            if($result && $result1 && $result2){
                 $response['success'] = true;
                 //write success code here
             }else

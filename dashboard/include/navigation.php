@@ -15,6 +15,7 @@
     $row1 = mysqli_fetch_assoc($result);
 ?>
 <div class="links">
+    <?php if($userType != 'admin' AND $userType != 'superadmin'){ ?>
     <div class="wallet">
         <i class="far fa-wallet mr-2"></i>
         <div class="amount poppins"> <?php echo $row1['balance']; ?> </div>
@@ -31,6 +32,7 @@
             </div>
         </div>
     </div>
+    <?php } ?>
     <div class="profile">
         <div class="image">
             <?php

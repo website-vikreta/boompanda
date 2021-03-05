@@ -97,7 +97,9 @@
             $result = mysqli_query($conn, $sql);
             $sql1 = "INSERT INTO `user_info`(`email`, `userType`, `uid`) VALUES ('$email', 'boompanda', '$uid')";
             $result1 = mysqli_query($conn, $sql1);
-            if($result && $result1){
+            $sql2 = "INSERT INTO `wallet`(`email`, `userType`) VALUES ('$email', 'boompanda')";
+            $result2 = mysqli_query($conn, $sql2);
+            if($result && $result1 && $result2){
 
                 //write success code here
                 // sending email

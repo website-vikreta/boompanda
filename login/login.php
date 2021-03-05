@@ -64,8 +64,10 @@ if(isset($_GET["code"]))
 
             $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', 'verified', '$token_val')";
             $sql1 = "INSERT INTO `user_info` (`email`, `userType`, `uid`) VALUES('$email', 'google', '$uid')";
+            $sql2 = "INSERT INTO `wallet` (`email`, `userType`) VALUES('$email', 'google')";
             $res = mysqli_query($conn, $sql);
             $res1 = mysqli_query($conn, $sql1);
+            $res2 = mysqli_query($conn, $sql2);
         }
         $_SESSION['email'] = $email;
         $_SESSION['userType'] = "google";
