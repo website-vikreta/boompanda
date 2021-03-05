@@ -36,11 +36,13 @@ function ViewUser(userid) {
         dataType: 'json',
         success: function (response) {
             submissions = [];
-            // console.log(response);
+            console.log(response);
             $("#view-submissions-modal #task-container").html("");
 
             $("#user-info #total-submission-stat").text(response[3]);
             $("#user-info #accepted-submission-stat").text(response[4].accepted_submissions);
+            $("#user-info #pending-boomcoins-stat").text(response[5]);
+            $("#user-info #disbursed-boomcoins-stat").text(response[6]);
 
             // profile
             var pattern = /^((http|https|ftp):\/\/)/;

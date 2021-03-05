@@ -274,6 +274,9 @@ function SubmitTask(taskid) {
 
             $("#submit-task-modal #task-info #total-submission-stat").text(response[2]);
             $("#submit-task-modal #task-info #accepted-submission-stat").text(response[3].accepted_submissions);
+            $("#submit-task-modal #task-info #pending-boomcoins-stat").text(response[4]);
+            $("#submit-task-modal #task-info #disbursed-boomcoins-stat").text(response[5]);
+
             $("#submit-task-modal #task-info #category").text(response[0].category);
             $("#submit-task-modal #task-info #requirements").html(response[0].requirements.replaceAll("\r\n", "<br>"));
             $("#submit-task-modal #task-info #completion").html(response[0].completion.replaceAll("\r\n", "<br>"));
@@ -297,7 +300,7 @@ function SubmitTask(taskid) {
 
             // submissions
             for (var i = 0; i < response[1].length; i++) {
-                submissions.push(response[i]);
+                submissions.push(response[1][i]);
             }
             showSubmissionCards("all");
 
@@ -455,29 +458,29 @@ function deleteSubmission(e, deleteSubmissionId) {
 
 // sorting for submissions
 function showSubmissionCards(submission_type) {
-    // console.log(submissions[1]);
+    console.log(submissions);
     $("#submit-task-modal .submissions").html("");
     if (submission_type == 'all') {
-        for (var i = 0; i < submissions[1].length; i++) {
-            if (submissions[1][i].status == 'accepted') {
-                var divEntry = "<div class='divEntry1' id='card-" + submissions[1][i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[1][i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[1][i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[1][i].email + "</p><p class='p-0 m-0 small'>" + submissions[1][i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[1][i].city + ", " + submissions[1][i].state + "</p></div><div class='d-flex'><a href='" + submissions[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[1][i].deleteReason + "</p></div>";
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'accepted') {
+                var divEntry = "<div class='divEntry1' id='card-" + submissions[i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><div class='d-flex'><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[i].deleteReason + "</p></div>";
                 $("#submit-task-modal .submissions").append(divEntry);
             } else {
-                var divEntry = "<div class='divEntry1' id='card-" + submissions[1][i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[1][i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[1][i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[1][i].email + "</p><p class='p-0 m-0 small'>" + submissions[1][i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[1][i].city + ", " + submissions[1][i].state + "</p></div><div class='d-flex'><a href='" + submissions[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a><button class='btn btn-danger text-light solid btn-sm ml-1' title='Check Out Proof' onclick='deleteSubmission(event, " + submissions[1][i].id + ");'><i class='far fa-trash'></i></button></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[1][i].deleteReason + "</p></div>";
+                var divEntry = "<div class='divEntry1' id='card-" + submissions[i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><div class='d-flex'><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a><button class='btn btn-danger text-light solid btn-sm ml-1' title='Check Out Proof' onclick='deleteSubmission(event, " + submissions[i].id + ");'><i class='far fa-trash'></i></button></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[i].deleteReason + "</p></div>";
                 $("#submit-task-modal .submissions").append(divEntry);
             }
         }
     } else if (submission_type == 'accepted') {
-        for (var i = 0; i < submissions[1].length; i++) {
-            if (submissions[1][i].status == 'accepted') {
-                var divEntry = "<div class='divEntry1' id='card-" + submissions[1][i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[1][i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[1][i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[1][i].email + "</p><p class='p-0 m-0 small'>" + submissions[1][i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[1][i].city + ", " + submissions[1][i].state + "</p></div><div class='d-flex'><a href='" + submissions[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[1][i].deleteReason + "</p></div>";
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'accepted') {
+                var divEntry = "<div class='divEntry1' id='card-" + submissions[i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><div class='d-flex'><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[i].deleteReason + "</p></div>";
                 $("#submit-task-modal .submissions").append(divEntry);
             }
         }
     } else if (submission_type == 'rejected') {
-        for (var i = 0; i < submissions[1].length; i++) {
-            if (submissions[1][i].status == 'rejected') {
-                var divEntry = "<div class='divEntry1' id='card-" + submissions[1][i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[1][i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[1][i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[1][i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[1][i].email + "</p><p class='p-0 m-0 small'>" + submissions[1][i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[1][i].city + ", " + submissions[1][i].state + "</p></div><div class='d-flex'><a href='" + submissions[1][i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a><button class='btn btn-danger text-light solid btn-sm ml-1' title='Check Out Proof' onclick='deleteSubmission(event, " + submissions[1][i].id + ");'><i class='far fa-trash'></i></button></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[1][i].deleteReason + "</p></div>";
+        for (var i = 0; i < submissions.length; i++) {
+            if (submissions[i].status == 'rejected') {
+                var divEntry = "<div class='divEntry1' id='card-" + submissions[i].id + "'> <p class='p-0 m-0 font-weight-bold'>" + submissions[i].name + " <span class='text-danger font-weight-normal small'>(" + submissions[i].status + ")</span></p> <p class='p-0 m-0 text-muted'>" + submissions[i].college + "</p><hr class='my-2'><div class='flex-between'><div div class='content'><p class='p-0 m-0 small'>" + submissions[i].email + "</p><p class='p-0 m-0 small'>" + submissions[i].mobile + "</p><p class='p-0 m-0 small'>" + submissions[i].city + ", " + submissions[i].state + "</p></div><div class='d-flex'><a href='" + submissions[i].proofs + "' target='_BLANK' class='btn btn-sm' title='Check Out Proof'><i class='far fa-file-export'></i></a><button class='btn btn-danger text-light solid btn-sm ml-1' title='Check Out Proof' onclick='deleteSubmission(event, " + submissions[i].id + ");'><i class='far fa-trash'></i></button></div></div><hr class='my-2'><p class='text-danger p-0 m-0 small'>" + submissions[i].deleteReason + "</p></div>";
                 $("#submit-task-modal .submissions").append(divEntry);
             }
         }

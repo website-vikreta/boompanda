@@ -41,6 +41,9 @@
         if(mysqli_num_rows($result) > 0){
             $number = 1;
             while($row = mysqli_fetch_assoc($result)){
+                $task_id = $row['id'];
+                $amt_d = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(`disbursed_boomcoins`) AS `disbursed_boomcoins` FROM `applications` WHERE `taskid` = '$task_id'"));
+                if($amt_d['disbursed_boomcoins'] == ""){$amt_d['disbursed_boomcoins'] = 0;}
                 $data .= "
                     <tr>
                         <td class='text-center'>".$number."</td>
@@ -49,7 +52,7 @@
                         <td class='poppins'>".$row['noOfApplications']."</td>
                         <td class='text-center poppins'>".$row['noOfSubmissions']."</td>
                         <td class='text-center poppins font-weight-bold'>".$row['noOfApproved']."</td>
-                        <td class='text-center poppins'>0</td>
+                        <td class='text-center poppins'>".$amt_d['disbursed_boomcoins']."</td>
                         <td>".$row['status']."</td>
                         <td class='d-flex justify-content-center p-2' style='height: 100%'>
                 ";

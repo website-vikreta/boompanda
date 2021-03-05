@@ -101,8 +101,8 @@
         while($row1 = mysqli_fetch_assoc($res1)){
             array_push($submission, $row1);
         }
-        // fetching application id
-        $sql2 = "SELECT `id` FROM `applications` WHERE  `email` = '$u_email' AND `userType` = '$u_userType' AND `taskid` = '$u_taskid'";
+        // fetching application id & boomcoind
+        $sql2 = "SELECT `id`, `pending_boomcoins`, `disbursed_boomcoins` FROM `applications` WHERE  `email` = '$u_email' AND `userType` = '$u_userType' AND `taskid` = '$u_taskid'";
         $res2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($res2);
 
@@ -111,12 +111,15 @@
         $sqlstatres = mysqli_query($conn, $sqlstat);
         $sqlstatrow = mysqli_fetch_assoc($sqlstatres);
 
+
         $output = array();
         array_push($output, $row);
         array_push($output, $submission);
         array_push($output, $row2);
         array_push($output, count($submission));
         array_push($output, $sqlstatrow);
+        array_push($output, $row2['pending_boomcoins']);
+        array_push($output, $row2['disbursed_boomcoins']);
         echo json_encode($output);
     }
 
@@ -125,7 +128,24 @@
     // * ====================================
     if(isset($_POST['approveid'])){
         $approveid = $_POST['approveid'];
-        $sql = "UPDATE `submissions` SET `status`= 'accepted', `deleteReason` = '' WHERE `id` = '$approveid'";
+        // getting status
+        $statusflag = "SELECT `flag`, `taskid`, `email`, `userType` FROM `submissions` WHERE `id` = '$approveid'";
+        $r = mysqli_fetch_assoc(mysqli_query($conn, $statusflag));
+        $taskid = $r['taskid'];
+        $u_email = $r['email'];
+        $u_userType = $r['userType'];
+        // getting boomcoins
+        $b = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `boomcoins` FROM `tasks` WHERE `id` = '$taskid'"));
+        $boomcoins = $b['boomcoins'];
+
+        if($r['flag'] == 0){
+            mysqli_query($conn, "UPDATE `tasks` SET `noOfApproved` = `noOfApproved` + 1 WHERE `id` = '$taskid'");
+            mysqli_query($conn, "UPDATE `applications` SET `pending_boomcoins` = `pending_boomcoins` + '$boomcoins' WHERE `email` = '$u_email' AND `userType` = '$u_userType'");
+            $sql = "UPDATE `submissions` SET `status`= 'accepted', `deleteReason` = '', `flag` = 1 WHERE `id` = '$approveid'";
+        }else{
+            $sql = "UPDATE `submissions` SET `status`= 'accepted', `deleteReason` = '' WHERE `id` = '$approveid'";
+        }
+        
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";          
@@ -140,7 +160,25 @@
     if(isset($_POST['rejectid'])){
         $rejectid = $_POST['rejectid'];
         $reason = $_POST['reason'];
-        $sql = "UPDATE `submissions` SET `status`= 'rejected', `deleteReason` = '$reason' WHERE `id` = '$rejectid'";
+        // getting status
+        $statusflag = "SELECT `flag`, `taskid`, `email`, `userType` FROM `submissions` WHERE `id` = '$rejectid'";
+        $r = mysqli_fetch_assoc(mysqli_query($conn, $statusflag));
+        $taskid = $r['taskid'];
+        $u_email = $r['email'];
+        $u_userType = $r['userType'];
+        // getting boomcoins
+        $b = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `boomcoins` FROM `tasks` WHERE `id` = '$taskid'"));
+        $boomcoins = $b['boomcoins'];
+
+        if($r['flag'] == 1){
+            mysqli_query($conn, "UPDATE `tasks` SET `noOfApproved` = `noOfApproved` - 1 WHERE `id` = '$taskid'");
+            mysqli_query($conn, "UPDATE `applications` SET `pending_boomcoins` = `pending_boomcoins` - '$boomcoins' WHERE `email` = '$u_email' AND `userType` = '$u_userType'");
+            $sql = "UPDATE `submissions` SET `status`= 'rejected', `deleteReason` = '$reason', `flag` = 0 WHERE `id` = '$rejectid'";
+        }else{
+            $sql = "UPDATE `submissions` SET `status`= 'rejected', `deleteReason` = '$reason' WHERE `id` = '$rejectid'";
+        }
+
+        
         $result = mysqli_query($conn, $sql);
         if($result){
             echo "success";          

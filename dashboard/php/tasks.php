@@ -194,11 +194,18 @@
         $sqlstatres = mysqli_query($conn, $sqlstat);
         $sqlstatrow = mysqli_fetch_assoc($sqlstatres);
 
+        // fetching application id & boomcoind
+        $sql2 = "SELECT `pending_boomcoins`, `disbursed_boomcoins` FROM `applications` WHERE  `email` = '$email' AND `userType` = '$userType' AND `taskid` = '$taskid'";
+        $res2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_assoc($res2);
+
         $output = array();
         array_push($output, $row);
         array_push($output, $submission);
         array_push($output, count($submission));
         array_push($output, $sqlstatrow);
+        array_push($output, $row2['pending_boomcoins']);
+        array_push($output, $row2['disbursed_boomcoins']);
         echo json_encode($output);
     }
 
