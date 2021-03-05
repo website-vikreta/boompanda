@@ -9,11 +9,15 @@
     $sql = "SELECT `username`, `name`, `profile`, `userType` FROM `user` WHERE `email` = '$email' AND `userType` = '$userType'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
+
+    $sql = "SELECT `balance` FROM `wallet` WHERE `email` = '$email' AND `userType` = '$userType'";
+    $result = mysqli_query($conn, $sql);
+    $row1 = mysqli_fetch_assoc($result);
 ?>
 <div class="links">
     <div class="wallet">
         <i class="far fa-wallet mr-2"></i>
-        <div class="amount">&#8377; 0</div>
+        <div class="amount poppins"> <?php echo $row1['balance']; ?> </div>
     </div>
     <div class="notification">
         <div class="btn"><i class="far fa-bell"></i></div>

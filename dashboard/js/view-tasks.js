@@ -177,3 +177,59 @@ function DeleteTask(deleteid) {
         });
     }
 }
+
+// get disbursed funds
+function DisburseFunds(disbursedid) {
+    $("#task-info #loading").css('display', 'flex');
+    $("#task-info .info-block").css('display', 'none');
+    $.ajax({
+        type: "POST",
+        url: "./php/view-tasks.php",
+        data: {
+            disbursedid: disbursedid
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            $("#payment-modal #showdetails").html(response);
+
+            $("#task-info #loading").css('display', 'none');
+            $("#task-info .info-block").css('display', 'flex');
+        }
+    });
+}
+
+// pay funds
+function PayFunds(payid) {
+    var confirmation = confirm("Are you sure you want to pay? This operation cannot be reverted. Kindly check all the submission again before processing.");
+
+    if (confirmation == true) {
+        //buttons for disable & spinner class
+        $(this).prop('disabled', true);
+        $(this).html("Processing <i class='fas fa-spinner fa-spin'></i>");
+
+        $.ajax({
+            type: "POST",
+            url: "./php/view-tasks.php",
+            data: {
+                payid: payid
+            },
+            dataType: 'JSON',
+            success: function (response) {
+                console.log(response);
+                if (response.success == true) {
+                    $("#payment-modal").modal('hide');
+                    notification('Heads up!', 'Amount has been disbursed to all the applicants.', 'success');
+                    readAdmins();
+                } else {
+                    alert("Nothing to process!");
+                }
+            },
+            error: function () {
+                notification('Ooops...', 'Some error on server side', 'error');
+                // enable buttons & remove spinner
+                $(this).prop('disabled', false);
+                $(this).html("Pay Now");
+            }
+        });
+    }
+}
