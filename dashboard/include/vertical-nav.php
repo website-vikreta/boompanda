@@ -159,6 +159,16 @@
                 <div class="tab"><i class="far fa-rupee-sign"></i> Tasks</div>
             </li>
         </a>
+        <a href="offers.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-tags"></i> Offers</div>
+            </li>
+        </a>
+        <a href="activities.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
+            </li>
+        </a>
     </ul>
     <?php } ?>
 </div>
