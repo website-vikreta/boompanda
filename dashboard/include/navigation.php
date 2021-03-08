@@ -16,10 +16,10 @@
 ?>
 <div class="links">
     <?php if($userType != 'admin' AND $userType != 'superadmin'){ ?>
-    <div class="wallet">
+    <a class="wallet" href="./wallet.html">
         <i class="far fa-wallet mr-2"></i>
         <div class="amount poppins"> <?php echo $row1['balance']; ?> </div>
-    </div>
+    </a>
     <div class="notification">
         <div class="btn"><i class="far fa-bell"></i></div>
         <div class="notification-dropdown">

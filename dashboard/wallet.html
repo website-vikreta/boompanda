@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- check for sessions -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- <input type="hidden" value="all" id="session_user_check"> -->
+    <script src="./js/user_sessions.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <!-- important scripts -->
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+        <div id="vertical-nav"></div>
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+
+        <div class="main-section">
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0">Wallet</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper">
+                <style>
+                    .card.stat{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: row;
+                        padding: 2rem;
+                        
+                        margin: 0 auto;
+                    }
+                    .card.stat .line{
+                        width: 3px;
+                        height: 30px;
+                        background: #ddd;
+                        margin: 0 3rem;
+                    }
+                    .card.stat :is(.earning, .balance, .pending) {
+                        text-align: center;
+                    }
+                    .card.stat :is(.earning, .balance, .pending) #number{
+                        color: var(--color-red);
+                        font-family: var(--font-poppins);
+                        font-weight: bold;
+                        font-size: 2rem;
+                        margin: 0;
+                        line-height: 100%;
+                    }
+                </style>
+                <div class="card p-2 text-muted mb-4">
+                    <p class="mb-1"><i class="far fa-info-circle mr-2 text-danger"></i> 10 Boomcoins = Rs. 1</p>
+                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> You will soon be able to withdraw the funds to your Paytm Wallet or Bank Account/UP</p>
+                </div>
+                <div class="card stat mx-auto">
+                    <div class="earning" title="This is the total amount earned by you from the beginning and it includes the amount which is present in your wallet as well as which you have withdrawn previously.">
+                        <div id="number"></div>
+                        <p class="m-0">Total earning</p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="balance" title="The amount earned by completing various Tasks on BoomPanda. After crossing a minimum wallet balance of Rs. 100 you can withdraw it to your Paytm wallet or Bank Account/UPI.">
+                        <div id="number"></div>
+                        <p class="m-0">Available Boomcoins</p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="pending" title="Pending balance is the amount earned by you by completing various tasks but it has not been disbursed yet. You cannot withdraw this amount until it is disbursed into your Wallet Balance. Generally, the Pending balance is disbursed within appx. 15 days.">
+                        <div id="number"></div>
+                        <p class="m-0">Pending Boomcoins</p>
+                    </div>
+                </div>
+                
+                <!-- show transactions here -->
+                <h4 class="poppins text-center mt-5">Your Transactions</h4>
+                <hr>
+                <div id="responsecontainer"></div>
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+
+        </div>
+    </div>
+
+
+    <!-- jquery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+    <script src="./js/wallet.js"></script>
+    <script>
+        readTransactions();
+    </script>
+</body>
+
+</html>

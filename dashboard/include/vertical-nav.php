@@ -41,7 +41,7 @@
         </li>
         <li class="nav-tab dropdown">
             <label for="toggle-check2" class="m-0 p-0">
-                <div class="tab"><i class="far fa-chalkboard"></i> Learn
+                <div class="tab"><i class="far fa-chalkboard"></i> Activities
                 </div>
             </label>
             <!-- checkbox  to manage toggle -->
@@ -117,7 +117,7 @@
         </li>
         <li class="nav-tab dropdown">
             <label for="toggle-check2" class="m-0 p-0">
-                <div class="tab"><i class="far fa-chalkboard"></i> Learn
+                <div class="tab"><i class="far fa-chalkboard"></i> Activities
                 </div>
             </label>
             <!-- checkbox  to manage toggle -->
