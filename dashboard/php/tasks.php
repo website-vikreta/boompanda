@@ -282,7 +282,8 @@
             $mobile = $proof_array[$i]['mobile'];
             $state = $proof_array[$i]['state'];
             $city = $proof_array[$i]['city'];
-            $college_name = $proof_array[$i]['college_name'];
+            // $college_name = $proof_array[$i]['college_name'];
+            $college_name = str_replace("'", '', $proof_array[$i]['college_name']);
             $details = $proof_array[$i]['details'];
             $proof = $proof_array[$i]['sample_proofs'];
             $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', '$proof', 'not approved')";
