@@ -39,19 +39,11 @@
                 </a>
             </ul>
         </li>
-        <li class="nav-tab dropdown">
-            <label for="toggle-check2" class="m-0 p-0">
-                <div class="tab"><i class="far fa-chalkboard"></i> Activities
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check2" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <li>Add activity</li>
-                <li>View activities</li>
-            </ul>
-        </li>
+        <a href="admin-activities.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
+            </li>
+        </a>
         <li class="nav-tab dropdown">
             <label for="toggle-check3" class="m-0 p-0">
                 <div class="tab"><i class="far fa-tags"></i> Offers
@@ -115,19 +107,11 @@
                 </a>
             </ul>
         </li>
-        <li class="nav-tab dropdown">
-            <label for="toggle-check2" class="m-0 p-0">
-                <div class="tab"><i class="far fa-chalkboard"></i> Activities
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check2" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <li>Add activity</li>
-                <li>View activities</li>
-            </ul>
-        </li>
+        <a href="activities.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
+            </li>
+        </a>
         <li class="nav-tab dropdown">
             <label for="toggle-check3" class="m-0 p-0">
                 <div class="tab"><i class="far fa-tags"></i> Offers

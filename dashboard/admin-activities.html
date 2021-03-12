@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- check for sessions -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- <input type="hidden" value="all" id="session_user_check"> -->
+    <script src="./js/admin_sessions.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <!-- important scripts -->
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+        <div id="vertical-nav"></div>
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+
+        <div class="main-section">
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0">Manage Activities</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper pt-4">
+                 <!-- * ADD USER BUTTON -->
+                 <div class="top-button-group mb-4 p-0">
+                    <form class="text-right" id="dummy-form">
+                        <div class="form-group m-0">
+                            <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
+                                data-target="#add-activity-modal"><i class="fas fa-graduation-cap mr-1"></i>
+                                Add activity
+                            </button>
+                        </div>
+                        <script>
+                            $("#dummy-form button").on('click', function (e) {
+                                e.preventDefault();
+                            })
+                        </script>
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- ! ======================================================== -->
+                <!-- ! ADD ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="add-activity-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <form action="" id="add-activity-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Add activity</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                                    <!-- profile -->
+                                                    <div class="profile-wrapper form-group mt-0">
+                                                        <div class="profile m-0">
+                                                            <img src="./assets/logo.jpg" id="activity-logo" class="img-fluid"
+                                                                alt="">
+                                                            <label class="clickable" for="activityLogo">
+                                                                <i class="far fa-paperclip"></i>
+                                                                <p>Change logo</p>
+                                                            </label>
+                                                        </div>
+                                                        <input type="file" name="" id="activityLogo" class="d-none"
+                                                            onchange="previewFile(event)" accept="image/*">
+                                                        <div class="error" id="activityLogo-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Activity Title</label>
+                                                        <input type="text" class="form-control" placeholder="Activty title"
+                                                            id="activity-title">
+                                                        <div class="error" id="activity-title-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Activty Category</label>
+                                                        <select name="" id="activty-category" class="form-control">
+                                                            <option value="-1">---- Select one option ----</option>
+                                                            <option value="Workshops & Seminars">Workshops & Seminars</option>
+                                                            <option value="Competitions & Games">Competitions & Games</option>
+                                                            <option value="College Festivals">College Festivals</option>
+                                                            <option value="Jobs / Internship">Jobs / Internship</option>
+                                                        </select>
+                                                        <div class="error" id="activity-category-error"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Organizer's Name</label>
+                                                <input type="text" class="form-control" placeholder="Organizer's name"
+                                                    id="organizer-name">
+                                                <div class="error" id="organizer-name-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">About Activity</label>
+                                                <textarea name="" class="form-control" id="about-activity" cols="30"
+                                                    rows="5" placeholder="About activity (explain in brief)"></textarea>
+                                                <div class="error" id="about-activity-error"></div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">Start Date</label>
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="start-date">
+                                                    <div class="error" id="start-date-error"></div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">End Date</label>
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                                    <div class="error" id="end-date-error"></div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="form-group">
+                                                <label for="">Time</label>
+                                                <input type="time" class="form-control" id="time">
+                                                <div class="error" id="time-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Who can participate?</label>
+                                                <textarea name="" class="form-control" id="participate" cols="30"
+                                                    rows="5" placeholder="Who can participate? (explain in brief)"></textarea>
+                                                <div class="error" id="participate-error"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <!-- Banner -->
+                                            <div class="profile-wrapper banner-wrapper form-group mt-0">
+                                                <label for="">Activity Banner</label>
+                                                <div class="profile banner m-0">
+                                                    <img src="./assets/banner.jpg" id="activity-banner" class="img-fluid"
+                                                        alt="">
+                                                    <label class="clickable" for="activityBanner">
+                                                        <i class="far fa-paperclip"></i>
+                                                        <p>Change Banner</p>
+                                                    </label>
+                                                </div>
+                                                <input type="file" name="" id="activityBanner" class="d-none"
+                                                    onchange="previewFile2(event)" accept="image/*">
+                                                <div class="error" id="activityBanner-error"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Rewards</label>
+                                                <textarea name="" class="form-control" id="rewards" cols="30"
+                                                    rows="5" placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
+                                                <div class="error" id="rewards-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Activity Type</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio1" name="type" value="Free">
+                                                        <label for="radio1">
+                                                            <div class="radio"></div>Free
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio2" name="type" value="Paid">
+                                                        <label for="radio2">
+                                                            <div class="radio"></div>Paid
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Amount in Rs." id="paid-amount">
+                                                        <div class="error" id="paid-amount-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="type-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Participation</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio3" name="team" value="Individual">
+                                                        <label for="radio3">
+                                                            <div class="radio"></div>Individual
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio4" name="team" value="Team">
+                                                        <label for="radio4">
+                                                            <div class="radio"></div>Team
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none team-wrapper" style="max-width: 200px;">
+                                                        <input type="number" class="form-control"
+                                                            placeholder="Team size" id="team-size">
+                                                        <div class="error" id="team-size-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="participation-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Method to perform activity</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio5" name="perform" value="Online">
+                                                        <label for="radio5">
+                                                            <div class="radio"></div>Online
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio6" name="perform" value="Offline">
+                                                        <label for="radio6">
+                                                            <div class="radio"></div>Offline
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="perform-error"></div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Specify location / URL" id="location">
+                                                    <div class="error" id="location-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="add-activity-btn">Add
+                                        Activity</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! ADD ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+
+        </div>
+    </div>
+
+
+    <!-- bootstrap js -->
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- magnific popup -->
+    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+    <script src="./js/admin-activities.js"></script>
+</body>
+
+</html>
