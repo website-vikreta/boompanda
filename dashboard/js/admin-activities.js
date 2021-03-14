@@ -56,8 +56,9 @@ $(document).ready(function(){
       formData.append('paidAmount', $('#add-activity-modal #paid-amount').val());
       formData.append('team', $("#add-activity-modal input[name=team]:checked").val());
       formData.append('teamSize', $('#add-activity-modal #team-size').val());
-      formData.append('perform', $("#add-activity-modal input[name=perform]:checked").val());
+      formData.append('platform', $("#add-activity-modal input[name=perform]:checked").val());
       formData.append('location', $('#add-activity-modal #location').val());
+      formData.append('addActivity', "addActivity");
 
       // ajax function
       $.ajax({
@@ -70,95 +71,115 @@ $(document).ready(function(){
         dataType: 'json',
         cache: false,
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
-            // if (response.gigLogoErr) {
-            //     $("#add-task-form #gigLogo-error").html(response.gigLogoErr);
-            // } else {
-            //     $("#add-task-form #gigLogo-error").html("");
-            // }
-            // if (response.gigTitleErr) {
-            //     $("#add-task-form #gig-title-error").html(response.gigTitleErr);
-            // } else {
-            //     $("#add-task-form #gig-title-error").html("");
-            // }
-            // if (response.gigCategoryErr) {
-            //     $("#add-task-form #gig-category-error").html(response.gigCategoryErr);
-            // } else {
-            //     $("#add-task-form #gig-category-error").html("");
-            // }
-            // if (response.companyNameErr) {
-            //     $("#add-task-form #company-name-error").html(response.companyNameErr);
-            // } else {
-            //     $("#add-task-form #company-name-error").html("");
-            // }
-            // if (response.companyDescriptionErr) {
-            //     $("#add-task-form #company-description-error").html(response.companyDescriptionErr);
-            // } else {
-            //     $("#add-task-form #company-description-error").html("");
-            // }
-            // if (response.startDateErr) {
-            //     $("#add-task-form #start-date-error").html(response.startDateErr);
-            // } else {
-            //     $("#add-task-form #start-date-error").html("");
-            // }
-            // if (response.endDateErr) {
-            //     $("#add-task-form #end-date-error").html(response.endDateErr);
-            // } else {
-            //     $("#add-task-form #end-date-error").html("");
-            // }
-            // if (response.boomCoinsErr) {
-            //     $("#add-task-form #boom-coins-error").html(response.boomCoinsErr);
-            // } else {
-            //     $("#add-task-form #boom-coins-error").html("");
-            // }
-            // if (response.complexityErr) {
-            //     $("#add-task-form #complexity-error").html(response.complexityErr);
-            // } else {
-            //     $("#add-task-form #complexity-error").html("");
-            // }
-            // if (response.sampleProofsErr) {
-            //     $("#add-task-form #sample-proofs-error").html(response.sampleProofsErr);
-            // } else {
-            //     $("#add-task-form #sample-proofs-error").html("");
-            // }
-            // if (response.tutorialLinkErr) {
-            //     $("#add-task-form #tutorial-link-error").html(response.tutorialLinkErr);
-            // } else {
-            //     $("#add-task-form #tutorial-link-error").html("");
-            // }
-            // if (response.requirementsErr) {
-            //     $("#add-task-form #requirements-error").html(response.requirementsErr);
-            // } else {
-            //     $("#add-task-form #requirements-error").html("");
-            // }
-            // if (response.completionErr) {
-            //     $("#add-task-form #completion-error").html(response.completionErr);
-            // } else {
-            //     $("#add-task-form #completion-error").html("");
-            // }
-            // if (response.interestsErr) {
-            //     $("#add-task-form #interest-error").html(response.interestsErr);
-            // } else {
-            //     $("#add-task-form #interest-error").html("");
-            // }
-            // if (response.applyErr) {
-            //     $("#add-task-form #apply-error").html(response.applyErr);
-            // } else {
-            //     $("#add-task-form #apply-error").html("");
-            // }
+            if (response.activityLogoErr) {
+                $("#add-activity-modal #activityLogo-error").html(response.activityLogoErr);
+            } else {
+                $("#add-activity-modal #activityLogo-error").html("");
+            }
+            if (response.titleErr) {
+                $("#add-activity-modal #activity-title-error").html(response.titleErr);
+            } else {
+                $("#add-activity-modal #activity-title-error").html("");
+            }
+            if (response.categoryErr) {
+                $("#add-activity-modal #activity-category-error").html(response.categoryErr);
+            } else {
+                $("#add-activity-modal #activity-category-error").html("");
+            }
+            if (response.organizationNameErr) {
+                $("#add-activity-modal #organizer-name-error").html(response.organizationNameErr);
+            } else {
+                $("#add-activity-modal #organizer-name-error").html("");
+            }
+            if (response.aboutActivityErr) {
+                $("#add-activity-modal #about-activity-error").html(response.aboutActivityErr);
+            } else {
+                $("#add-activity-modal #about-activity-error").html("");
+            }
+            if (response.startDateErr) {
+                $("#add-activity-modal #start-date-error").html(response.startDateErr);
+            } else {
+                $("#add-activity-modal #start-date-error").html("");
+            }
+            if (response.endDateErr) {
+                $("#add-activity-modal #end-date-error").html(response.endDateErr);
+            } else {
+                $("#add-activity-modal #end-date-error").html("");
+            }
+            if (response.aboutActivityErr) {
+                $("#add-activity-modal #about-activity-error").html(response.aboutActivityErr);
+            } else {
+                $("#add-activity-modal #about-activity-error").html("");
+            }
+            if (response.timeErr) {
+                $("#add-activity-modal #time-error").html(response.timeErr);
+            } else {
+                $("#add-activity-modal #time-error").html("");
+            }
+            if (response.participateErr) {
+                $("#add-activity-modal #participate-error").html(response.participateErr);
+            } else {
+                $("#add-activity-modal #participate-error").html("");
+            }
+            if (response.bannerImageErr) {
+                $("#add-activity-modal #activityBanner-error").html(response.bannerImageErr);
+            } else {
+                $("#add-activity-modal #activityBanner-error").html("");
+            }
+            if (response.rewardsErr) {
+                $("#add-activity-modal #rewards-error").html(response.rewardsErr);
+            } else {
+                $("#add-activity-modal #rewards-error").html("");
+            }
+            if (response.typeErr) {
+                $("#add-activity-modal #type-error").html(response.typeErr);
+            } else {
+                $("#add-activity-modal #type-error").html("");
+            }
+            if (response.paidAmountErr) {
+                $("#add-activity-modal #paid-amount-error").html(response.paidAmountErr);
+            } else {
+                $("#add-activity-modal #paid-amount-error").html("");
+            }
+            if (response.teamErr) {
+                $("#add-activity-modal #team-error").html(response.teamErr);
+            } else {
+                $("#add-activity-modal #team-error").html("");
+            }
+            if (response.teamSizeErr) {
+                $("#add-activity-modal #team-size-error").html(response.teamSizeErr);
+            } else {
+                $("#add-activity-modal #team-size-error").html("");
+            }
+            if (response.platformErr) {
+                $("#add-activity-modal #perform-error").html(response.platformErr);
+            } else {
+                $("#add-activity-modal #perform-error").html("");
+            }
+            if (response.locationErr) {
+                $("#add-activity-modal #location-error").html(response.locationErr);
+            } else {
+                $("#add-activity-modal #location-error").html("");
+            }
 
             if (response.success == true) {
                 $("#add-activity-form").trigger("reset");
+                $("#add-activity-modal").modal("hide");
+                readActivities();
                 notification('Heads up!', 'Activity Added Successfully.', 'success');
             }
 
             $(_temp).removeAttr("disabled");
             $(_temp).html('Add Activity');
         },
-        error: function () {
-            console.log("Some error on server side");
-
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            console.log(message);
             $(_temp).removeAttr("disabled");
             $(_temp).html('Add Activity');
         }
@@ -167,3 +188,168 @@ $(document).ready(function(){
   });
 
 })
+
+function readActivities(){
+    var readrecord = 'readrecord';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            readrecord: readrecord
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            $("#responsecontainer").html(response);
+            $('#myTable').DataTable();
+        }
+    });
+}
+
+function activeActivity(approveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .activity-" + approveid;
+    var _temp = "#approve" + approveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            approveid: approveid
+        },
+        success: function (response) {
+            console.log(response);
+            if (response == 'success') {
+                notification('Heads up!', 'This activity is now running...', 'success');
+                readActivities();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-check'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .activity-" + approveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-check'></i>");
+        }
+    });
+}
+
+function deactiveActivity(disapproveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .activity-" + disapproveid;
+    var _temp = "#disapprove" + disapproveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            disapproveid: disapproveid
+        },
+        success: function (response) {
+            console.log(response);
+            if (response == 'success') {
+                notification('Heads up!', 'Activity stopped running', 'success');
+                readActivities();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-times'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .activity-" + approveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-times'></i>");
+        }
+    });
+}
+
+function DeleteActivity(deleteid) {
+
+
+    var confirmation = confirm("Are you sure about deleting the activity? You will not be able to access it again. Click ok to continue");
+
+    if (confirmation == true) {
+        //buttons for disable & spinner class
+        var button = "#myTable .activity-" + deleteid;
+        var _temp = "#delete" + deleteid;
+        $(button).prop('disabled', true);
+        $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+        $.ajax({
+            type: "POST",
+            url: "./php/admin-activities.php",
+            data: {
+                deleteid: deleteid
+            },
+            success: function (response) {
+                if (response == 'success') {
+                    notification('Heads up!', 'Activity deleted', 'success');
+                    readActivities();
+                }
+            },
+            error: function () {
+                notification('Ooops...', 'Some error on server side', 'error');
+                // enable buttons & remove spinner
+                $(button).prop('disabled', false);
+                $(_temp).html("<i class='far fa-trash'></i>");
+            }
+        });
+    }
+}
+
+function viewActivity(activityid) {
+    $("#view-activity-modal #loading").css('display', 'flex');
+    $("#view-activity-modal .info-block").css('display', 'none');
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            activityid: activityid
+        },
+        dataType: 'json',
+        success: function (response) {
+            // console.log(response);
+
+            $("#view-activity-modal #activityBanner").attr('src', response.banner.substring(3));
+            $("#view-activity-modal #logo").attr('src', response.logo.substring(3));
+            $("#view-activity-modal #title").text(response.title);
+            $("#view-activity-modal #category").text(response.category);
+            $("#view-activity-modal #organizer").text(response.organizer);
+            $("#view-activity-modal #start-date").text(response.startDate);
+            $("#view-activity-modal #time").text(response.time);
+            $("#view-activity-modal #end-date").text(response.endDate);
+            $("#view-activity-modal #about-activity").html(response.about_activity.replaceAll("\r\n", "<br>"));
+
+            $("#view-activity-modal #participation").html(response.participation.replaceAll("\r\n", "<br>"));
+            $("#view-activity-modal #rewards").html(response.rewards.replaceAll("\r\n", "<br>"));
+            if(response.type == 'Free'){
+                $("#view-activity-modal #type").text(response.type);
+            }else{
+                $("#view-activity-modal #type").text(response.type + " ( ₹" + response.amountPaid + " )");
+            }
+            if(response.team == 'Individual'){
+                $("#view-activity-modal #team").text(response.team);
+            }else{
+                $("#view-activity-modal #team").text(response.team + " ( Team Size - " + response.teamSize + " )");
+            }
+            $("#view-activity-modal #platform").text(response.location);
+
+            $("#view-activity-modal #loading").css('display', 'none');
+            $("#view-activity-modal .info-block").css('display', 'flex');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            // console.log(message);
+            notification('Ooops...', message, 'error');
+        }
+    });
+}

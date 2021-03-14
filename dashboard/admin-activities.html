@@ -21,6 +21,8 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="../vendor/fontawesome/all.css">
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
@@ -75,6 +77,11 @@
                     </form>
                 </div>
 
+                <div class="table-wrapper">
+                    <!-- response from php is added in this div -->
+                    <div id="responsecontainer"></div>
+                </div>
+
 
 
 
@@ -117,7 +124,7 @@
                                                             </label>
                                                         </div>
                                                         <input type="file" name="" id="activityLogo" class="d-none"
-                                                            onchange="previewFile(event)" accept="image/*">
+                                                            onchange="previewFile(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                         <div class="error" id="activityLogo-error"></div>
                                                     </div>
                                                 </div>
@@ -192,7 +199,7 @@
                                                     </label>
                                                 </div>
                                                 <input type="file" name="" id="activityBanner" class="d-none"
-                                                    onchange="previewFile2(event)" accept="image/*">
+                                                    onchange="previewFile2(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                 <div class="error" id="activityBanner-error"></div>
                                             </div>
 
@@ -246,7 +253,7 @@
                                                         <div class="error" id="team-size-error"></div>
                                                     </div>
                                                 </div>
-                                                <div class="error" id="participation-error"></div>
+                                                <div class="error" id="team-error"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Method to perform activity</label>
@@ -289,6 +296,298 @@
                 <!-- ! ======================================================== -->
                 <!-- ! ADD ACTIVITY MODAL -->
                 <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="view-activity-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="add-user-modal1">View activity</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pt-2">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="info-block flex-column">
+                                    <!-- banner image -->
+                                    <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
+                                    <div class="row">
+                                        <div class="col-lg-7 col-md-7 col-12">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-12">
+                                                    <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                    <div class="title-group">
+                                                        <h4 id="title" class="m-0 p-0"></h4>
+                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                    </div>
+                                                    
+                                                    <div class="flex-center justify-content-start">
+                                                        <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
+                                                                style="font-family: poppins;"></b></p>
+                                                        <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
+                                                                style="font-family: poppins;"></b></p>
+                                                    </div>
+                                                    <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
+                                                        style="font-family: poppins;"></b></p>
+                                                </div>
+                                            </div>                                            
+                                            <hr>
+                                            <p class="my-3 p-0" id="about-activity"></p>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-12">
+                                            <p class="m-0 mt-2 p-0 font-weight-bold"> Who can participate?</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="participation"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Rewards</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="rewards"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Activity Type</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="type"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> How you can participate?</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="team"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
+                                            <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="platform"></p>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="error" id="server-error"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-transparent"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! EDIT ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="edit-activity-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <form action="" id="add-activity-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Edit activity</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="loading" id="loading">
+                                        <i class="far fa-sync fa-spin"></i>
+                                    </div>
+                                    <div class="row info-block">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                                    <!-- profile -->
+                                                    <div class="profile-wrapper form-group mt-0">
+                                                        <div class="profile m-0">
+                                                            <img src="./assets/logo.jpg" id="activity-logo" class="img-fluid"
+                                                                alt="">
+                                                            <label class="clickable" for="activityLogo">
+                                                                <i class="far fa-paperclip"></i>
+                                                                <p>Change logo</p>
+                                                            </label>
+                                                        </div>
+                                                        <input type="file" name="" id="activityLogo" class="d-none"
+                                                            onchange="previewFile(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                        <div class="error" id="activityLogo-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Activity Title</label>
+                                                        <input type="text" class="form-control" placeholder="Activty title"
+                                                            id="activity-title">
+                                                        <div class="error" id="activity-title-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Activty Category</label>
+                                                        <select name="" id="activty-category" class="form-control">
+                                                            <option value="-1">---- Select one option ----</option>
+                                                            <option value="Workshops & Seminars">Workshops & Seminars</option>
+                                                            <option value="Competitions & Games">Competitions & Games</option>
+                                                            <option value="College Festivals">College Festivals</option>
+                                                            <option value="Jobs / Internship">Jobs / Internship</option>
+                                                        </select>
+                                                        <div class="error" id="activity-category-error"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Organizer's Name</label>
+                                                <input type="text" class="form-control" placeholder="Organizer's name"
+                                                    id="organizer-name">
+                                                <div class="error" id="organizer-name-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">About Activity</label>
+                                                <textarea name="" class="form-control" id="about-activity" cols="30"
+                                                    rows="5" placeholder="About activity (explain in brief)"></textarea>
+                                                <div class="error" id="about-activity-error"></div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">Start Date</label>
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="start-date">
+                                                    <div class="error" id="start-date-error"></div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">End Date</label>
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                                    <div class="error" id="end-date-error"></div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="form-group">
+                                                <label for="">Time</label>
+                                                <input type="time" class="form-control" id="time">
+                                                <div class="error" id="time-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Who can participate?</label>
+                                                <textarea name="" class="form-control" id="participate" cols="30"
+                                                    rows="5" placeholder="Who can participate? (explain in brief)"></textarea>
+                                                <div class="error" id="participate-error"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <!-- Banner -->
+                                            <div class="profile-wrapper banner-wrapper form-group mt-0">
+                                                <label for="">Activity Banner</label>
+                                                <div class="profile banner m-0">
+                                                    <img src="./assets/banner.jpg" id="activity-banner" class="img-fluid"
+                                                        alt="">
+                                                    <label class="clickable" for="activityBanner">
+                                                        <i class="far fa-paperclip"></i>
+                                                        <p>Change Banner</p>
+                                                    </label>
+                                                </div>
+                                                <input type="file" name="" id="activityBanner" class="d-none"
+                                                    onchange="previewFile2(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                <div class="error" id="activityBanner-error"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="">Rewards</label>
+                                                <textarea name="" class="form-control" id="rewards" cols="30"
+                                                    rows="5" placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
+                                                <div class="error" id="rewards-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Activity Type</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio1" name="type" value="Free">
+                                                        <label for="radio1">
+                                                            <div class="radio"></div>Free
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio2" name="type" value="Paid">
+                                                        <label for="radio2">
+                                                            <div class="radio"></div>Paid
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Amount in Rs." id="paid-amount">
+                                                        <div class="error" id="paid-amount-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="type-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Participation</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio3" name="team" value="Individual">
+                                                        <label for="radio3">
+                                                            <div class="radio"></div>Individual
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio4" name="team" value="Team">
+                                                        <label for="radio4">
+                                                            <div class="radio"></div>Team
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none team-wrapper" style="max-width: 200px;">
+                                                        <input type="number" class="form-control"
+                                                            placeholder="Team size" id="team-size">
+                                                        <div class="error" id="team-size-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="team-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Method to perform activity</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio5" name="perform" value="Online">
+                                                        <label for="radio5">
+                                                            <div class="radio"></div>Online
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio6" name="perform" value="Offline">
+                                                        <label for="radio6">
+                                                            <div class="radio"></div>Offline
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="perform-error"></div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Specify location / URL" id="location">
+                                                    <div class="error" id="location-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="add-activity-btn">Add
+                                        Activity</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! EDIT ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
@@ -317,6 +616,9 @@
     <!-- custom js -->
     <script src="./js/main.js"></script>
     <script src="./js/admin-activities.js"></script>
+    <script>
+        readActivities();
+    </script>
 </body>
 
 </html>
