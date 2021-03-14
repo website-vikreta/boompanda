@@ -275,6 +275,7 @@
         // $response['proof_array'] = json_decode($proof_array);
         $flag = 0;
         for($i=0; $i<count($proof_array); $i++){
+            $today = date('Y-m-d');
             // some values
             $response[$i] = $proof_array[$i];
             $name = $proof_array[$i]['name'];
@@ -286,7 +287,7 @@
             $college_name = str_replace("'", '', $proof_array[$i]['college_name']);
             $details = $proof_array[$i]['details'];
             $proof = $proof_array[$i]['sample_proofs'];
-            $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail', '$mobile', '$state', '$city', '$college_name', '$details', '$proof', 'not approved')";
+            $sql = "INSERT INTO `submissions` (`email`, `userType`, `taskid`, `name`, `pemail`, `dateOfSubmission`, `mobile`, `state`, `city`, `college`, `details`, `proofs`, `status`) VALUES ('$email', '$userType', '$taskid', '$name', '$pemail','$today', '$mobile', '$state', '$city', '$college_name', '$details', '$proof', 'not approved')";
             $result = mysqli_query($conn, $sql);
 
             if(!$result){

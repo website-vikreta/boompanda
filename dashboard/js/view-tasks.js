@@ -233,3 +233,67 @@ function PayFunds(payid) {
         });
     }
 }
+
+// strat live tracking
+function LiveTracking(liveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .task-" + liveid;
+    var _temp = "#livetraking" + liveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/view-tasks.php",
+        data: {
+            liveid: liveid
+        },
+        success: function (response) {
+            if (response == 'success') {
+                notification('Heads up!', 'Live tracking started', 'success');
+                readAdmins();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-broadcast-tower'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .task-" + liveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-broadcast-tower'></i>");
+        }
+    });
+}
+
+// stop live tracking
+function HideTracking(hideid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .task-" + hideid;
+    var _temp = "#hidetracking" + hideid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/view-tasks.php",
+        data: {
+            hideid: hideid
+        },
+        success: function (response) {
+            if (response == 'success') {
+                notification('Heads up!', 'Live tracking stopped', 'success');
+                readAdmins();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-eye-slash'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .task-" + hideid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-eye-slash'></i>");
+        }
+    });
+}

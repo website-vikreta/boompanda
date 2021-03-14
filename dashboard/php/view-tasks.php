@@ -57,11 +57,25 @@
                         <td class='text-center poppins'>".$amt_d['disbursed_boomcoins']."</td>
                         <td class='text-center'>".$row['status']."</td>";
                 if($superadmin == 'superadmin'){
-                    $data .= "<td class='flex-center'><button class='btn btn-solid btn-danger text-white w-100 h-auto' onclick='DisburseFunds(".$row['id'].")' title='View all pending amounts & pay' data-toggle='modal' data-target='#payment-modal'>Disburse Amount</button></td>";
+                    $data .= "<td class='flex-center'>
+                                <a class='btn btn-solid btn-primary text-white w-100 h-auto mb-1' href='../live/tracking.php?accesskey=".$row['token']."' target='_BLANK' onclick='LiveTrack(".$row['id'].")' title='View Live Tracking'>Live Tracking</a>
+                                <button class='btn btn-solid btn-danger text-white w-100 h-auto' onclick='DisburseFunds(".$row['id'].")' title='View all pending amounts & pay' data-toggle='modal' data-target='#payment-modal'>Disburse Amount</button>
+                            </td>";
                 }
                         
                 $data .="<td class='flex-between' style='height: 100%; display: flex;'>
                 ";
+                // live tracking
+                if($row['tracking'] == "Hidden" && $superadmin == 'superadmin'){
+                    $data .= "
+                    <button class='btn solid rounded btn-primary task-".$row['id']."' id='livetraking".$row['id']."' onclick='LiveTracking(".$row['id'].")' data-toggle='tooltip' title='Start Live Tracking'><i class='far fa-broadcast-tower'></i></button>
+                    ";
+                }else if($row['tracking'] == "Live" && $superadmin == 'superadmin'){
+                    $data .= "
+                    <button class='btn solid rounded btn-danger task-".$row['id']."' id='hidetracking".$row['id']."' onclick='HideTracking(".$row['id'].")' data-toggle='tooltip' title='Stop Live Tracking'><i class='far fa-eye-slash'></i></button>
+                    ";
+                }
+                // active inactive
                 if($row['status'] == "Not Active" || $row['status'] == "Paused"){
                     $data .= "
                     <button class='btn solid rounded btn-success task-".$row['id']."' id='approve".$row['id']."' onclick='ActiveTask(".$row['id'].")' data-toggle='tooltip' title='Run this gig'><i class='far fa-play'></i></button>
@@ -221,4 +235,39 @@
             $response['success'] = true;
         }
         echo json_encode($response);
+    }
+
+    // * ====================================
+    // * START LIVE TRACKING
+    // * ====================================
+    if(isset($_POST['liveid'])){
+        $liveid = $_POST['liveid'];
+
+        $r = mysqli_fetch_array(mysqli_query($conn, "SELECT `token` FROM `tasks` WHERE `id` =  '$liveid'"));
+
+        if($r['token'] != ""){
+            $sql = "UPDATE `tasks` SET `tracking`='Live' WHERE `id`= '$liveid'";
+        }else{
+            $token = sha1(time());
+            $sql = "UPDATE `tasks` SET `tracking`='Live', `token` = '$token' WHERE `id`= '$liveid'";
+        }
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
+    }
+    // * ====================================
+    // * STOP LIVE TRACKING
+    // * ====================================
+    if(isset($_POST['hideid'])){
+        $hideid = $_POST['hideid'];
+        $sql = "UPDATE `tasks` SET `tracking`='Hidden' WHERE `id`= '$hideid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
     }
