@@ -70,6 +70,10 @@
         <!-- ! Content will go here -->
 
             <div class="container">
+                <div class="image text-center">
+                    <img src="../assets/logo.png" alt="Boompanda Logo" class='img-fluid logo'>
+                </div>
+                <hr>
                 <div class="row align-items-center px-4">
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="row">

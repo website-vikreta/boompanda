@@ -60,7 +60,8 @@ function ViewTask(taskid) {
                 success: function (data) {
                     $(data).find("a").attr("href", function (i, val) {
                         if (val.match(/\.(jpe?g|png|gif)$/)) {
-                            $("#task-info #gallery-mg").append("<a href='" + folder + val + "'></a>");
+                            // $("#task-info #gallery-mg").append("<a href='" + folder + val + "'></a>");
+                            $("#task-info #gallery-mg").append("<a href='" + val + "'></a>");
                         }
                     });
                 }

@@ -36,3 +36,7 @@ span.bg-light {
   font-size: 0.8rem !important;
   font-family: poppins;
 }
+img.logo{
+  max-width: 200px;
+  margin: 0 auto 10px 0;
+}

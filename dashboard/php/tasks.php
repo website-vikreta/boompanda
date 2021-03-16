@@ -40,7 +40,7 @@
                     
             }
         }else{
-            $data .= "<p class='text-muted text-center small p-5 w-100'>No active tasks available at this movement, try again after some time.</p>";
+            $data .= "<p class='text-muted text-center small p-5 w-100'>No active tasks available at this moment, try again after some time.</p>";
         }
         $data .= "</div>";
         // $data .= "</table>";
