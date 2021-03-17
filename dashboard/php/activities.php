@@ -65,3 +65,37 @@
         $row['college_name'] = $r['college_name'];
         echo json_encode($row);
     }
+
+    // * ====================================
+    // * APPLY
+    // * ====================================
+    if(isset($_POST['activityId'])){
+        $id = $_POST['activityId'];
+        $teamSize = $_POST['teamSize'];
+        $members = $_POST['members'];
+        $approval = $_POST['approval']=='Yes'?'Active': 'Under Review';
+        // user details
+        $name = $_POST['name'];
+        $mobile = $_POST['mobile'];
+        $email = $_POST['email'];
+        $state = $_POST['state'];
+        $city = $_POST['city'];
+        $college = $_POST['college'];
+
+        $response = array();
+        $response['success'] = false;
+
+        $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `mobile` = '$mobile' AND `activityid` = '$id'";
+        if(mysqli_num_rows(mysqli_query($conn, $sql)) > 0){
+            $response['modalErr'] = "You already applied for this activity";
+        }else{
+            $sql = "INSERT INTO `activity_applications`(`activityid`, `name`, `email`, `mobile`, `state`, `city`, `college`, `members`, `status`) 
+                    VALUES ('$id', '$name', '$email', '$mobile', '$state','$city', '$college', '$members', '$approval')";
+            $result = mysqli_query($conn, $sql);
+            if($result){
+                $response['success'] = true;
+            }
+        }
+
+        echo json_encode($response);
+    }

@@ -1,3 +1,100 @@
+$(document).ready(function(){
+    // apply
+    $("#proceed-activity-modal #apply-btn").click(function(e){
+        e.preventDefault();
+        // disable button & add spinner class
+        $(this).prop('disabled', true);
+        var _temp = this;
+        $(_temp).html('Applying <i class="fa fa-spinner fa-spin"></i>');
+
+        // validations
+        var flag = 0;
+        var name = $("#proceed-activity-modal #name").val();
+        var mobile = $("#proceed-activity-modal #mobile").val();
+        var email = $("#proceed-activity-modal #email").val();
+        var state = $("#proceed-activity-modal #state").val();
+        var city = $("#proceed-activity-modal #city").val();
+        var college = $("#proceed-activity-modal #college").val();
+
+        formData = new FormData();
+        var members = [];
+
+        if(name == "" || mobile == "" || email == "" || state == "" || city == "" || college == ""){
+            $("#proceed-activity-modal #modal-error").text("Complete your profile first before applying to activity");
+            console.log(2);
+            flag = 1;
+        }else{
+            formData.append('name', name.replace(/'/g, ''));
+            formData.append('mobile', mobile.replace(/'/g, ''));
+            formData.append('email', email.replace(/'/g, ''));
+            formData.append('state', state);
+            formData.append('city', city);
+            formData.append('college', college.replace(/'/g, ''));
+
+            var teamMembers = $("#proceed-activity-modal #teamMembers").val();
+            for(var i=1; i< teamMembers; i++){
+                var college = $("#proceed-activity-modal #college"+i+" .form-control").val().replace(/'/g, '');
+                var dict = {
+                    'name': $("#proceed-activity-modal #name"+i).val().replace(/'/g, ''),
+                    'mobile':  $("#proceed-activity-modal #mobile"+i).val().replace(/'/g, ''),
+                    'email':  $("#proceed-activity-modal #email"+i).val().replace(/'/g, ''),
+                    'state':  $("#proceed-activity-modal #state"+i).val(),
+                    'city': $("#proceed-activity-modal #city"+i).val(),
+                    'college': college == '-- Select College --' ? "" : college,
+                }
+                members.push(dict);
+            }
+
+            formData.append('members', JSON.stringify(members));
+            formData.append('activityId', $("#proceed-activity-modal #hiddenid").val());
+            formData.append('teamSize', teamMembers);
+            formData.append('approval', approval);
+        }
+        
+        if(flag == 0){
+            // ajax function
+            $.ajax({
+                enctype: 'multipart/form-data',
+                url: "./php/activities.php",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response.modalErr) {
+                        $("#proceed-activity-modal #modal-error").html(response.modalErr);
+                    } else {
+                        $("#proceed-activity-modal #modal-error").html("");
+                    }
+                    if (response.success == true) {
+                        // throw notification
+                        notification('Heads up!', 'Your application has been submitted.', 'success');
+
+                        $('#proceed-activity-modal').modal("hide");
+                        $('#view-activity-modal').modal("hide");
+                        readActiveActivities();
+                    }
+
+                    $(_temp).removeAttr("disabled");
+                    $(_temp).html('Apply Now');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var message = errorThrown;  
+                    if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                        message = jqXHR.responseText;
+                    }
+                    console.log(message);
+                    $(_temp).removeAttr("disabled");
+                    $(_temp).html('Apply Now');
+                }
+            });
+        }
+    });
+});
+
 function readActiveActivities() {
     var readrecord = 'readrecord';
     $.ajax({    //create an ajax request to display.php
@@ -55,7 +152,6 @@ function ViewActivity(viewid){
                 $("#view-activity-modal #team").text(response.team + " ( Team Size - " + response.teamSize + " )");
             }
             $("#view-activity-modal #platform").text(response.location);
-            $("#view-activity-modal #hiddenid").val(response.id);
 
             // fill up proceed modal
             $("#proceed-activity-modal #name").val(response.name);
@@ -74,6 +170,10 @@ function ViewActivity(viewid){
                     $("#college-list"+(cnt++)).replaceWith(response);
                 });
             }
+
+            $("#proceed-activity-modal #hiddenid").val(response.id);
+            $("#proceed-activity-modal #teamMembers").val(response.teamSize);
+            $("#proceed-activity-modal #approval").val(response.approval);
 
             $("#view-activity-modal #loading").css('display', 'none');
             $("#view-activity-modal .info-block").css('display', 'flex');
@@ -96,13 +196,13 @@ function appendHTML(id){
     <div class="user-info mt-5">
         <h6 class="m-0 mb-2 text-muted">Member `+id+`</h6>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-12 pr-0">
+            <div class="col-6 pr-0">
                 <div class="form-group m-0 m-0">
                     <input type="text" class="form-control small" placeholder="Name" id="name`+id+`">
                     <div class="error"></div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-12 pl-1">
+            <div class="col-6 pl-1">
                 <div class="form-group m-0">
                     <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile`+id+`">
                     <div class="error"></div>
@@ -114,7 +214,7 @@ function appendHTML(id){
             <div class="error"></div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-12 pr-0">
+            <div class="col-6 pr-0">
                 <div class="form-group m-0">
                     <select onchange="print_city('city`+id+`', this.selectedIndex);" id="state`+id+`"
                         name="stt" class="form-control"></select>
@@ -122,14 +222,14 @@ function appendHTML(id){
                     <div class="error" id="state-error"></div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-12 pl-1">
+            <div class="col-6 pl-1">
                 <div class="form-group m-0">
                     <select id="city`+id+`" class="form-control"></select>
                     <div class="error" id="city-error"></div>
                 </div>
             </div>
         </div>
-        <div class="form-group m-0">
+        <div class="form-group m-0" id='college`+id+`'>
             <div id="college-list`+id+`"></div>
             <div class="error" id="college-error"></div>
         </div>

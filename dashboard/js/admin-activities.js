@@ -87,6 +87,7 @@ $(document).ready(function(){
       formData.append('teamSize', $('#add-activity-modal #team-size').val());
       formData.append('platform', $("#add-activity-modal input[name=perform]:checked").val());
       formData.append('location', $('#add-activity-modal #location').val());
+      formData.append('approval', $("#add-activity-modal input[name=approval]:checked").val());
       formData.append('addActivity', "addActivity");
 
       // ajax function
@@ -192,6 +193,11 @@ $(document).ready(function(){
             } else {
                 $("#add-activity-modal #location-error").html("");
             }
+            if (response.approvalErr) {
+                $("#add-activity-modal #approval-error").html(response.approvalErr);
+            } else {
+                $("#add-activity-modal #approval-error").html("");
+            }
 
             if (response.success == true) {
                 $("#add-activity-form").trigger("reset");
@@ -241,6 +247,7 @@ $(document).ready(function(){
       formData.append('teamSize', $('#edit-activity-modal #e-team-size').val());
       formData.append('platform', $("#edit-activity-modal input[name=e-perform]:checked").val());
       formData.append('location', $('#edit-activity-modal #e-location').val());
+      formData.append('approval', $("#edit-activity-modal input[name=e-approval]:checked").val());
       formData.append('editActivity', "editActivity");
       formData.append('taskid',$('#edit-activity-modal #hiddenid').val());
 
@@ -346,6 +353,11 @@ $(document).ready(function(){
                 $("#edit-activity-modal #e-location-error").html(response.locationErr);
             } else {
                 $("#edit-activity-modal #e-location-error").html("");
+            }
+            if (response.approvalErr) {
+                $("#edit-activity-modal #e-approval-error").html(response.approvalErr);
+            } else {
+                $("#edit-activity-modal #e-approval-error").html("");
             }
 
             if (response.success == true) {
