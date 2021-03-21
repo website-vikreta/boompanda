@@ -4,8 +4,8 @@
 <head>
     <!-- check for sessions -->
     <script src="../vendor/jquery/jquery.min.js"></script>
-    <!-- <input type="hidden" value="boompanda" id="session_user_check"> -->
-    <script src="./js/user_sessions.js"></script>
+    <!-- <input type="hidden" value="all" id="session_user_check"> -->
+    <script src="./js/sessions.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,6 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="../vendor/fontawesome/all.css">
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="../vendor/magnific-popup/magnific-popup.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
@@ -48,7 +46,7 @@
             <!-- ! ======================================================== -->
             <nav>
                 <div class="page-loc">
-                    <p class="m-0">Tasks</p>
+                    <p class="m-0">Activities</p>
                 </div>
                 <div id="navigation-bar"></div>
             </nav>
@@ -56,207 +54,15 @@
             <!-- ! NAV -->
             <!-- ! ======================================================== -->
 
+
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
-            <div class="content-wrapper">
-
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-toggle="tab" href="#active">All Activities</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#applied"
-                            onclick="readMyActivities()">My Activities</button>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div id="active" class="container-fluid tab-pane active"><br>
-                        <div class="flex-wrapper">
-                            <!-- active record response cotainer -->
-                            <div id="activeRecords"></div>
-                        </div>
-                    </div>
-                    <div id="applied" class="container tab-pane fade"><br>
-                        <!-- loader -->
-                        <div class="loading" id="loading">
-                            <i class="far fa-sync fa-spin"></i>
-                        </div>
-                        <!-- applied record response container -->
-                        <div id="appliedRecords"></div>
-                    </div>
+            <div class="content-wrapper flex-center">
+                <div class="image-wrapper text-center">
+                    <img src="./assets/activities.png" class="img-fluid" alt="" style="max-width: 600px; width: 90%">
+                    <h3 class="">Coming Soon</h3>
                 </div>
-
-                <!-- ! ======================================================== -->
-                <!-- ! VIEW ACTIVITY MODAL -->
-                <!-- ! ======================================================== -->
-                <div class="modal fade" id="view-activity-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="add-user-modal1""
-    aria-hidden=" true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
-                        <form action="" id="appl-activity-form">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="add-user-modal1">View activity</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="outline: none;">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body pt-2">
-                                    <div class="loading" id="loading">
-                                        <i class="far fa-sync fa-spin"></i>
-                                    </div>
-                                    <div class="info-block flex-column">
-                                        <!-- banner image -->
-                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
-                                        <div class="row">
-                                            <div class="col-lg-7 col-md-7 col-12">
-                                                <div class="row">
-                                                    <div class="col-lg-3 col-md-3 col-12">
-                                                        <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
-                                                        <div class="title-group">
-                                                            <h4 id="title" class="m-0 p-0"></h4>
-                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
-                                                        </div>
-                                                        
-                                                        <div class="flex-center justify-content-start">
-                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                                    style="font-family: poppins;"></b></p>
-                                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
-                                                                    style="font-family: poppins;"></b></p>
-                                                        </div>
-                                                        <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
-                                                            style="font-family: poppins;"></b></p>
-                                                    </div>
-                                                </div>                                            
-                                                <hr>
-                                                <p class="my-3 p-0" id="about-activity"></p>
-                                            </div>
-                                            <div class="col-lg-5 col-md-5 col-12">
-                                                <p class="m-0 mt-2 p-0 font-weight-bold"> Who can participate?</p>
-                                                <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="participation"></p>
-
-                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Rewards</p>
-                                                <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="rewards"></p>
-
-                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Activity Type</p>
-                                                <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="type"></p>
-
-                                                <p class="m-0 mt-4 p-0 font-weight-bold"> How you can participate?</p>
-                                                <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="team"></p>
-
-                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                                <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
-                                                <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="platform"></p> 
-                                            </div>
-                                        </div>
-                                    </div>                                
-                                </div>
-                                <div class="error" id="server-error"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-transparent"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-solid" id="proceed" data-toggle='modal' data-target='#proceed-activity-modal'>Proceed</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- ! ======================================================== -->
-                <!-- ! VIEW ACTIVITY MODAL -->
-                <!-- ! ======================================================== -->
-
-                <!-- ! ======================================================== -->
-                <!-- ! PROCEED ACTIVITY MODAL -->
-                <!-- ! ======================================================== -->
-                <div class="modal fade secondary" id="proceed-activity-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
-                    <form action="" id="apply-activity-form" class="form">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Proceed Activity</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="outline: none;">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" id="task-info">
-                                    <div class="loading" id="loading">
-                                        <i class="far fa-sync fa-spin"></i>
-                                    </div>
-                                    <div class="info-block flex-column">
-                                        <!-- user information -->
-                                        <div class="user-info">
-                                            <h6 class="m-0 mb-2 text-muted">Your Details</h6>
-                                            <div class="row">
-                                                <div class="col-6 pr-0">
-                                                    <div class="form-group m-0 m-0">
-                                                        <input type="text" class="form-control small" placeholder="Name" id="name" disabled>
-                                                        <div class="error"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 pl-1">
-                                                    <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile" disabled>
-                                                        <div class="error"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="Email" id="email" disabled>
-                                                <div class="error"></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6 pr-0">
-                                                    <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="State" id="state" disabled>
-                                                        <div class="error"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 pl-1">
-                                                    <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="City" id="city" disabled>
-                                                        <div class="error"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="College Name" id="college" disabled>
-                                                <div class="error"></div>
-                                            </div>
-                                            <div class="small font-italic text-primary m-0">(In order to change your details, kindly update your profile)</div>
-                                        </div>
-
-                                        <div class="team-members" id="team-members"></div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="hidden" name="" id="hiddenid">
-                                    <input type="hidden" name="" id="teamMembers">
-                                    <input type="hidden" name="" id="approval">
-                                    <span class="error small text-danger" id="modal-error"></span>
-                                    <button type="button" class="btn btn-transparent"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-solid" id="apply-btn">Apply Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- ! ======================================================== -->
-                <!-- ! PROCEED ACTIVITY MODAL -->
-                <!-- ! ======================================================== -->
-
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
@@ -273,19 +79,12 @@
     </div>
 
 
+    <!-- jquery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
-    <!-- bootstrap notify -->
-    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
-    <!-- magnific popup -->
-    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
     <!-- custom js -->
-    <script src="./js/cities.js"></script>
     <script src="./js/main.js"></script>
-    <script src="./js/activities.js"></script>
-    <script>
-        readActiveActivities();
-    </script>
 </body>
 
-</html> 
+</html>

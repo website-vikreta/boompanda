@@ -552,6 +552,7 @@ function viewActivity(activityid) {
 function EditActivity(editid){
     $("#edit-activity-modal #loading").css('display', 'flex');
     $("#edit-activity-modal .info-block").css('display', 'none');
+    $("#edit-activity-form").trigger('reset');
     $.ajax({
         type: "POST",
         url: "./php/admin-activities.php",
@@ -585,6 +586,7 @@ function EditActivity(editid){
             }
             $("#edit-activity-modal input[name=e-perform][value=" + response.platform + "]").prop('checked', true);
             $("#edit-activity-modal #e-location").val(response.location);
+            $("#edit-activity-modal input[name=e-approval][value=" + response.approval + "]").prop('checked', true);
             $("#edit-activity-modal #hiddenid").val(response.id);
 
             $("#edit-activity-modal #loading").css('display', 'none');
@@ -599,4 +601,178 @@ function EditActivity(editid){
             notification('Ooops...', message, 'error');
         }
     });
+}
+
+
+var params = new window.URLSearchParams(window.location.search);
+ApplicationId = params.get('id');
+ApplicationApproval = params.get('flag');
+
+function readApplications() {
+    var readApplicarion = 'readApplicarion';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            readApplicarion: readApplicarion,
+            applicationId: ApplicationId,
+            approval: ApplicationApproval
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            $("#responsecontainer").html(response);
+            $('#myTable').DataTable();
+        }
+    });
+}
+
+function ViewUser(userid) {
+    $("#user-info #loading").css('display', 'flex');
+    $("#user-info .info-block").css('display', 'none');
+    $(".member-info").html("");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            userinfo: userid
+        },
+        dataType: 'json',
+        success: function (response) {
+            // console.log(response);
+            
+            $(".user-info #name").html(response.name);
+            $(".user-info #email").html(response.email);
+            $(".user-info #mobile").html(response.mobile);
+            $(".user-info #state").html(response.state);
+            $(".user-info #city").html(response.city);
+            $(".user-info #college").html(response.college);
+
+            for(var i=0; i< response.members.length; i++){
+                var data = `
+                    <div class='mt-4'>
+                        <h6 class="poppins m-0 p-0 px-3">Member `+(i+1)+`</h6>
+                        <hr class="my-2 mx-3">
+                        <p class="m-0 p-0 px-3">Name: <span class="poppins">`+response.members[i].name+`</span></p>
+                        <p class="m-0 p-0 px-3">Email: <span class="poppins">`+response.members[i].email+`</span></p>
+                        <p class="m-0 p-0 px-3">Mobile: <span class="poppins">`+response.members[i].mobile+`</span></p>
+                        <p class="m-0 p-0 px-3">State: <span class="poppins">`+response.members[i].state+`</span></p>
+                        <p class="m-0 p-0 px-3">City: <span class="poppins">`+response.members[i].city+`</span></p>
+                        <p class="m-0 p-0 px-3">College: <span class="poppins">`+response.members[i].college+`</span></p>
+                    </div>
+                `;
+
+                $(".member-info").append(data);
+                // console.log(response.members[i]);
+            }
+
+            $("#user-info #loading").css('display', 'none');
+            $("#user-info .info-block").css('display', 'flex');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            // console.log(message);
+            notification('Ooops...', message, 'error');
+        }
+    });
+}
+
+function ApproveUser(approveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .activity-" + approveid;
+    var _temp = "#approve" + approveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            a_approveid: approveid
+        },
+        success: function (response) {
+            console.log(response);
+            if (response == 'success') {
+                notification('Heads up!', 'Application approved', 'success');
+                readApplications();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-check'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .activity-" + approveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-check'></i>");
+        }
+    });
+}
+
+function DisapproveUser(disapproveid) {
+    //buttons for disable & spinner class
+    var button = "#myTable .activity-" + disapproveid;
+    var _temp = "#disapprove" + disapproveid;
+    $(button).prop('disabled', true);
+    $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+    $.ajax({
+        type: "POST",
+        url: "./php/admin-activities.php",
+        data: {
+            a_disapproveid: disapproveid
+        },
+        success: function (response) {
+            if (response == 'success') {
+                notification('Heads up!', 'Application Rejected', 'success');
+                readApplications();
+            }
+            // enable buttons & remove spinner
+            $(button).prop('disabled', false);
+            $(_temp).html("<i class='far fa-times'></i>");
+        },
+        error: function () {
+            notification('Ooops...', 'Some error on server side', 'error');
+            // enable buttons & remove spinner
+            $("#myTable .task-" + disapproveid).prop('disabled', false);
+            $(_temp).html("<i class='far fa-times'></i>");
+        }
+    });
+}
+
+function DeleteUser(deleteid) {
+    var confirmation = confirm("Are you sure about deleting the task? You will not be able to access it again. Click ok to continue");
+
+    if (confirmation == true) {
+        //buttons for disable & spinner class
+        var button = "#myTable .activity-" + deleteid;
+        var _temp = "#delete" + deleteid;
+        $(button).prop('disabled', true);
+        $(_temp).html("<i class='fas fa-spinner fa-spin'></i>");
+
+        $.ajax({
+            type: "POST",
+            url: "./php/admin-activities.php",
+            data: {
+                a_deleteid: deleteid
+            },
+            success: function (response) {
+                if (response == 'success') {
+                    notification('Heads up!', 'Task deleted', 'success');
+                    readApplications();
+                }
+                $(button).prop('disabled', false);
+                $(_temp).html("<i class='far fa-trash'></i>");
+            },
+            error: function () {
+                notification('Ooops...', 'Some error on server side', 'error');
+                // enable buttons & remove spinner
+                $(button).prop('disabled', false);
+                $(_temp).html("<i class='far fa-trash'></i>");
+            }
+        });
+    }
 }

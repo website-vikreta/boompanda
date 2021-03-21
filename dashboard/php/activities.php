@@ -92,7 +92,9 @@
             $sql = "INSERT INTO `activity_applications`(`activityid`, `name`, `email`, `mobile`, `state`, `city`, `college`, `members`, `status`) 
                     VALUES ('$id', '$name', '$email', '$mobile', '$state','$city', '$college', '$members', '$approval')";
             $result = mysqli_query($conn, $sql);
-            if($result){
+            $sql1 = "UPDATE `activities` SET `noOfApplication` = `noOfApplication` + 1 WHERE `id` = '$id'";
+            $result1 = mysqli_query($conn, $sql1);
+            if($result && $result1){
                 $response['success'] = true;
             }
         }

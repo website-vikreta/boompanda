@@ -61,8 +61,8 @@ if(isset($_GET["code"]))
                 else
                     break;
             }
-
-            $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', 'verified', '$token_val')";
+            $d = date("Y-m-d");
+            $sql = "INSERT INTO `user`(`name`, `email`, `profile`, `userType`, `date`, `status`, `token`) VALUES ('$name', '$email','$picture', 'google', '$d', 'verified', '$token_val')";
             $sql1 = "INSERT INTO `user_info` (`email`, `userType`, `uid`) VALUES('$email', 'google', '$uid')";
             $sql2 = "INSERT INTO `wallet` (`email`, `userType`) VALUES('$email', 'google')";
             $res = mysqli_query($conn, $sql);

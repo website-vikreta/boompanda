@@ -107,7 +107,7 @@
                 </a>
             </ul>
         </li>
-        <a href="activities.html" class="nav-link">
+        <a href="admin-activities.html" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
             </li>

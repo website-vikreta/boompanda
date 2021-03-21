@@ -90,6 +90,7 @@ $(document).ready(function () {
 // ! ================================================
 // read records
 function readUsers() {
+    readStats();
     var readrecord = 'readrecord';
     $.ajax({    //create an ajax request to display.php
         type: "POST",
@@ -101,6 +102,22 @@ function readUsers() {
         success: function (response) {
             $("#responsecontainer").html(response);
             $('#myTable').DataTable();
+        }
+    });
+}
+function readStats() {
+    var readstat = 'readstat';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/users.php",
+        dataType: 'json',
+        data: {
+            readstat: readstat
+        },           
+        success: function (response) {
+            $("#totalUsers").html(response.totalUsers);
+            $("#verifiedUsers").html(response.verifiedUsers);
+            $("#todayUsers").html(response.todayUsers);
         }
     });
 }

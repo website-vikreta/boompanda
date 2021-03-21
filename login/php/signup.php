@@ -93,7 +93,8 @@
             
             
             // insert data into db
-            $sql = "INSERT INTO `user`(`username`, `password`, `email`, `userType`, `status`, `token`) VALUES ('$username', '$password', '$email', 'boompanda', 'not verified', '$token')";;
+            $d = date("Y-m-d");
+            $sql = "INSERT INTO `user`(`username`, `password`, `email`, `userType`, `date`, `status`, `token`) VALUES ('$username', '$password', '$email', 'boompanda', '$d', 'not verified', '$token')";;
             $result = mysqli_query($conn, $sql);
             $sql1 = "INSERT INTO `user_info`(`email`, `userType`, `uid`) VALUES ('$email', 'boompanda', '$uid')";
             $result1 = mysqli_query($conn, $sql1);

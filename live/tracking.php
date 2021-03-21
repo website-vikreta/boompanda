@@ -137,13 +137,17 @@
                             $number = 1;
                             while($submission_row = mysqli_fetch_assoc($submission_result)){
                                 $task_id = $row['id'];
+                                $date = $submission_row['dateOfSubmission'] == '' ? 'NA' : $submission_row['dateOfSubmission'];
+                                $name = $submission_row['name'] == '' ? 'NA' : $submission_row['name'];
+                                $city = $submission_row['city'] == '' ? 'NA' : $submission_row['city'];
+                                $details = $submission_row['details'] == '' ? 'NA' : $submission_row['details'];
                                 $data .= "
                                     <tr>
                                         <td class='text-center'>".$number."</td>
-                                        <td class='poppins'>".$submission_row['dateOfSubmission']."</td>
-                                        <td>".$submission_row['name']."</td>
-                                        <td>".$submission_row['city']."</td>
-                                        <td>".$submission_row['details']."</td>
+                                        <td class='poppins'>".$date."</td>
+                                        <td>".$name."</td>
+                                        <td>".$city."</td>
+                                        <td>".$details."</td>
                                         <td class='text-center'><a class='text-primary poppins' href='".$submission_row['proofs']."' target='_BLANK'>Click Here</a></td>";
                                 $number++;
                             }

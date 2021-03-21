@@ -276,7 +276,7 @@
                         <td>".$row['organizer']."</td>
                         <td class='poppins'>".$row['startDate']."</td>
                         <td class='poppins'>".$row['endDate']."</td>
-                        <td class='text-center'>0</td>
+                        <td class='text-center'>".$row['noOfApplication']."</td>
                         <td class='text-center'>".$row['status']."</td>
                         <td class='d-flex justify-content-end'>
                             <button class='btn solid rounded btn-info activity-".$row['id']."' title='View complete info' id='activity".$row['id']."' onclick='viewActivity(".$row['id'].")' data-toggle='modal' data-target='#view-activity-modal'><i class='far fa-eye'></i></button>
@@ -291,6 +291,7 @@
                     ";
                 }
                 $data .= "                        
+                        <button class='btn solid rounded btn-primary activity-".$row['id']."' title='View applications' id='application".$row['id']."' onclick='window.location.href= `./pending-activities-application.html?id=".$row['id']."&token=".sha1(time())."&flag=".$row['approval']."`'><i class='far fa-tasks'></i></button>
                         <button class='btn solid rounded btn-secondary activity-".$row['id']."' id='edit".$row['id']."' onclick='EditActivity(".$row['id'].")' title='Edit' data-toggle='modal' data-target='#edit-activity-modal'><i class='far fa-edit'></i></button>
                         <button class='btn solid rounded btn-danger activity-".$row['id']."' id='delete".$row['id']."' onclick='DeleteActivity(".$row['id'].")' data-toggle='tooltip' title='Delete Activity'><i class='far fa-trash'></i></button>
                     </td>
@@ -577,4 +578,140 @@
 
 
         echo json_encode($response);
+    }
+
+
+    // * ====================================
+    // * READ APPLICATIONS
+    // * ====================================
+    if(!empty($_POST['readApplicarion']) && !empty($_POST['applicationId'])){
+        $applicationId = $_POST['applicationId'];
+        $approval = $_POST['approval'];
+        $data = "
+        <div class='table-responsive'>
+            <table class='table table-sm table-striped' id='myTable' width='100%' style='font-size: 0.8rem'>
+                <thead>
+                    <td style='max-width:20px'><b>Sr No</b></td>
+                    <td><b>Name</b></td></td>
+                    <td><b>Email</b></td></td>
+                    <td><b>Mobile</b></td></td>
+                    <td><b>State</b></td></td>
+                    <td><b>City</b></td></td>
+                    <td><b>College</b></td></td>
+                    <td><b>Status</b></td>
+                    <td class='text-center'><b>Action</b></td>
+                </thead>
+                <tfoot>
+                    <td style='max-width:20px'><b>Sr No</b></td>
+                    <td><b>Name</b></td></td>
+                    <td><b>Email</b></td></td>
+                    <td><b>Mobile</b></td></td>
+                    <td><b>State</b></td></td>
+                    <td><b>City</b></td></td>
+                    <td><b>College</b></td></td>
+                    <td><b>Status</b></td>
+                    <td class='text-center'><b>Action</b></td>
+                </tfoot>
+                <tbody>
+        ";
+        // sql query with inner join
+        $sql = "SELECT * FROM `activity_applications` WHERE `activityid` = '$applicationId' AND `status` <> 'deleted'";
+        $result=mysqli_query($conn,$sql);
+    
+        if(mysqli_num_rows($result) > 0){
+            $number = 1;
+            while($row = mysqli_fetch_assoc($result)){
+                $data .= "
+                    <tr>
+                        <td class='text-center'>".$number."</td>
+                        <td>".$row['name']."</td>
+                        <td>".$row['email']."</td>
+                        <td>".$row['mobile']."</td>
+                        <td>".$row['state']."</td>
+                        <td>".$row['city']."</td>
+                        <td>".$row['college']."</td>
+                        <td>".$row['status']."</td>
+                        <td class='d-flex justify-content-center p-2' style='height: 100%'>
+                ";    
+                if($approval == "Yes"){
+                    if($row['status'] == 'Under Review' || $row['status'] == 'Rejected'){
+                        $data .= "<button class='btn solid rounded btn-success activity-".$row['id']."' id='approve".$row['id']."' onclick='ApproveUser(".$row['id'].")' data-toggle='tooltip' title='Allow student to perform activity'><i class='far fa-check'></i></button>";
+                    }else{
+                        $data .= "<button class='btn solid rounded btn-warning activity-".$row['id']."' id='disapprove".$row['id']."' onclick='DisapproveUser(".$row['id'].")' data-toggle='tooltip' title='Disable student to perform activity'><i class='far fa-times'></i></button>";
+                    }
+                }
+                $data .= "<button class='btn solid rounded btn-primary activity-".$row['id']."' id='view".$row['id']."' onclick='ViewUser(".$row['id'].")' title='View Application' data-toggle='modal' data-target='#view-user-modal'><i class='far fa-eye'></i></button>
+                          <button class='btn solid rounded btn-danger activity-".$row['id']."' id='delete".$row['id']."' onclick='DeleteUser(".$row['id'].")' data-toggle='tooltip' title='Delete Application'><i class='far fa-trash'></i></button>
+                    </td>
+                </tr>
+                ";
+                $number++;
+            }
+        }
+        $data .= "
+            </tbody>
+            </table>
+            </div>
+        ";
+        // $data .= "</table>";
+        echo $data;
+    }
+
+    // * ====================================
+    // * APPROVE APPLICATION
+    // * ====================================
+    if(isset($_POST['a_approveid'])){
+        $approveid = $_POST['a_approveid'];
+        $sql = "UPDATE `activity_applications` SET `status`='Active' WHERE `id`= '$approveid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
+    }
+
+    // * ====================================
+    // * DISAPPROVE APPLICATION
+    // * ====================================
+    if(isset($_POST['a_disapproveid'])){
+        $disapproveid = $_POST['a_disapproveid'];
+        $sql = "UPDATE `activity_applications` SET `status`='Rejected' WHERE `id`= '$disapproveid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
+    }
+
+    // * ====================================
+    // * DELETE APPLICATION
+    // * ====================================
+    if(isset($_POST['a_deleteid'])){
+        $deleteid = $_POST['a_deleteid'];
+        $sql = "DELETE FROM `activity_applications` WHERE `id`= '$deleteid'";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            echo "success";
+        }else{
+            echo "error";
+        }
+    }
+
+    // * ====================================
+    // * VIEW USER
+    // * ====================================
+    if(isset($_POST['userinfo'])){
+        $id = $_POST['userinfo'];
+        $response = array();
+
+        $sql = "SELECT * FROM `activity_applications` WHERE `id` = '$id'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        
+        $members = json_decode($row['members']);
+        $row['members'] = $members;
+
+        echo json_encode($row);
     }

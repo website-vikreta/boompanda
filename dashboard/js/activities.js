@@ -21,7 +21,7 @@ $(document).ready(function(){
 
         if(name == "" || mobile == "" || email == "" || state == "" || city == "" || college == ""){
             $("#proceed-activity-modal #modal-error").text("Complete your profile first before applying to activity");
-            console.log(2);
+            // console.log(2);
             flag = 1;
         }else{
             formData.append('name', name.replace(/'/g, ''));
@@ -63,13 +63,14 @@ $(document).ready(function(){
                 dataType: 'json',
                 cache: false,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
                     if (response.modalErr) {
                         $("#proceed-activity-modal #modal-error").html(response.modalErr);
                     } else {
                         $("#proceed-activity-modal #modal-error").html("");
                     }
                     if (response.success == true) {
+                        $("#proceed-activity-modal #team-members").html("");
                         // throw notification
                         notification('Heads up!', 'Your application has been submitted.', 'success');
 
@@ -86,7 +87,7 @@ $(document).ready(function(){
                     if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
                         message = jqXHR.responseText;
                     }
-                    console.log(message);
+                    // console.log(message);
                     $(_temp).removeAttr("disabled");
                     $(_temp).html('Apply Now');
                 }
@@ -119,6 +120,7 @@ function ViewActivity(viewid){
     $("#view-activity-modal .info-block").css('display', 'none');
     $("#proceed-activity-modal #loading").css('display', 'flex');
     $("#proceed-activity-modal .info-block").css('display', 'none');
+    $("#proceed-activity-modal #team-members").html("");
     $.ajax({
         type: "POST",
         url: "./php/activities.php",

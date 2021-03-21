@@ -65,15 +65,29 @@
 
                 <!-- * ADD USER BUTTON -->
                 <div class="top-button-group mb-4">
-                    <form class="text-right" id="dummy-form">
+                    <form class="flex-between" id="dummy-form">
+                        <div class="stats flex-center flex-wrap">
+                            <div class="card text-center py-3 px-5 w-auto m-2">
+                                <h3 id="totalUsers" class="poppins m-0 text-danger">0</h3>
+                                <p class="m-0 small">Total Users</p>
+                            </div>
+                            <div class="card text-center py-3 px-5 w-auto m-2">
+                                <h3 id="verifiedUsers" class="poppins m-0 text-danger">0</h3>
+                                <p class="m-0 small">Verified Users</p>
+                            </div>
+                            <div class="card text-center py-3 px-5 w-auto m-2">
+                                <h3 id="todayUsers" class="poppins m-0 text-danger">0</h3>
+                                <p class="m-0 small">Users Joined Today</p>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <button class="btn btn-solid" id="add-user-btn" data-toggle="modal"
                                 data-target="#add-user-modal"><i class="far fa-user-plus mr-1"></i>
                                 Add user
                             </button>
-                            <button class="btn btn-transparent" id="filter-user-btn"><i class="fas fa-list-ul mr-1"></i>
+                            <!-- <button class="btn btn-transparent" id="filter-user-btn"><i class="fas fa-list-ul mr-1"></i>
                                 Filter
-                            </button>
+                            </button> -->
                         </div>
                         <script>
                             $("#dummy-form button").on('click', function (e) {

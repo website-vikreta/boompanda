@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- check for sessions -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- <input type="hidden" value="admin" id="session_user_check"> -->
+    <script src="./js/admin_sessions.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+
+    <!-- important scripts -->
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+        <div id="vertical-nav"></div>
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+
+        <div class="main-section">
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0"><span class="text-muted">Tasks / </span> View Applications</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper">
+                <div class="table-wrapper">
+
+                    <!-- response from php is added in this div -->
+                    <div id="responsecontainer"></div>
+
+                </div>
+
+
+
+
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW USER MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="view-user-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-md" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">View Application</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="user-info">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="row info-block">
+                                    <div class="user-info w-100">
+                                        <h5 class="poppins m-0 p-0 px-3">User</h5>
+                                        <hr class="my-2 mx-3">
+                                        <p class="m-0 p-0 px-3">Name: <span class="poppins" id="name"></span></p>
+                                        <p class="m-0 p-0 px-3">Email: <span class="poppins" id="email"></span></p>
+                                        <p class="m-0 p-0 px-3">Mobile: <span class="poppins" id="mobile"></span></p>
+                                        <p class="m-0 p-0 px-3">State: <span class="poppins" id="state"></span></p>
+                                        <p class="m-0 p-0 px-3">City: <span class="poppins" id="city"></span></p>
+                                        <p class="m-0 p-0 px-3">College: <span class="poppins" id="college"></span></p>
+                                    </div>
+                                    <div class="member-info w-100"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-solid" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW USER MODAL -->
+                <!-- ! ======================================================== -->
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+        </div>
+    </div>
+
+
+
+    <!-- bootstrap js -->
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+    <script src="./js/admin-activities.js"></script>
+    <script>
+
+        //calling read record function for admin
+        readApplications();
+
+
+        $(document).ready(function () {
+
+        })
+    </script>
+</body>
+
+</html>

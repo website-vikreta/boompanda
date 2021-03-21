@@ -211,6 +211,14 @@
         echo $data;
     }
 
+    if(isset($_POST['readstat'])){
+        $d = date('Y-m-d');
+        $sql = "SELECT COUNT(*) AS `totalUsers`, SUM(`status` = 'verified') AS `verifiedUsers`, SUM(`date` = '$d') AS `todayUsers`  FROM `user`";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode($row);
+    }
+
     // * ====================================
     // * APPROVE USERS
     // * ====================================
