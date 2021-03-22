@@ -112,12 +112,82 @@
             $r1 = mysqli_fetch_assoc($res1);
             include_once "./actions/sendemail.php";
             $subject = "Boompanda - Update regarding your application";
-            $body = "
-                <h2>Hurrayyyy!</h2>
-                <p>Your application for <b>".$r['title']."</b> has been accepted.</p>
-                <p>(<a href = '".$r['tutorialLink']."'>Click Here</a>) to know how to perform this task.</p>
-                <p>Kindly login to your boompanda portal for more information & submit the task to earn credits.</p>
-            ";
+            $body = '
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="preconnect" href="https://fonts.gstatic.com">
+                    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"> 
+                    <style>
+                        *{
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .wrapper{
+                            max-width: 600px;
+                            margin:auto;
+                            font-family: "Poppins", sans-serif;;
+                            padding: 0.5rem 1rem;
+                        }
+                        .wrapper a{
+                            text-decoration:none;
+                            color: #ea1821;
+                        }
+                        .wrapper img{
+                            margin-top: 1rem;
+                        }
+                        .wrapper hr{
+                            border-color: #ddd;
+                            margin: 1rem 0;
+                        }
+                        .wrapper h1{
+                            font-weight: bold;
+                            text-transform: capitalize;
+                            color: #333;
+                            margin-top: 1.5rem;
+                            font-size: 1.5rem;
+                        }
+                        .wrapper p{
+                            color: #555;
+                            font-size: 0.9rem;
+                            margin: 0.25rem 0;
+                        }
+                        .wrapper .dark{
+                            background: #222;
+                            padding: 2rem;
+                            margin-top: 2rem;
+                        }
+                        .wrapper .dark p{
+                            color: #ddd;
+                            font-size: 0.8rem;
+                            margin:  0 0;
+                            text-align: center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="wrapper">
+                        <img src="http://www.boompanda.in/assets/logo.png" class="img-fluid" alt="" style="max-width:200px">
+                        <hr>
+                        <h1>Hey there,</h1>
+                        <p>Your application for <b>'.$r["title"].'</b> has been accepted.</p>
+                        <p>(<a href = "'.$r["tutorialLink"].'">Click Here</a>) to know how to perform this task.</p>
+                        <p>Kindly login to your boompanda portal for more information & submit the task to earn credits.</p>
+                        <div class="dark">
+                            <p>
+                                Copyright © 2021 BoomPanda (Gladius Ventures LLP), All rights reserved.
+                            </p>
+                            <p>
+                                If you don\'t recognize this mail, you can write to team@boompanda.in 
+                            </p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            ';
             $emailsend = sendEmail($r1['email'], $subject, $body);
             echo "success";          
         }else{
