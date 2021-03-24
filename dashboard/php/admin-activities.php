@@ -34,7 +34,7 @@
             /* Check file extension */
             if(!in_array(strtolower($imageFileType),$valid_extensions) ) {
                 $uploadOk = 0;
-                $response['gigLogoErr'] = "Unable to upload file. Invalid image format";
+                $response['activityLogoErr'] = "Unable to upload file. Invalid image format";
                 $flag = 1;
             }
         }

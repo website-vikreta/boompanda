@@ -44,19 +44,11 @@
                 <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
             </li>
         </a>
-        <li class="nav-tab dropdown">
-            <label for="toggle-check3" class="m-0 p-0">
-                <div class="tab"><i class="far fa-tags"></i> Offers
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check3" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <li>Add offer</li>
-                <li>View offers</li>
-            </ul>
-        </li>
+        <a href="admin-offers.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-tags"></i> Offers</div>
+            </li>
+        </a>
         <a href="./users.html" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-users"></i> Users</div>
@@ -112,19 +104,11 @@
                 <div class="tab"><i class="far fa-graduation-cap"></i> Activities</div>
             </li>
         </a>
-        <li class="nav-tab dropdown">
-            <label for="toggle-check3" class="m-0 p-0">
-                <div class="tab"><i class="far fa-tags"></i> Offers
-                </div>
-            </label>
-            <!-- checkbox  to manage toggle -->
-            <input type="checkbox" name="" id="toggle-check3" class="toggle-check">
-            <i class="far fa-chevron-right toggle"></i>
-            <ul class="dropdown-menulist">
-                <li>Add offer</li>
-                <li>View offers</li>
-            </ul>
-        </li>
+        <a href="admin-offers.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-tags"></i> Offers</div>
+            </li>
+        </a>
         <a href="./users.html" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-users"></i> Users</div>

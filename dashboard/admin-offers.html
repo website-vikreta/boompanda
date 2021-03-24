@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- check for sessions -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- <input type="hidden" value="admin" id="session_user_check"> -->
+    <script src="./js/admin_sessions.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <!-- important scripts -->
+    <!-- includes -->
+    <script src="./js/include.js"></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+        <div id="vertical-nav"></div>
+        <!-- ! ======================================================== -->
+        <!-- ! VERTICAL NAV -->
+        <!-- ! ======================================================== -->
+
+        <div class="main-section">
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+            <nav>
+                <div class="page-loc">
+                    <p class="m-0">Manage Offers</p>
+                </div>
+                <div id="navigation-bar"></div>
+            </nav>
+            <!-- ! ======================================================== -->
+            <!-- ! NAV -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+            <div class="content-wrapper pt-4">
+                 <!-- * ADD OFFER BUTTON -->
+                 <div class="top-button-group mb-4 p-0">
+                    <form class="text-right" id="dummy-form">
+                        <div class="form-group m-0">
+                            <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
+                                data-target="#add-offer-modal"><i class="fas fa-tags mr-1"></i>
+                                Add Offer
+                            </button>
+                        </div>
+                        <script>
+                            $("#dummy-form button").on('click', function (e) {
+                                e.preventDefault();
+                            })
+                        </script>
+                    </form>
+                </div>
+
+                <div class="table-wrapper">
+                    <!-- response from php is added in this div -->
+                    <div id="responsecontainer"></div>
+                </div>
+
+
+
+
+                <!-- ! ======================================================== -->
+                <!-- ! ADD OFFER MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="add-offer-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <form action="" id="add-offer-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Add offer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                                    <!-- profile -->
+                                                    <div class="profile-wrapper form-group mt-0">
+                                                        <div class="profile m-0">
+                                                            <img src="./assets/logo.jpg" id="offer-logo" class="img-fluid"
+                                                                alt="">
+                                                            <label class="clickable" for="offerLogo">
+                                                                <i class="far fa-paperclip"></i>
+                                                                <p>Change logo</p>
+                                                            </label>
+                                                        </div>
+                                                        <input type="file" name="" id="offerLogo" class="d-none"
+                                                            onchange="previewFile(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                        <div class="error" id="offerLogo-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Offer Title</label>
+                                                        <input type="text" class="form-control" placeholder="Offer title"
+                                                            id="offer-title">
+                                                        <div class="error" id="offer-title-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Offer Category</label>
+                                                        <select name="" id="offer-category" class="form-control">
+                                                            <option value="-1">---- Select one option ----</option>
+                                                            <option value="Food & Drinks">Food & Drinks</option>
+                                                            <option value="Fashion">Fashion</option>
+                                                            <option value="Travel">Travel</option>
+                                                            <option value="Beauty & Health">Beauty & Health</option>
+                                                            <option value="Electronics">Electronics</option>
+                                                            <option value="Entertainment">Entertainment</option>
+                                                            <option value="Sports & Fitness">Sports & Fitness</option>
+                                                            <option value="Education">Education</option>
+                                                        </select>
+                                                        <div class="error" id="offer-category-error"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Brand Name</label>
+                                                <input type="text" class="form-control" placeholder="Brand name"
+                                                    id="brand-name">
+                                                <div class="error" id="brand-name-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">About Offer</label>
+                                                <textarea name="" class="form-control" id="about-offer" cols="30"
+                                                    rows="5" placeholder="About offer (explain in brief)"></textarea>
+                                                <div class="error" id="about-offer-error"></div>
+                                            </div>
+        
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">End Date</label>
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                                    <div class="error" id="end-date-error"></div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                    <label for="">Use how many times?</label>
+                                                    <input type="text" class="form-control" placeholder="Enter count" id="use">
+                                                    <div class="error" id="use-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label for="">Who Can Avail?</label>
+                                                <textarea name="" class="form-control" id="participate" cols="30"
+                                                    rows="5" placeholder="Explain in brief"></textarea>
+                                                <div class="error" id="participate-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Offer Type</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio3" name="type" value="free">
+                                                        <label for="radio3">
+                                                            <div class="radio"></div>Free
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio4" name="type" value="paid">
+                                                        <label for="radio4">
+                                                            <div class="radio"></div>Paid
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Amount in Rs." id="paid-amount">
+                                                        <div class="error" id="paid-amount-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="type-error"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Store Type</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio1" name="store-type" value="Online">
+                                                        <label for="radio1">
+                                                            <div class="radio"></div>Online
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio2" name="store-type" value="Offline">
+                                                        <label for="radio2">
+                                                            <div class="radio"></div>Offline
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="store-type-error"></div>
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Specify location / URL" id="location">
+                                                    <div class="error" id="location-error"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Cashback receive in %?</label>
+                                                <input type="text" class="form-control" placeholder="Enter percentage (%)" id="cashback">
+                                                <div class="error" id="cashback-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="add-offer-btn">Add
+                                        Offer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! ADD ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="view-offer-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="add-user-modal1">View offer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="outline: none;">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pt-2">
+                                <div class="loading" id="loading">
+                                    <i class="far fa-sync fa-spin"></i>
+                                </div>
+                                <div class="info-block flex-column">
+                                    <!-- banner image -->
+                                    <div class="row">
+                                        <div class="col-lg-7 col-md-7 col-12">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-12">
+                                                    <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                                                </div>
+                                                <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                    <div class="title-group">
+                                                        <h4 id="title" class="m-0 p-0"></h4>
+                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                    </div>
+                                                    
+                                                    <div class="flex-center justify-content-start">
+                                                        <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
+                                                                style="font-family: poppins;"></b></p>
+                                                    </div>
+                                                    <p class="end-date p-0 m-0 mt-1">Redeem count: <b id="redeem"
+                                                        style="font-family: poppins;"></b></p>
+                                                </div>
+                                            </div>                                            
+                                            <hr>
+                                            <p class="my-3 p-0" id="about-offer"></p>
+                                            <div class="super-admin-only d-none mt-5">
+                                                <p class="m-0 mt-2 p-0 font-weight-bold"> Vendor Credentials?</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="p-0">Username: <span class="poppins text-danger" id="username"></span></p>
+                                                <p class="p-0">Password: <span class="poppins text-danger" id="password"></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-12">
+                                            <p class="m-0 mt-2 p-0 font-weight-bold"> Who can avail?</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="participation"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Rewards</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="rewards"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Offer Type</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="type"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Store Type</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="store-type"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
+                                            <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="platform"></p>
+
+                                            <p class="m-0 mt-4 p-0 font-weight-bold"> Cashback receive</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small" id="cashback"></p>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="error" id="server-error"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-transparent"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW ACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
+                <!-- ! EDIT OFFER MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="edit-offer-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <div class="modal-content">
+                            <form action="" id="edit-offer-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Edit offer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="loading" id="loading">
+                                        <i class="far fa-sync fa-spin"></i>
+                                    </div>
+                                    <div class="info-block flex-column">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="row">
+                                                    <div class="col-lg-5 col-md-5 col-12 flex-center">
+                                                        <!-- profile -->
+                                                        <div class="profile-wrapper form-group mt-0">
+                                                            <div class="profile m-0">
+                                                                <img src="./assets/logo.jpg" id="e-offer-logo" class="img-fluid"
+                                                                    alt="">
+                                                                <label class="clickable" for="e-offerLogo">
+                                                                    <i class="far fa-paperclip"></i>
+                                                                    <p>Change logo</p>
+                                                                </label>
+                                                            </div>
+                                                            <input type="file" name="" id="e-offerLogo" class="d-none"
+                                                                onchange="previewFile2(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                            <div class="error" id="e-offerLogo-error"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-7 col-md-7 col-12">
+                                                        <div class="form-group">
+                                                            <label for="">Offer Title</label>
+                                                            <input type="text" class="form-control" placeholder="Offer title"
+                                                                id="e-offer-title">
+                                                            <div class="error" id="e-offer-title-error"></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="">Offer Category</label>
+                                                            <select name="" id="e-offer-category" class="form-control">
+                                                                <option value="-1">---- Select one option ----</option>
+                                                                <option value="Food & Drinks">Food & Drinks</option>
+                                                                <option value="Fashion">Fashion</option>
+                                                                <option value="Travel">Travel</option>
+                                                                <option value="Beauty & Health">Beauty & Health</option>
+                                                                <option value="Electronics">Electronics</option>
+                                                                <option value="Entertainment">Entertainment</option>
+                                                                <option value="Sports & Fitness">Sports & Fitness</option>
+                                                                <option value="Education">Education</option>
+                                                            </select>
+                                                            <div class="error" id="e-offer-category-error"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Brand Name</label>
+                                                    <input type="text" class="form-control" placeholder="Brand name"
+                                                        id="e-brand-name">
+                                                    <div class="error" id="e-brand-name-error"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">About Offer</label>
+                                                    <textarea name="" class="form-control" id="e-about-offer" cols="30"
+                                                        rows="5" placeholder="About offer (explain in brief)"></textarea>
+                                                    <div class="error" id="e-about-offer-error"></div>
+                                                </div>
+            
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                        <label for="">End Date</label>
+                                                        <input type="date" class="form-control" value="dd/mm/yyyy" id="e-end-date">
+                                                        <div class="error" id="e-end-date-error"></div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12 form-group my-0">
+                                                        <label for="">Use how many times?</label>
+                                                        <input type="text" class="form-control" placeholder="Enter count" id="e-use">
+                                                        <div class="error" id="e-use-error"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="">Who Can Avail?</label>
+                                                    <textarea name="" class="form-control" id="e-participate" cols="30"
+                                                        rows="5" placeholder="Explain in brief"></textarea>
+                                                    <div class="error" id="e-participate-error"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Offer Type</label>
+                                                    <div class="d-flex align-items-center radio-group-wrapper">
+                                                        <div class="radio-group">
+                                                            <input type="radio" id="radio10" name="e-type" value="free">
+                                                            <label for="radio10">
+                                                                <div class="radio"></div>Free
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio-group">
+                                                            <input type="radio" id="radio11" name="e-type" value="paid">
+                                                            <label for="radio11">
+                                                                <div class="radio"></div>Paid
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group m-0 d-none e-paid-wrapper" style="max-width: 200px;">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Amount in Rs." id="e-paid-amount">
+                                                            <div class="error" id="e-paid-amount-error"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="error" id="e-type-error"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Store Type</label>
+                                                    <div class="d-flex align-items-center radio-group-wrapper">
+                                                        <div class="radio-group">
+                                                            <input type="radio" id="radio21" name="e-store-type" value="Online">
+                                                            <label for="radio21">
+                                                                <div class="radio"></div>Online
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio-group">
+                                                            <input type="radio" id="radio13" name="e-store-type" value="Offline">
+                                                            <label for="radio13">
+                                                                <div class="radio"></div>Offline
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="error" id="e-store-type-error"></div>
+
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Specify location / URL" id="e-location">
+                                                        <div class="error" id="e-location-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Cashback receive in %?</label>
+                                                    <input type="text" class="form-control" placeholder="Enter percentage (%)" id="e-cashback">
+                                                    <div class="error" id="e-cashback-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <input type="hidden" name="" id="hiddenid">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="edit-offer-btn">Update Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! EDIT OFFER MODAL -->
+                <!-- ! ======================================================== -->
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CONTENT -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+            <div id="footer"></div>
+            <!-- ! ======================================================== -->
+            <!-- ! FOOTER -->
+            <!-- ! ======================================================== -->
+
+        </div>
+    </div>
+
+
+    <!-- bootstrap js -->
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- magnific popup -->
+    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+    <script src="./js/admin-offers.js"></script>
+    <script>
+        readOffers();
+    </script>
+</body>
+
+</html>
