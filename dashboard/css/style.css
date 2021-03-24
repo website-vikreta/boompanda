@@ -980,6 +980,35 @@ a:focus {
   margin: 10px;
   position: relative;
 }
+.tab-content .flex-wrapper .card .date{
+  position: absolute;
+  top: -5%;
+  right: -5%;
+  height: 40px;
+  width: auto;
+  background: white;
+  box-shadow: var(--box-shadow);
+  font-family: var(--font-poppins);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-red2);
+  min-width: 70%;
+}
+.tab-content .flex-wrapper .card .date::after{
+  content: 'Ends in';
+  position: absolute;
+  top: 100%;
+  right: 10%;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-family: var(--font-poppins);
+  color: #666;
+}
+.tab-content .flex-wrapper .card .date span{
+  padding: 0.25rem;
+}
 .tab-content .flex-wrapper .card .head {
   padding-top: 50px;
   background: var(--color-red3);
