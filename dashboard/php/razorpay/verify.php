@@ -42,14 +42,14 @@ if ($success === true)
     $email = $_SESSION['email'];
     $userType = $_SESSION['userType'];
     $amount = $_SESSION['amount'];
+    $description = $_SESSION['description'];
     $date = date('Y-m-d');
-    $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `date`, `amount`, `action`) 
-            VALUES ('$email', '$userType', '$tid', '$date', '$amount', 'payment')";
+    $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`) 
+            VALUES ('$email', '$userType', '$tid', '$description', '$date', '$amount', 'payment')";
     $r1 = mysqli_query($conn, $sql);
     // inserting into offer applications
     $offerid = $_SESSION['offerid'];
     $redeem = $_SESSION['redeem'];
-    $description = $_SESSION['description'];
     $name = $_SESSION['name'];
     $sql = "INSERT INTO `offer_applications`(`name`, `email`, `userType`, `offerid`, `total_redeem`, `dateOfApplication`) 
             VALUES ('$name', '$email', '$userType', '$offerid', '$redeem', '$date')";
