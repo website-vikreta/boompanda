@@ -63,7 +63,7 @@ $(document).ready(function(){
                 dataType: 'json',
                 cache: false,
                 success: function (response) {
-                    // console.log(response);
+                    console.log(response);
                     if (response.modalErr) {
                         $("#proceed-activity-modal #modal-error").html(response.modalErr);
                     } else {
@@ -87,7 +87,7 @@ $(document).ready(function(){
                     if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
                         message = jqXHR.responseText;
                     }
-                    // console.log(message);
+                    console.log(message);
                     $(_temp).removeAttr("disabled");
                     $(_temp).html('Apply Now');
                 }
@@ -108,6 +108,26 @@ function readActiveActivities() {
         success: function (response) {
             // console.log(response);
             $("#activeRecords").html(response);
+        },
+        error: function () {
+            // console.log("error");
+        }
+    });
+}
+
+function readMyActivities() {
+    var readapplied = 'readapplied';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/activities.php",
+        data: {
+            readapplied: readapplied
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            //console.log(response);
+            $("#appliedRecords").html(response);
+            $("#applied .loading").css('display', 'none');
         },
         error: function () {
             // console.log("error");
@@ -181,6 +201,105 @@ function ViewActivity(viewid){
             $("#view-activity-modal .info-block").css('display', 'flex');
             $("#proceed-activity-modal #loading").css('display', 'none');
             $("#proceed-activity-modal .info-block").css('display', 'flex');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var message = errorThrown;
+            if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                message = jqXHR.responseText;
+            }
+            // console.log(message);
+            notification('Ooops...', message, 'error');
+        }
+    });
+}
+function ViewActivity1(viewid2) {
+    $("#view-myactivity-modal #loading").css('display', 'flex');
+    $("#view-myactivity-modal .info-block").css('display', 'none');
+    $.ajax({
+        type: "POST",
+        url: "./php/activities.php",
+        data: {
+            viewid2: viewid2
+        },
+        dataType: 'json',
+        success: function (response) {
+            // console.log(response);
+
+            $("#view-myactivity-modal #activityBanner").attr('src', response.banner.substring(3));
+            $("#view-myactivity-modal #logo").attr('src', response.logo.substring(3));
+            $("#view-myactivity-modal #title").text(response.title);
+            $("#view-myactivity-modal #category").text(response.category);
+            $("#view-myactivity-modal #organizer").text(response.organizer);
+            $("#view-myactivity-modal #start-date").text(response.startDate);
+            $("#view-myactivity-modal #time").text(response.time);
+            $("#view-myactivity-modal #end-date").text(response.endDate);
+            $("#view-myactivity-modal #about-activity").html(response.about_activity.replaceAll("\r\n", "<br>"));
+
+            $("#view-myactivity-modal #participation").html(response.participation.replaceAll("\r\n", "<br>"));
+            $("#view-myactivity-modal #rewards").html(response.rewards.replaceAll("\r\n", "<br>"));
+            if (response.type == 'Free') {
+                $("#view-myactivity-modal #type").text(response.type);
+            } else {
+                $("#view-myactivity-modal #type").text(response.type + " ( ₹" + response.amountPaid + " )");
+            }
+            if (response.team == 'Individual') {
+                $("#view-myactivity-modal #team").text(response.team);
+            } else {
+                $("#view-myactivity-modal #team").text(response.team + " ( Team Size - " + response.teamSize + " )");
+            }
+            $("#view-myactivity-modal #platform").text(response.location);
+
+            // painting pable
+            var number = 1;
+            var data = `
+                <div class='table-responsive-lg normal-table'>
+                    <table class='table-striped' id='myTable' width='100%'>
+                        <thead>
+                            <td><b>Sr No</b></td>
+                            <td><b>Name</b></td>
+                            <td><b>Email</b></td></td>
+                            <td><b>Mobile</b></td></td>
+                            <td><b>State</b></td></td>
+                            <td><b>City</b></td></td>
+                            <td><b>College</b></td></td>
+                        </thead>
+                    <tbody>
+                    <tr>
+                        <td>`+ number + `</td>
+                        <td>`+ response.application.name + `</td>
+                        <td>`+ response.application.email + `</td>
+                        <td>`+ response.application.mobile + `</td>
+                        <td>`+ response.application.state + `</td>
+                        <td>`+ response.application.city + `</td>
+                        <td>`+ response.application.college + `</td>
+                    </tr>
+            `;
+            var members = JSON.parse(response.application.members);
+            for (var i = 0; i < members.length; i++) {
+                data += `
+                    <tr>
+                        <td>`+ number + `</td>
+                        <td>`+ members[i].name + `</td>
+                        <td>`+ members[i].email + `</td>
+                        <td>`+ members[i].mobile + `</td>
+                        <td>`+ members[i].state + `</td>
+                        <td>`+ members[i].city + `</td>
+                        <td>`+ members[i].college + `</td>
+                    </tr>
+                `;
+                number++;
+            }
+            data += `
+                </tbody>
+                </table>
+                </div>
+            `;
+
+            $("#view-myactivity-modal #teamTable").html(data);
+
+
+            $("#view-myactivity-modal #loading").css('display', 'none');
+            $("#view-myactivity-modal .info-block").css('display', 'flex');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var message = errorThrown;

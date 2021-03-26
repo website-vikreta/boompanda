@@ -20,7 +20,7 @@
             $number = 1;
             while($row = mysqli_fetch_assoc($result)){
                 $data .= "
-                    <div class='card'>
+                    <div class='card mb-4 mt-0'>
                         <div class = 'head'>
                             <div class='image p-1'>
                                 <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
@@ -33,7 +33,7 @@
                         </div>
                         <a>".$row['category']."</a>
 
-                        <button class='btn solid' id='view".$row['id']."' onclick='ViewActivity(".$row['id'].")' data-toggle='modal' data-target='#view-activity-modal'>Apply Now</button>
+                        <button class='btn solid' id='view".$row['id']."' onclick='ViewActivity(".$row['id'].")' data-toggle='modal' data-target='#view-activity-modal'>Register Now</button>
                     </div>
                 ";
                     
@@ -73,7 +73,7 @@
         $id = $_POST['activityId'];
         $teamSize = $_POST['teamSize'];
         $members = $_POST['members'];
-        $approval = $_POST['approval']=='Yes'?'Active': 'Under Review';
+        $approval = $_POST['approval']=='Yes'?'Under Review': 'Active';
         // user details
         $name = $_POST['name'];
         $mobile = $_POST['mobile'];
@@ -85,12 +85,12 @@
         $response = array();
         $response['success'] = false;
 
-        $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `mobile` = '$mobile' AND `activityid` = '$id'";
+        $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `activityid` = '$id' AND `userType` = '$userType'";
         if(mysqli_num_rows(mysqli_query($conn, $sql)) > 0){
             $response['modalErr'] = "You already applied for this activity";
         }else{
-            $sql = "INSERT INTO `activity_applications`(`activityid`, `name`, `email`, `mobile`, `state`, `city`, `college`, `members`, `status`) 
-                    VALUES ('$id', '$name', '$email', '$mobile', '$state','$city', '$college', '$members', '$approval')";
+            $sql = "INSERT INTO `activity_applications`(`activityid`, `name`, `email`, `userType`, `mobile`, `state`, `city`, `college`, `members`, `status`) 
+                    VALUES ('$id', '$name', '$email', '$userType', '$mobile', '$state','$city', '$college', '$members', '$approval')";
             $result = mysqli_query($conn, $sql);
             $sql1 = "UPDATE `activities` SET `noOfApplication` = `noOfApplication` + 1 WHERE `id` = '$id'";
             $result1 = mysqli_query($conn, $sql1);
@@ -100,4 +100,91 @@
         }
 
         echo json_encode($response);
+    }
+
+    // * ====================================
+    // * APPLIED TASKS
+    // * ====================================
+    if(!empty($_POST['readapplied'])){
+        $data = "<div class='flex-wrapper'>";
+        // sql query with inner join
+        $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `userType` = '$userType'";
+        $result=mysqli_query($conn,$sql);
+    
+        if(mysqli_num_rows($result) > 0){
+            $number = 1;
+            while($row1 = mysqli_fetch_assoc($result)){
+                $sql = "SELECT * FROM `activities` WHERE `id` = '".$row1['activityid']."'";
+                $res = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($res);
+
+                if(date('Y-m-d', strtotime($row['endDate'])) > date('Y-m-d')){
+                    $data .= "
+                        <div class='card mb-4 mt-0'>
+                            <div class = 'head'>
+                                <div class='image p-1'>
+                                    <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
+                                </div>
+                                <h3 class='gig-title'>".$row['title']."</h3>
+                            </div>
+                            <div class='time flex-center justify-content-between'>
+                                <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".$row['startDate']."</span>
+                                <span class='poppins'><i class='far fa-clock mr-1'></i> ".$row['time']."</span>
+                            </div>
+                            <a>".$row['category']."</a>
+                            <hr>
+                            <div class='flex-center justify-content-between btn-group'>";
+                                $data .= "<span class='btn solid w-80'>".$row1['status']."</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' onclick='ViewActivity1(".$row['id'].")' data-toggle='modal' data-target='#view-myactivity-modal'><i class='fas fa-eye'></i></button>";
+                                
+                            $data .="    
+                            </div>
+                        </div>
+                    ";
+                }else{
+                    $data .= "
+                        <div class='card mb-4 mt-0' style='opacity: 0.3'>
+                            <div class = 'head'>
+                                <div class='image p-1'>
+                                    <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
+                                </div>
+                                <h3 class='gig-title'>".$row['title']."</h3>
+                            </div>
+                            <div class='time flex-center justify-content-between'>
+                                <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".$row['startDate']."</span>
+                                <span class='poppins'><i class='far fa-clock mr-1'></i> ".$row['time']."</span>
+                            </div>
+                            <a>".$row['category']."</a>
+                            <hr>
+                            <div class='flex-center justify-content-between btn-group'>";
+                                $data .= "<span class='btn solid w-80'>Ended</span>";
+                                $data .= "<button class='btn solid w-10' id='view".$row['id']."' disabled><i class='fas fa-eye'></i></button>";
+                                
+                            $data .="    
+                            </div>
+                        </div>
+                    ";
+                }
+                    
+            }
+        }else{
+            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any task / gig yet. Apply to task by click Active task button on top.</p>";
+        }
+        $data .= "</div>";
+        // $data .= "</table>";
+        echo $data;
+    }
+
+    // * ====================================
+    // * READ SINGLE RECORD 2
+    // * ====================================
+    if(isset($_POST['viewid2'])){
+        $viewid = $_POST['viewid2'];
+        $sql = "SELECT * FROM `activities` WHERE `id` = '$viewid'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `userType` = '$userType' AND `activityid` = '$viewid'";
+        $result = mysqli_query($conn, $sql);
+        $row['application'] = mysqli_fetch_assoc($result);
+        echo json_encode($row);
     }

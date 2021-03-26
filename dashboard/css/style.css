@@ -805,6 +805,21 @@ a:focus {
   border: none;
   box-shadow: var(--box-shadow5);
 }
+.normal-table{
+  /* margin-top: 2rem; */
+}
+.normal-table table{
+  border-radius: 0 !important;
+}
+.normal-table tr,
+.normal-table td,
+.normal-table th{
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+.normal-table td{
+  min-height: 40px;
+}
 
 /* styling datatable */
 #myTable_wrapper label {

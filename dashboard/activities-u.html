@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
     <!-- magnific popup -->
     <link rel="stylesheet" href="../vendor/magnific-popup/magnific-popup.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
@@ -176,6 +178,90 @@
                 <!-- ! ======================================================== -->
 
                 <!-- ! ======================================================== -->
+                <!-- ! VIEW MYACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="view-myactivity-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
+                        <form action="" id="appl-activity-form">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">View activity</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="loading" id="loading">
+                                        <i class="far fa-sync fa-spin"></i>
+                                    </div>
+                                    <div class="info-block flex-column">
+                                        <!-- banner image -->
+                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-md-7 col-12">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3 col-12">
+                                                        <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                        <div class="title-group">
+                                                            <h4 id="title" class="m-0 p-0"></h4>
+                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                        </div>
+                                                        
+                                                        <div class="flex-center justify-content-start">
+                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
+                                                                    style="font-family: poppins;"></b></p>
+                                                            <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
+                                                                    style="font-family: poppins;"></b></p>
+                                                        </div>
+                                                        <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
+                                                            style="font-family: poppins;"></b></p>
+                                                    </div>
+                                                </div>                                            
+                                                <hr>
+                                                <p class="my-3 p-0" id="about-activity"></p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-12">
+                                                <p class="m-0 mt-2 p-0 font-weight-bold"> Who can participate?</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small" id="participation"></p>
+
+                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Rewards</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small" id="rewards"></p>
+
+                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Activity Type</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small" id="type"></p>
+
+                                                <p class="m-0 mt-4 p-0 font-weight-bold"> How you can participate?</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small" id="team"></p>
+
+                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
+                                                <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small" id="platform"></p> 
+                                            </div>
+                                        </div>
+                                        <h5 class="mt-4">Team Members</h5>
+                                        <div id="teamTable"></div>
+                                    </div>                                
+                                </div>
+                                <div class="error" id="server-error"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! VIEW MYACTIVITY MODAL -->
+                <!-- ! ======================================================== -->
+
+                <!-- ! ======================================================== -->
                 <!-- ! PROCEED ACTIVITY MODAL -->
                 <!-- ! ======================================================== -->
                 <div class="modal fade secondary" id="proceed-activity-modal" tabindex="-1" role="dialog"
@@ -279,6 +365,8 @@
     <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
     <!-- magnific popup -->
     <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- datatables -->
+    <script src="../vendor/datatables/datatables.min.js"></script>
     <!-- custom js -->
     <script src="./js/cities.js"></script>
     <script src="./js/main.js"></script>
