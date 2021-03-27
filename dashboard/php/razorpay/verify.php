@@ -44,25 +44,41 @@ if ($success === true)
     $amount = $_SESSION['amount'];
     $description = $_SESSION['description'];
     $date = date('Y-m-d');
-    $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`) 
-            VALUES ('$email', '$userType', '$tid', '$description', '$date', '$amount', 'payment')";
+    $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`, `status`) 
+            VALUES ('$email', '$userType', '$tid', '$description', '$date', '$amount', 'payment', 'success')";
     $r1 = mysqli_query($conn, $sql);
-    // inserting into offer applications
+    
+    
     $offerid = $_SESSION['offerid'];
     $redeem = $_SESSION['redeem'];
     $name = $_SESSION['name'];
-    $sql = "INSERT INTO `offer_applications`(`name`, `email`, `userType`, `offerid`, `total_redeem`, `dateOfApplication`) 
-            VALUES ('$name', '$email', '$userType', '$offerid', '$redeem', '$date')";
-    $r2 = mysqli_query($conn, $sql);
-    // increment application count
-    mysqli_query($conn, "UPDATE `offers` SET `noOfApplication` = `noOfApplication` + 1 WHERE `id` = '$offerid'");
+    $checkres = $_SESSION['checkres'];
+    // updating offer application
+    if($checkres){
+        $total_redeem = $_SESSION['total_redeem'];
+        $checkrowid = $_SESSION['checkrowid'];
+        $sql = "UPDATE `offer_applications` SET `total_redeem` = `total_redeem` + 1 WHERE `email` = '$email' AND `userType` = '$userType' AND `id` = '$checkrowid'";
+        $r2 = mysqli_query($conn, $sql);
+        if($inserres){header('location: ../offers-u.html?flag=success');}
+    }else{
+        // inserting into offer applications
+        $sql = "INSERT INTO `offer_applications`(`name`, `email`, `userType`, `offerid`, `total_redeem`, `dateOfApplication`) 
+                VALUES ('$name', '$email', '$userType', '$offerid', 1, '$date')";
+        $r2 = mysqli_query($conn, $sql);
+        // increment application count
+        mysqli_query($conn, "UPDATE `offers` SET `noOfApplication` = `noOfApplication` + 1 WHERE `id` = '$offerid'");
+    }
 
     if($r1 && $r1){
         unset($_SESSION['amount']);
         unset($_SESSION['offerid']);
         unset($_SESSION['description']);
         unset($_SESSION['name']);
-
+        if($_SESSION['checkres']){
+            unset($_SESSION['total_redeem']);
+            unset($_SESSION['checkrowid']);
+            unset($_SESSION['checkres']);
+        }
         header('location: ../../offers-u.html?flag=success');
     }
 }

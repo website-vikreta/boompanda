@@ -73,7 +73,9 @@
         $id = $_POST['activityId'];
         $teamSize = $_POST['teamSize'];
         $members = $_POST['members'];
-        $approval = $_POST['approval']=='Yes'?'Under Review': 'Active';
+        $sql = "SELECT `approval` FROM `activities` WHERE `id` = '$id'";
+        $r = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+        $approval = ($r['approval'] == "Yes") ? "Under Review" : "Active";
         // user details
         $name = $_POST['name'];
         $mobile = $_POST['mobile'];

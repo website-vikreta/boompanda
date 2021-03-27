@@ -11,6 +11,10 @@ $(document).ready(function () {
         notification('Oops', 'You already apply for this offer', 'error');
     } else if (flag != "" && flag == "profile") {
         notification('Profile Error', 'Kindly update your profile', 'error');
+    } else if (flag != "" && flag == "ended") {
+        notification('Oops', 'Offer Ended!', 'error');
+    } else if (flag != "" && flag == "overflow") {
+        notification('Oops', 'Limit exceeds, you avail this offer many times you can!', 'error');
     }
     if (flag != "") {
         // remove parameters without refreshing the page
