@@ -259,6 +259,8 @@ function ViewUser(userid) {
             $("#user-info #interest").text(response.interests);
             $("#user-info #stay").text(response.stay);
             $("#user-info #bio").text(response.bio);
+            $("#user-info #totalEarning").text(response.totalEarning);
+            $("#user-info #availableBalance").text(response.availableBalance);
 
             $("#user-info #loading").css('display', 'none');
             $("#user-info .info-block").css('display', 'flex');

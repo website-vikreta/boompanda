@@ -82,6 +82,17 @@
         max-width: initial;
         margin: 10px;
     }
+    .content-wrapper .cookies{
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: initial;
+        max-width: initial;
+        margin: 10px;
+    }
+    .content-wrapper .cookies.show{
+        bottom: 15%;
+    }
     .content-wrapper .updateProfile .btn{
         padding: 0.25rem 0.5rem;
     }

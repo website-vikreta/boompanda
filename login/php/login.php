@@ -43,8 +43,11 @@
                         $response['success'] = true;
                         $sql = "SELECT * FROM `user_info` WHERE `email` = '$username' AND `userType` = '".$row['userType']."'";
                         $r = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-                        if(($r['mobile_number'] == "") || ($r['gender'] == "") || ($r['dob'] == "") || ($r['college_name'] == "") || ($r['state'] == "") || ($r['interests'] == "") || ($r['year'] == 0)){
+                        if((($r['mobile_number'] == "") || ($r['gender'] == "") || ($r['dob'] == "") || ($r['college_name'] == "") || ($r['state'] == "") || ($r['interests'] == "") || ($r['year'] == 0)) && ($r['userType'] == 'boompanda' || $r['userType'] == 'google')){
                             $_SESSION['update_profile'] = true;
+                        }
+                        if($r['cookies'] == 0){
+                            $_SESSION['cookies'] = true;
                         }
                         $_SESSION['email'] = $row['email'];
                         $_SESSION['userType'] = $row['userType'];

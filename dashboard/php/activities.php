@@ -20,7 +20,7 @@
             $number = 1;
             while($row = mysqli_fetch_assoc($result)){
                 $data .= "
-                    <div class='card mb-4 mt-0'>
+                    <div class='card mb-4 mt-0' style='width:235px'>
                         <div class = 'head rect'>
                             <div class='image rect p-1'>
                                 <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
@@ -29,7 +29,7 @@
                         </div>
                         <div class='time flex-center justify-content-between'>
                             <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".$row['startDate']."</span>
-                            <span class='poppins'><i class='far fa-clock mr-1'></i> ".$row['time']."</span>
+                            <span class='poppins'><i class='far fa-clock mr-1'></i> ".to12hr($row['time'])."</span>
                         </div>
                         <a>".$row['category']."</a>
 
@@ -46,6 +46,9 @@
         echo $data;
     }
 
+    function to12hr($str) {
+        return date('h:i a', strtotime($str));
+    }
     // * ====================================
     // * READ SINGLE RECORD
     // * ====================================
@@ -122,7 +125,7 @@
 
                 if(date('Y-m-d', strtotime($row['endDate'])) > date('Y-m-d')){
                     $data .= "
-                        <div class='card mb-4 mt-0'>
+                        <div class='card mb-4 mt-0' style='width:235px'>
                             <div class = 'head rect'>
                                 <div class='image rect p-1'>
                                     <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
@@ -131,7 +134,7 @@
                             </div>
                             <div class='time flex-center justify-content-between'>
                                 <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".$row['startDate']."</span>
-                                <span class='poppins'><i class='far fa-clock mr-1'></i> ".$row['time']."</span>
+                                <span class='poppins'><i class='far fa-clock mr-1'></i> ".to12hr($row['time'])."</span>
                             </div>
                             <a>".$row['category']."</a>
                             <hr>

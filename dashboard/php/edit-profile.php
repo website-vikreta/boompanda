@@ -79,6 +79,7 @@
         }
         if(!empty($_POST['college_name'])){
             $college_name = mysqli_real_escape_string($conn, $_POST['college_name']);
+            $college_name = $college_name == '-- Select College --' ? "" : $college_name;
         }
         if($_POST['course'] != "-1"){
             $course = mysqli_real_escape_string($conn, $_POST['course']);

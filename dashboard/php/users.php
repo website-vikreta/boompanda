@@ -3,8 +3,18 @@
     include_once "./db.php";
     extract($_POST);
 
+    $email = $_SESSION['email'];
+    $userType = $_SESSION['userType'];
+
     if(isset($_GET['checksession'])){
         if(isset($_SESSION['update_profile'])){
+            echo "true";
+        }else{
+            echo "false";
+        }
+    }
+    if(isset($_GET['checkcookies'])){
+        if(isset($_SESSION['cookies'])){
             echo "true";
         }else{
             echo "false";
@@ -13,6 +23,15 @@
     if(isset($_GET['closesession'])){
         if(isset($_SESSION['update_profile'])){
             unset($_SESSION['update_profile']);
+            echo "true";
+        }else{
+            echo "false";
+        }
+    }
+    if(isset($_GET['closecookie'])){
+        $r = mysqli_query($conn, "UPDATE `user_info` SET `cookies`= 1 WHERE `email` = '$email' AND `userType` = '$userType'");
+        if(isset($_SESSION['cookies']) && $r){
+            unset($_SESSION['cookies']);
             echo "true";
         }else{
             echo "false";
@@ -290,5 +309,10 @@
                 WHERE `user`.`id` = '$userid'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
+        $sql = "SELECT * FROM `wallet` WHERE `email` = '".$row['email']."' AND `userType` = '".$row['userType']."'";
+        $result = mysqli_query($conn, $sql);
+        $r = mysqli_fetch_assoc($result);
+        $row['availableBalance'] = $r['balance'];
+        $row['totalEarning'] = $r['total_earning'];
         echo json_encode($row);
     }

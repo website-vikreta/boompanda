@@ -517,7 +517,7 @@ function viewActivity(activityid) {
             $("#view-activity-modal #category").text(response.category);
             $("#view-activity-modal #organizer").text(response.organizer);
             $("#view-activity-modal #start-date").text(response.startDate);
-            $("#view-activity-modal #time").text(response.time);
+            $("#view-activity-modal #time").text(to12hr(response.time));
             $("#view-activity-modal #end-date").text(response.endDate);
             $("#view-activity-modal #about-activity").html(response.about_activity.replaceAll("\r\n", "<br>"));
 
@@ -775,4 +775,13 @@ function DeleteUser(deleteid) {
             }
         });
     }
+}
+
+function to12hr(str) {
+    var timeString = str;
+    var H = +timeString.substr(0, 2);
+    var h = H % 12 || 12;
+    var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+    timeString = h + timeString.substr(2, 3) + ampm;
+    return timeString
 }

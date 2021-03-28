@@ -824,7 +824,8 @@ a:focus {
 }
 
 /* update profile */
-.content-wrapper .updateProfile{
+.content-wrapper .updateProfile,
+.content-wrapper .cookies{
   position: absolute;
   bottom: -50%;
   right: 0;
@@ -840,17 +841,25 @@ a:focus {
   transition: 0.5s ease;
   opacity: 0;
   visibility: hidden;
+  z-index: 10;
 }
-.content-wrapper .updateProfile.show{
+.content-wrapper .cookies{
+  right: initial;
+  left: 0;
+}
+.content-wrapper .updateProfile.show,
+.content-wrapper .cookies.show{
   opacity: 1;
   visibility: visible;
   bottom: 0;
 }
-.content-wrapper .updateProfile p{
+.content-wrapper .updateProfile p,
+.content-wrapper .cookies p{
   font-size: 0.9rem;
   margin: 0;
 }
-.content-wrapper .updateProfile .btn{
+.content-wrapper .updateProfile .btn,
+.content-wrapper .cookies .btn{
   white-space: nowrap;
   background: white;
   box-shadow: var(--box-shadow2);
@@ -860,7 +869,9 @@ a:focus {
   font-family: var(--font-poppins);
 }
 .content-wrapper .updateProfile .btn:hover,
-.content-wrapper .updateProfile .btn:focus{
+.content-wrapper .updateProfile .btn:focus,
+.content-wrapper .cookies .btn:hover,
+.content-wrapper .cookies .btn:focus{
   color: var(--color-black2);
 }
 .content-wrapper .updateProfile .btn.close{

@@ -7,11 +7,26 @@ $(document).ready(function () {
         }
     });
 
+    $.get('./php/users.php?checkcookies=all', function (data) {
+        // console.log(data);
+        if (data == "true") {
+            $(".cookies").addClass('show');
+        }
+    });
+
     $("#profileClose").click(function () {
         $.get('./php/users.php?closesession=all', function (data) {
             // console.log(data);
             if (data == "true") {
                 $(".updateProfile").removeClass('show');
+            }
+        });
+    })
+    $("#closeCookie").click(function () {
+        $.get('./php/users.php?closecookie=all', function (data) {
+            // console.log(data);
+            if (data == "true") {
+                $(".cookies").removeClass('show');
             }
         });
     })
