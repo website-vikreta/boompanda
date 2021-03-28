@@ -1,7 +1,20 @@
 $(document).ready(function () {
 
-    // activate tooltip
-    // $('[data-toggle="tooltip"]').tooltip();
+    $.get('./php/users.php?checksession=all', function (data) {
+        // console.log(data);
+        if (data == "true") {
+            $(".updateProfile").addClass('show');
+        }
+    });
+
+    $("#profileClose").click(function () {
+        $.get('./php/users.php?closesession=all', function (data) {
+            // console.log(data);
+            if (data == "true") {
+                $(".updateProfile").removeClass('show');
+            }
+        });
+    })
 
 })
 

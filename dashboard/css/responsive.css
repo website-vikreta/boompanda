@@ -74,4 +74,21 @@
     .wrapper footer .footer-content{
         justify-content: center
     }
+    .content-wrapper .updateProfile{
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: initial;
+        max-width: initial;
+        margin: 10px;
+    }
+    .content-wrapper .updateProfile .btn{
+        padding: 0.25rem 0.5rem;
+    }
+    .normal-table{
+        max-width: 400px !important;
+    }
+    .normal-table table{
+        max-width: 300px !important;
+    }
 }

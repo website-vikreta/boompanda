@@ -18,7 +18,8 @@
     <?php if($userType != 'admin' AND $userType != 'superadmin'){ ?>
     <a class="wallet" href="./wallet.html">
         <i class="far fa-wallet mr-2"></i>
-        <div class="amount poppins"> <?php echo $row1['balance']; ?> </div>
+        <div class="amount poppins font-weight-bold"> <?php echo $row1['balance']; ?> </div>
+        <span class="ml-1 poppins small">Coins</span>
     </a>
     <div class="notification">
         <div class="btn"><i class="far fa-bell"></i></div>

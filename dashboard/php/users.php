@@ -3,6 +3,22 @@
     include_once "./db.php";
     extract($_POST);
 
+    if(isset($_GET['checksession'])){
+        if(isset($_SESSION['update_profile'])){
+            echo "true";
+        }else{
+            echo "false";
+        }
+    }
+    if(isset($_GET['closesession'])){
+        if(isset($_SESSION['update_profile'])){
+            unset($_SESSION['update_profile']);
+            echo "true";
+        }else{
+            echo "false";
+        }
+    }
+
     // * ====================================
     // * ADD USER
     // * ====================================

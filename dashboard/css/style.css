@@ -474,6 +474,7 @@ a:focus {
 .content-wrapper {
   padding: 2rem;
   min-height: calc(100vh - 110px);
+  position: relative;
 }
 .content-wrapper [class*="col-"].card {
   padding: 0;
@@ -807,6 +808,7 @@ a:focus {
 }
 .normal-table{
   /* margin-top: 2rem; */
+  width: auto !important;
 }
 .normal-table table{
   border-radius: 0 !important;
@@ -819,6 +821,52 @@ a:focus {
 }
 .normal-table td{
   min-height: 40px;
+}
+
+/* update profile */
+.content-wrapper .updateProfile{
+  position: absolute;
+  bottom: -50%;
+  right: 0;
+  max-width: 500px;
+  width: 100%;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-red);
+  color: white;
+  padding: 10px;
+  transition: 0.5s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+.content-wrapper .updateProfile.show{
+  opacity: 1;
+  visibility: visible;
+  bottom: 0;
+}
+.content-wrapper .updateProfile p{
+  font-size: 0.9rem;
+  margin: 0;
+}
+.content-wrapper .updateProfile .btn{
+  white-space: nowrap;
+  background: white;
+  box-shadow: var(--box-shadow2);
+  border-radius: 0;
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-poppins);
+}
+.content-wrapper .updateProfile .btn:hover,
+.content-wrapper .updateProfile .btn:focus{
+  color: var(--color-black2);
+}
+.content-wrapper .updateProfile .btn.close{
+  background: initial;
+  color: white;
+  opacity: 1;
 }
 
 /* styling datatable */
@@ -932,6 +980,13 @@ a:focus {
   background: var(--color-red);
   color: white;
 }
+.content-wrapper form .profile-wrapper.rect{
+  width: 100%;
+  height: auto;
+}
+.content-wrapper form .profile-wrapper.rect .profile{
+  border-radius: 0 !important;
+}
 .modal .modal-body .profile {
   width: 100px;
   height: 100px;
@@ -940,6 +995,11 @@ a:focus {
   border: 5px solid white;
   box-shadow: var(--box-shadow2);
   margin: 0.5rem 1rem;
+}
+.modal .modal-body .profile.rect{
+  width: 100%;
+  height: auto;
+  border-radius: 0 !important;
 }
 .modal .modal-body p {
   padding: 0.5rem 1rem;
@@ -1030,6 +1090,9 @@ a:focus {
   padding: 20px;
   flex-grow: 1;
 }
+.tab-content .flex-wrapper .card .head.rect{
+  padding: 0;
+}
 .tab-content .flex-wrapper .card .time {
   padding: 10px;
 }
@@ -1069,6 +1132,16 @@ a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.tab-content .flex-wrapper .card .image.rect{
+  width: 100%;
+  height: auto;
+  background: var(--color-red);
+  border-radius: 0;
+  padding: 2px !important;
+}
+.tab-content .flex-wrapper .card .image.rect img{
+  border-radius: 0 !important;
 }
 .tab-content .flex-wrapper .card h3 {
   font-family: var(--font-montserrat);
