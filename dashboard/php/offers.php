@@ -55,3 +55,125 @@
         // $data .= "</table>";
         echo $data;
     }
+
+    // * ====================================
+    // * APPLIED OFFERS
+    // * ====================================
+    if(!empty($_POST['readapplied'])){
+        $data = "<div class='flex-wrapper'>";
+        // sql query with inner join
+        $sql = "SELECT * FROM `offer_applications` WHERE `email` = '$email' AND `userType` = '$userType' ORDER BY `id` DESC";
+        $result = mysqli_query($conn,$sql);
+
+        // get coupon
+        $sql = "SELECT `uid` FROM `user_info` WHERE `email` = '$email' AND `userType` = '$userType'";
+        $u = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+        $coupon = "BOOM".$u['uid'];
+    
+        if(mysqli_num_rows($result) > 0){
+            $number = 1;
+            while($row1 = mysqli_fetch_assoc($result)){
+                $sql = "SELECT * FROM `offers` WHERE `id` = '".$row1['offerid']."'";
+                $res = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($res);
+
+                
+
+                if(date('Y-m-d', strtotime($row['end_date'])) >= date('Y-m-d')){
+                    $data .= "
+                        <div class = 'card coupon'>
+                            <div class='heading'><span>E - coupon</span></div>
+
+                            <div class='offer-logo'><img src='".substr($row['logo'], 1)."' class='img-fluid'></div>
+                            <h3 class='title'>".$row['title']."</h3>
+                            <p class='location bar'><i class='m-1 mr-3 fas fa-map-marker-alt'></i>".substr($row['location'],0, 25)."...</p>
+                            <p class='address bar'><i class='m-1 mr-2 fas fa-graduation-cap'></i> Sinhgad College of Engineering, Vadgaon</p>
+                            <p class='m-0 small'>Rewards:</p>
+                            <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$row['cashback']."% Cashback</p>
+                            <p class='coupon bar'>
+                                <span>".$coupon."</span>
+                                <button class='btn copy' title='Copy coupon code'><i class='far fa-copy'></i></button>
+                            </p>
+                            <div class='stat'>
+                                <div class='info'>
+                                    <i class='far fa-clock'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Valid till</p>
+                                        <p class='m-0 big'>".$row['end_date']."</p>
+                                    </div>
+                                </div>
+                                <div class='info'>
+                                    <i class='far fa-fire'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Redeem by</p>
+                                        <p class='m-0 big'>0 Users</p>
+                                    </div>
+                                </div>
+                                <div class='info'>
+                                    <i class='far fa-user-tag'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Your redeem</p>
+                                        <p class='m-0 big'>".$row1['user_redeem']." / ".$row1['total_redeem']."</p>
+                                    </div>
+                                </div>
+                                <button class='m-0'>
+                                    <span>View Details</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    ";
+                }else{
+                    $data .= "
+                        <div class = 'card coupon' style='opacity: 0.2'>
+                            <div class='heading'><span>E - coupon</span></div>
+
+                            <div class='offer-logo'><img src='".substr($row['logo'], 1)."' class='img-fluid'></div>
+                            <h3 class='title'>".$row['title']."</h3>
+                            <p class='location bar'><i class='m-1 mr-3 fas fa-map-marker-alt'></i>".substr($row['location'],0, 25)."...</p>
+                            <p class='address bar'><i class='m-1 mr-2 fas fa-graduation-cap'></i> Sinhgad College of Engineering, Vadgaon</p>
+                            <p class='m-0 small'>Rewards:</p>
+                            <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$row['cashback']."% Cashback</p>
+                            <p class='coupon bar'>
+                                <span>".$coupon."</span>
+                                <button class='btn copy' title='Copy coupon code' disabled><i class='far fa-copy'></i></button>
+                            </p>
+                            <div class='stat'>
+                                <div class='info'>
+                                    <i class='far fa-clock'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Valid till</p>
+                                        <p class='m-0 big'>".$row['end_date']."</p>
+                                    </div>
+                                </div>
+                                <div class='info'>
+                                    <i class='far fa-fire'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Redeem by</p>
+                                        <p class='m-0 big'>0 Users</p>
+                                    </div>
+                                </div>
+                                <div class='info'>
+                                    <i class='far fa-user-tag'></i>
+                                    <div class='numbers'>
+                                        <p class='m-0 small'>Your redeem</p>
+                                        <p class='m-0 big'>".$row1['user_redeem']." / ".$row1['total_redeem']."</p>
+                                    </div>
+                                </div>
+                                <button class='m-0' disabled>
+                                    <span>View Details</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    ";
+                }
+                    
+            }
+        }else{
+            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any task / gig yet. Apply to task by click Active task button on top.</p>";
+        }
+        $data .= "</div>";
+        // $data .= "</table>";
+        echo $data;
+    }

@@ -254,7 +254,7 @@
                     ";
                 }
                 $data .= "                        
-                        <button class='btn solid rounded btn-primary activity-".$row['id']."' title='View applications' id='application".$row['id']."' onclick='window.location.href= `#`'><i class='far fa-tasks'></i></button>
+                        <a target='_BLANK' href='../vendor/?offerid=".$row['id']."' class='btn solid rounded btn-primary activity-".$row['id']."' title='View applications'><i class='far fa-tasks'></i></a>
                         <button class='btn solid rounded btn-secondary activity-".$row['id']."' id='edit".$row['id']."' onclick='EditOffer(".$row['id'].")' title='Edit' data-toggle='modal' data-target='#edit-offer-modal'><i class='far fa-edit'></i></button>
                         <button class='btn solid rounded btn-danger activity-".$row['id']."' id='delete".$row['id']."' onclick='DeleteOffer(".$row['id'].")' data-toggle='tooltip' title='Delete Activity'><i class='far fa-trash'></i></button>
                     </td>

@@ -140,3 +140,23 @@ function getRandomString(length) {
     }
     return result;
 }
+
+function readMyOffers() {
+    var readapplied = 'readapplied';
+    $.ajax({    //create an ajax request to display.php
+        type: "POST",
+        url: "./php/offers.php",
+        data: {
+            readapplied: readapplied
+        },
+        dataType: "html",   //expect html to be returned                
+        success: function (response) {
+            //console.log(response);
+            $("#appliedRecords").html(response);
+            $("#applied .loading").css('display', 'none');
+        },
+        error: function () {
+            // console.log("error");
+        }
+    });
+}

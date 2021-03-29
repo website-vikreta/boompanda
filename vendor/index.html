@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor | Boompanda</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+    <!-- data tables -->
+    <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="../dashboard/css/style.css">
+    <link rel="stylesheet" href="../dashboard/css/responsive.css">
+    <link rel="stylesheet" href="./offer.css">
+    <!-- important scripts -->
+</head>
+
+<body>
+
+    <div class="login d-none content-wrapper">
+        <form action="" class="form" id="login-form">
+            <h4 class="poppins text-muted">Vendor Login</h4>
+            <hr>
+            <div class="form-group">
+                <label for="">Username</label>
+                <input type="text" class="form-control" placeholder="Username" id="username">
+                <div class="error" id="username-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="text" class="form-control" placeholder="Password" id="password">
+                <div class="error" id="password-error"></div>
+            </div>
+            <p class="m-0 text-muted font-italic small">(These credentials are provided by team <b>Boompanda</b>)</p>
+            <div class="form-group mt-4">
+                <button class="btn btn-solid" id="login-btn">Login</button>
+                <div class="error" id="server-error"></div>
+            </div>
+        </form>
+    </div>
+    <div class="content-wrapper d-none" id="content-wrapper">
+        <div class="image text-center">
+            <img src="../assets/logo.png" alt="Boompanda Logo" class='img-fluid logo'> <span class="poppins ml-2 font-weight-bold" style="font-size: 1.5rem;">Offers</span>
+        </div>
+        <hr>
+        <div class="row align-items-center px-4">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-12">
+                        <img class="img-fluid p-2" id="offerLogo" style="width: 100px;  height:100px; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                        <div class="title-group">
+                            <h4 class="m-0 p-0" id="offerTitle"></h4>
+                            <span class="m-0 p-0 bg-light" id="offerCategory"></span> <i class="small">by <b id="offerOrganizer"></b></i>
+                        </div>
+                        
+                        <div>
+                            <p class="end-date p-0 m-0 mt-1 small">End Date: <b id="end-date"
+                                    style="font-family: poppins;"><?php echo $row['endDate']; ?></b></p>
+                        </div>  
+                    </div>
+                </div>    
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="card-wrapper">
+                    <div class="card card-primary">
+                        <h2 class="number" id="totalCoupon"></h2>
+                        <p class="para">Total Coupons</p>
+                    </div>
+                    <div class="card card-success">
+                        <h2 class="number" id="redeemCoupon"></h2>
+                        <p class="para">Total Redeem</p>
+                    </div>
+                    <div class="card card-success">
+                        <h2 class="number" id="todayRedeem"></h2>
+                        <p class="para">Redeem Today</p>
+                    </div>
+                </div>
+                <p class="text-muted font-italic small px-2">(These values update only when you refresh the page.)</p>
+            </div>
+        </div>
+        <hr>
+        <div id="responsecontainer" class="mt-5"></div>
+    </div>
+
+
+    <!-- jquery -->
+    <script src="./jquery/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="./bootstrap/bootstrap.min.js"></script>
+    <!-- datatables -->
+    <script src="./datatables/datatables.min.js"></script>
+    <!-- notification -->
+    <script src="./bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- custom js -->
+    <script src="./offers.js"></script>
+</body>
+
+</html>
