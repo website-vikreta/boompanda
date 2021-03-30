@@ -56,3 +56,6 @@ img.logo{
     max-width: 200px;
     margin: 0 auto 10px 0;
 }
+.bg-light{
+    background: rgba(255, 0, 0, 0.2) !important;
+}

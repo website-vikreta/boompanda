@@ -100,39 +100,50 @@ function showApprove() {
     $(".approve").toggleClass('active');
 }
 
-function redeemCoupon(redeemid) {
+$("#redeem-btn").click(function (e) {
+    e.preventDefault();
+
     var confirmation = confirm("Are you sure about redeem coupon? You will not be able to access it again. Click ok to continue");
 
     if (confirmation == true) {
-        //buttons for disable & spinner class
-        var button = "#myTable #redeem" + redeemid;
-        var _temp = "#redeem" + redeemid;
-        $(button).prop('disabled', true);
+        $(this).prop('disabled', true);
+        var _temp = this;
         $(_temp).html("Processing <i class='fas fa-spinner fa-spin ml-2'></i>");
 
         $.ajax({
             type: "POST",
             url: "./offers.php",
             data: {
-                redeemid: redeemid
+                coupon: $("#coupon-code").val()
             },
             dataType: 'json',
             success: function (response) {
                 console.log(response);
+                $('#error-message').html(response.message);
                 if (response.success == true) {
-                    notification('Heads Up', 'Coupon Redeem', 'success');
+                    notification("Heads Up!", "Coupon redeem successfully", "success");
+                    $('#error-message').html('');
+                    $("#redeem-form").trigger('reset');
                     readRecords();
                 }
+
+                $(_temp).prop('disabled', false);
+                $(_temp).html("Redeem Coupon");
             },
-            error: function () {
-                notification('Ooops...', 'Some error on server side', 'error');
+            error: function (jqXHR, textStatus, errorThrown) {
+                var message = errorThrown;
+                if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                    message = jqXHR.responseText;
+                }
+                console.log(message);
                 // enable buttons & remove spinner
-                $(button).prop('disabled', false);
+                $(_temp).prop('disabled', false);
                 $(_temp).html("Redeem Coupon");
             }
         });
     }
-}
+});
+
 // notification
 function notification(title, message, type) {
     $.notify({

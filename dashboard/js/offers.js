@@ -7,14 +7,14 @@ $(document).ready(function () {
         notification('Payment Successful', 'Coupon generated for offer. Go to "My Offers" to download', 'success');
     } else if (flag != "" && flag == "error") {
         notification('Payment Failed', 'Try again later. If amount deducted wait for 24hrs or contact admin.', 'error');
-    } else if (flag != "" && flag == "fail") {
-        notification('Oops', 'You already apply for this offer', 'error');
     } else if (flag != "" && flag == "profile") {
         notification('Profile Error', 'Kindly update your profile', 'error');
     } else if (flag != "" && flag == "ended") {
         notification('Oops', 'Offer Ended!', 'error');
     } else if (flag != "" && flag == "overflow") {
         notification('Oops', 'Limit exceeds, you avail this offer many times you can!', 'error');
+    } else if (flag != "" && flag == "fail") {
+        notification('Oops', 'You already apply for this offer', 'error');
     }
     if (flag != "") {
         // remove parameters without refreshing the page

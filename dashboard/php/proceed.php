@@ -19,8 +19,9 @@
         // check for existing record
         $check = "SELECT * FROM `offer_applications` WHERE `email` = '$email' AND `userType` = '$userType' AND `offerid` = '$id'";
         $checkres = mysqli_query($conn, $check);
-        if($checkres)
+        if($checkres){
             $checkrow = mysqli_fetch_assoc($checkres);
+        }
 
         // fetching user info
         $sql = "SELECT `user`.*, `user_info`.*

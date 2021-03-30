@@ -43,9 +43,9 @@ if ($success === true)
     $userType = $_SESSION['userType'];
     $amount = $_SESSION['amount'];
     $description = $_SESSION['description'];
-    $date = date('Y-m-d');
+    $date = date('d-m-Y');
     $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`, `status`) 
-            VALUES ('$email', '$userType', '$tid', '$description', '$date', '$amount', 'payment', 'success')";
+            VALUES ('$email', '$userType', '$tid', '$description', '$date', '$amount - Rupees', 'payment', 'success')";
     $r1 = mysqli_query($conn, $sql);
     
     

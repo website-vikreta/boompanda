@@ -91,8 +91,6 @@
                     <td class='text-center'><b>Coupons Distributed</b></td>
                     <td class='text-center'><b>Coupons Redeem</b></td>
                     <td class='text-center'><b>Recent date of redeem</b></td>
-                    <td class='text-center'><b>Coupon code</b></td>
-                    <td class='text-center' style='width:150px'><b>Action</b></td>
                 </thead>
                 <tfoot>
                     <td style='width:10px'><b>Sr No</b></td>
@@ -101,8 +99,6 @@
                     <td class='text-center'><b>Coupons Distributed</b></td>
                     <td class='text-center'><b>Coupons Redeem</b></td>
                     <td class='text-center'><b>Recent date of redeem</b></td>
-                    <td class='text-center'><b>Coupon code</b></td>
-                    <td class='text-center' style='width:150px'><b>Action</b></td>
                 </tfoot>
                 <tbody>
         ";
@@ -122,16 +118,7 @@
                         <td class='text-center poppins'>".$row['total_redeem']."</td>
                         <td class='text-center poppins'>".$row['user_redeem']."</td>
                         <td class='text-center poppins font-weight-bold'>".$last[0]."</td>
-                        <td class='text-center poppins font-weight-bold text-danger'>BOOM".$row['coupon']."</td>
-                ";
-                if($row['total_redeem'] > $row['user_redeem']){
-                    $data.= "<td class='text-center'>
-                                <button class='btn solid rounded w-100 btn-danger poppins' id='redeem".$row['id']."' onclick='redeemCoupon(".$row['id'].")'>Redeem Coupon</button>
-                            </td>";
-                }else{
-                    $data.= "<td class='text-center text-muted'>All coupons are redeemed.</td>";
-                }
-                $data.="    </tr>
+                    </tr>
                 ";
                 $number++;
             }
@@ -155,7 +142,7 @@
     // read statastics
     if(isset($_POST['readStat'])){
         $offerid = $_SESSION['offerid'];
-        $date = date('Y-m-d');
+        $date = date('d-m-Y');
         $sql = "SELECT SUM(`total_redeem`) AS `total`, 
                 SUM(`user_redeem`) AS `redeem`,
                 SUM(ROUND((LENGTH(`dateOfRedeem`) - LENGTH(REPLACE(`dateOfRedeem`, '$date', ''))) / LENGTH('$date'))) AS `today` 
@@ -164,18 +151,85 @@
     }
 
     // redeem coupon
-    if(isset($_POST['redeemid'])){
-        $id = $_POST['redeemid'];
-        $date = date("Y-m-d");
+    if(isset($_POST['coupon'])){
+        $coupon = $_POST['coupon'];
+        $date = date("d-m-Y");
         $response = array();
         $response['success'] = false;
+        $flag = 0; $u_email = $u_type = "";
+        $offerid = $_SESSION['offerid'];
 
-        $sql = "UPDATE `offer_applications` SET `user_redeem`=`user_redeem` + 1,`dateOfRedeem`= CONCAT(`dateOfRedeem` , '$date' , ',') WHERE `id` = '$id'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            $response['success'] = true;
+        // check for blank coupon
+        if($coupon == ""){
+            $response['message'] = "Please enter coupon!";
+            $flag = 1;
+        }else{
+            // get username & userType
+            $sql = "SELECT * FROM `user_info` WHERE `uid` = '$coupon'";
+            $result = mysqli_query($conn, $sql);
+            if(mysqli_num_rows($result) != 1){
+                $response['message'] = "Invalid Coupon!";
+                $flag = 1;
+            }else{
+                $row = mysqli_fetch_assoc($result);
+                $u_email = $row['email'];
+                $u_type = $row['userType'];
+
+                // getting info from offers table
+                $sql = "SELECT * FROM `offer_applications` WHERE `email` = '$u_email' AND `userType` = '$u_type' AND `offerid` = '$offerid'";
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result) != 1){
+                    $response['message'] = "User doesn't apply for the offer";
+                    $flag = 1;
+                }else{
+                    $row = mysqli_fetch_assoc($result);
+                    if($row['total_redeem'] <= $row['user_redeem']){
+                        $response['message'] = "User already redeem the coupon";
+                        $flag = 1;
+                    }
+                }
+            }
+        }
+
+        if($flag == 0){
+            // fetching offer details
+            $sql = "SELECT * FROM `offers` WHERE `id` = '$offerid'";
+            $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+            $title = 'Coupon cashback for - '.$row['title'];
+            $amount = ($row['cashback'] != "") && ($row['offer_type'] == 'paid') ? (($row['cashback']/100)*$row['amount_paid'])*10 : 0;
+            $tid = 'credit_'.generateRandomString(14);
+            // updating offer application
+            $sql = "UPDATE `offer_applications` SET `user_redeem`=`user_redeem` + 1,`dateOfRedeem`= CONCAT(`dateOfRedeem` , '$date' , ',') WHERE `email` = '$u_email' AND `userType` = '$u_type' AND `offerid` = '$offerid'";
+            $result = mysqli_query($conn, $sql);
+            if($amount != 0){
+                // creating transaction entry
+                $sql = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`, `status`) 
+                        VALUES ('$u_email', '$u_type', '$tid', '$title', '$date', '$amount - Boomcoins', 'credit', 'success')";
+                $result1 = mysqli_query($conn, $sql);
+                // adding amount in wallet
+                $sql = "UPDATE `wallet` SET `balance`=`balance` + $amount,`total_earning`=`total_earning` + $amount WHERE `email` = '$u_email' AND `userType` = '$u_type'";
+                $result2 = mysqli_query($conn, $sql);
+            }else{
+                $result1 = $result2 = 1;
+            }
+
+            if($result && $result2 && $result1){
+                $response['success'] = true;
+            }else{
+                $response['message'] = "Something went wrong";
+            }
         }
 
         echo json_encode($response);
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 ?>
