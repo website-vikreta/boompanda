@@ -73,6 +73,7 @@ $(document).ready(function () {
         formData.append('username', $("#signup-form #username").val());
         formData.append('email', $("#signup-form #email").val());
         formData.append('password', $("#signup-form #password").val());
+        formData.append('agreement', $("#signup-form input[name='agreement']:checked").val());
         // ajax function
         $.ajax({
             enctype: 'multipart/form-data',
@@ -105,6 +106,11 @@ $(document).ready(function () {
                     $("#signup-form #server-error").html(response.serverErr);
                 } else {
                     $("#signup-form #server-error").html("");
+                }
+                if (response.agreementErr) {
+                    $("#signup-form #agreement-error").html(response.agreementErr);
+                } else {
+                    $("#signup-form #agreement-error").html("");
                 }
                 if (response.success == true) {
                     window.location.href = "./emailsent.html";

@@ -16,6 +16,7 @@ $(document).ready(function () {
         formData.append('username', $("#signup-form #username").val());
         formData.append('email', $("#signup-form #email").val());
         formData.append('password', $("#signup-form #password").val());
+        formData.append('agreement', $("#signup-form input[name='agreement']").val());
         // ajax function
         $.ajax({
             enctype: 'multipart/form-data',

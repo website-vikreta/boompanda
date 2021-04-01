@@ -71,6 +71,14 @@
         }
 
         // ==================================================
+        // agreement validations
+        // ==================================================
+        if(empty($_POST['agreement']) || $_POST['agreement'] == 'undefined'){
+            $response['agreementErr'] = "Kindly check the agreement";
+            $flag = 1;
+        }
+
+        // ==================================================
         // if no error enter in db
         // ==================================================
         if($flag == 0){

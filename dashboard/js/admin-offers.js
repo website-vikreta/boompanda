@@ -54,6 +54,7 @@ $(document).ready(function () {
         formData.append('paidAmount', $('#add-offer-modal #paid-amount').val());
         formData.append('cashback', $('#add-offer-modal #cashback').val());
         formData.append('location', $('#add-offer-modal #location').val());
+        formData.append('college', $("#add-offer-modal #college option:selected").text());
         formData.append('addOffer', "addOffer");
 
         // ajax function
@@ -67,7 +68,7 @@ $(document).ready(function () {
             dataType: 'json',
             cache: false,
             success: function (response) {
-                // console.log(response);
+                console.log(response);
 
                 if (response.offerLogoErr) {
                     $("#add-offer-modal #offerLogo-error").html(response.offerLogoErr);
@@ -150,7 +151,7 @@ $(document).ready(function () {
                 if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
                     message = jqXHR.responseText;
                 }
-                // console.log(message);
+                console.log(message);
                 $(_temp).removeAttr("disabled");
                 $(_temp).html('Add Offer');
             }
@@ -484,6 +485,9 @@ function EditOffer(editid) {
             }
             $("#edit-offer-modal input[name=e-store-type][value=" + response.store_type + "]").prop('checked', true);
             $("#edit-offer-modal #e-location").val(response.location);
+            var value = response.campus == "" ? '-- Select College --' : response.campus;
+            $('#edit-offer-modal #college option[text="' + value + '"]').attr('selected', 'selected');
+            $("#edit-offer-modal #college").val(response.location);
             $("#edit-offer-modal #e-cashback").val(response.cashback);
             $("#edit-offer-modal #hiddenid").val(response.id);
 

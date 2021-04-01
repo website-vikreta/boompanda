@@ -16,7 +16,7 @@
         $response['success'] = false; 
         $flag = 0;
         $title = $category = $brand = $about = $redeemCount = $endDate = "";
-        $participate = $storeType = $cashback = $offerType = $location = "";
+        $participate = $storeType = $cashback = $offerType = $location = $college_name = "";
         $paidAmount = 0;
 
         // validating offer logo
@@ -140,6 +140,10 @@
             $location = mysqli_real_escape_string($conn, $_POST['location']);
         }
 
+        // validating college
+        $college_name = mysqli_real_escape_string($conn, $_POST['college']);
+        $college_name = ($college_name == '-- Select College --') ? "" : $college_name;
+
         // validating cashback
         if(empty($_POST['cashback']) || $_POST['cashback'] == 'undefined'){
             $response['cashbackErr'] = 'Required!';
@@ -167,12 +171,9 @@
                 $username = substr(preg_replace('/[^A-Za-z0-9\-]/', '', $_POST['brandName']), 0, 10);
                 $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 $password = substr(str_shuffle($str_result), 0, 6);
-
-                $response['username'] = $username;
-                $response['password'] = $password;
                 
-                $sql = "INSERT INTO `offers`(`title`, `logo`, `brand`, `category`, `about`, `end_date`, `redeem_count`, `avail`, `store_type`, `offer_type`, `amount_paid`, `cashback`, `location`, `username`, `password`, `status`) 
-                        VALUES ('$title', '$logoLocation', '$brand', '$category', '$about', '$endDate', '$redeemCount', '$participate', '$storeType', '$type', '$paidAmount', '$cashback', '$location', '$username', '$password', 'Not Active')";
+                $sql = "INSERT INTO `offers`(`title`, `logo`, `brand`, `category`, `about`, `end_date`, `redeem_count`, `avail`, `store_type`, `offer_type`, `amount_paid`, `cashback`, `location`, `campus`, `username`, `password`, `status`) 
+                        VALUES ('$title', '$logoLocation', '$brand', '$category', '$about', '$endDate', '$redeemCount', '$participate', '$storeType', '$type', '$paidAmount', '$cashback', '$location', '$college_name', '$username', '$password', 'Not Active')";
                 $result = mysqli_query($conn, $sql);
                 if($result){
                     $response['success'] = true;
