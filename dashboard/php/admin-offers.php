@@ -141,8 +141,13 @@
         }
 
         // validating college
-        $college_name = mysqli_real_escape_string($conn, $_POST['college']);
-        $college_name = ($college_name == '-- Select College --') ? "" : $college_name;
+        if($_POST['college'] != "-1+-1"){
+            $college = mysqli_real_escape_string($conn, $_POST['college']);
+        }
+        if(!empty($_POST['college_name'])){
+            $college_name = mysqli_real_escape_string($conn, $_POST['college_name']);
+            $college_name = $college_name == '-- Select College --' ? "" : $college_name;
+        }
 
         // validating cashback
         if(empty($_POST['cashback']) || $_POST['cashback'] == 'undefined'){
@@ -172,8 +177,8 @@
                 $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 $password = substr(str_shuffle($str_result), 0, 6);
                 
-                $sql = "INSERT INTO `offers`(`title`, `logo`, `brand`, `category`, `about`, `end_date`, `redeem_count`, `avail`, `store_type`, `offer_type`, `amount_paid`, `cashback`, `location`, `campus`, `username`, `password`, `status`) 
-                        VALUES ('$title', '$logoLocation', '$brand', '$category', '$about', '$endDate', '$redeemCount', '$participate', '$storeType', '$type', '$paidAmount', '$cashback', '$location', '$college_name', '$username', '$password', 'Not Active')";
+                $sql = "INSERT INTO `offers`(`title`, `logo`, `brand`, `category`, `about`, `end_date`, `redeem_count`, `avail`, `store_type`, `offer_type`, `amount_paid`, `cashback`, `location`, `college`, `college_name`, `username`, `password`, `status`) 
+                        VALUES ('$title', '$logoLocation', '$brand', '$category', '$about', '$endDate', '$redeemCount', '$participate', '$storeType', '$type', '$paidAmount', '$cashback', '$location', '$college', '$college_name', '$username', '$password', 'Not Active')";
                 $result = mysqli_query($conn, $sql);
                 if($result){
                     $response['success'] = true;
@@ -464,6 +469,15 @@
             $location = mysqli_real_escape_string($conn, $_POST['location']);
         }
 
+        // validating college
+        if($_POST['college'] != "-1+-1"){
+            $college = mysqli_real_escape_string($conn, $_POST['college']);
+        }
+        if(!empty($_POST['college_name'])){
+            $college_name = mysqli_real_escape_string($conn, $_POST['college_name']);
+            $college_name = $college_name == '-- Select College --' ? "" : $college_name;
+        }
+
         // validating cashback
         if(empty($_POST['cashback']) || $_POST['cashback'] == 'undefined'){
             $response['cashbackErr'] = 'Required!';
@@ -485,9 +499,9 @@
             if($filename != ""){
                 $logoLocation = $getImg_row['logo'];
                 compress_image($_FILES['offerLogo']['tmp_name'], $logoLocation, 50);
-                $sql = "UPDATE `offers` SET `title`='$title',`logo`='$logoLocation',`brand`='$brand',`category`='$category',`about`='$about',`end_date`='$endDate',`redeem_count`='$redeemCount',`avail`='$participate',`store_type`='$storeType',`offer_type`='$type',`amount_paid`='$paidAmount',`cashback`='$cashback',`location`='$location' WHERE `id` = '$taskid'";
+                $sql = "UPDATE `offers` SET `title`='$title',`logo`='$logoLocation',`brand`='$brand',`category`='$category',`about`='$about',`end_date`='$endDate',`redeem_count`='$redeemCount',`avail`='$participate',`store_type`='$storeType',`offer_type`='$type',`amount_paid`='$paidAmount',`cashback`='$cashback',`location`='$location', `college` = '$college', `college_name` = '$college_name' WHERE `id` = '$taskid'";
             }else{
-                $sql = "UPDATE `offers` SET `title`='$title',`brand`='$brand',`category`='$category',`about`='$about',`end_date`='$endDate',`redeem_count`='$redeemCount',`avail`='$participate',`store_type`='$storeType',`offer_type`='$type',`amount_paid`='$paidAmount',`cashback`='$cashback',`location`='$location' WHERE `id` = '$taskid'";
+                $sql = "UPDATE `offers` SET `title`='$title',`brand`='$brand',`category`='$category',`about`='$about',`end_date`='$endDate',`redeem_count`='$redeemCount',`avail`='$participate',`store_type`='$storeType',`offer_type`='$type',`amount_paid`='$paidAmount',`cashback`='$cashback',`location`='$location', `college` = '$college', `college_name` = '$college_name' WHERE `id` = '$taskid'";
             }
             
             $result = mysqli_query($conn, $sql);

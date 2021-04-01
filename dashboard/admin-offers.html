@@ -60,8 +60,8 @@
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
             <div class="content-wrapper pt-4">
-                 <!-- * ADD OFFER BUTTON -->
-                 <div class="top-button-group mb-4 p-0">
+                <!-- * ADD OFFER BUTTON -->
+                <div class="top-button-group mb-4 p-0">
                     <form class="text-right" id="dummy-form">
                         <div class="form-group m-0">
                             <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
@@ -108,23 +108,24 @@
                                                     <!-- profile -->
                                                     <div class="profile-wrapper form-group mt-0">
                                                         <div class="profile m-0">
-                                                            <img src="./assets/logo.jpg" id="offer-logo" class="img-fluid"
-                                                                alt="">
+                                                            <img src="./assets/logo.jpg" id="offer-logo"
+                                                                class="img-fluid" alt="">
                                                             <label class="clickable" for="offerLogo">
                                                                 <i class="far fa-paperclip"></i>
                                                                 <p>Change logo</p>
                                                             </label>
                                                         </div>
                                                         <input type="file" name="" id="offerLogo" class="d-none"
-                                                            onchange="previewFile(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                            onchange="previewFile(event)"
+                                                            accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                         <div class="error" id="offerLogo-error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-12">
                                                     <div class="form-group">
                                                         <label for="">Offer Title</label>
-                                                        <input type="text" class="form-control" placeholder="Offer title"
-                                                            id="offer-title">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Offer title" id="offer-title">
                                                         <div class="error" id="offer-title-error"></div>
                                                     </div>
                                                     <div class="form-group">
@@ -156,16 +157,18 @@
                                                     rows="5" placeholder="About offer (explain in brief)"></textarea>
                                                 <div class="error" id="about-offer-error"></div>
                                             </div>
-        
+
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">End Date</label>
-                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                        id="end-date">
                                                     <div class="error" id="end-date-error"></div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">Use how many times?</label>
-                                                    <input type="text" class="form-control" placeholder="Enter count" id="use">
+                                                    <input type="text" class="form-control" placeholder="Enter count"
+                                                        id="use">
                                                     <div class="error" id="use-error"></div>
                                                 </div>
                                             </div>
@@ -192,7 +195,8 @@
                                                             <div class="radio"></div>Paid
                                                         </label>
                                                     </div>
-                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                    <div class="form-group m-0 d-none paid-wrapper"
+                                                        style="max-width: 200px;">
                                                         <input type="text" class="form-control"
                                                             placeholder="Amount in Rs." id="paid-amount">
                                                         <div class="error" id="paid-amount-error"></div>
@@ -204,13 +208,15 @@
                                                 <label for="">Store Type</label>
                                                 <div class="d-flex align-items-center radio-group-wrapper">
                                                     <div class="radio-group">
-                                                        <input type="radio" id="radio1" name="store-type" value="Online">
+                                                        <input type="radio" id="radio1" name="store-type"
+                                                            value="Online">
                                                         <label for="radio1">
                                                             <div class="radio"></div>Online
                                                         </label>
                                                     </div>
                                                     <div class="radio-group">
-                                                        <input type="radio" id="radio2" name="store-type" value="Offline">
+                                                        <input type="radio" id="radio2" name="store-type"
+                                                            value="Offline">
                                                         <label for="radio2">
                                                             <div class="radio"></div>Offline
                                                         </label>
@@ -234,12 +240,13 @@
                                                 <script>
                                                     $.get("./include/college.html", function (data) {
                                                         $("#college-list").replaceWith(data);
-                                                    });       
+                                                    });
                                                 </script>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Cashback receive in %?</label>
-                                                <input type="text" class="form-control" placeholder="Enter percentage (%)" id="cashback">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Enter percentage (%)" id="cashback">
                                                 <div class="error" id="cashback-error"></div>
                                             </div>
                                         </div>
@@ -285,29 +292,35 @@
                                         <div class="col-lg-7 col-md-7 col-12">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-12">
-                                                    <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                                                    <img src="./assets/logo.jpg" class="img-fluid p-2"
+                                                        style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px"
+                                                        alt="" id="logo">
                                                 </div>
-                                                <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                <div
+                                                    class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
                                                     <div class="title-group">
                                                         <h4 id="title" class="m-0 p-0"></h4>
-                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i
+                                                            class="small">by <b id="organizer"></b></i>
                                                     </div>
-                                                    
+
                                                     <div class="flex-center justify-content-start">
                                                         <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                                 style="font-family: poppins;"></b></p>
                                                     </div>
                                                     <p class="end-date p-0 m-0 mt-1">Redeem count: <b id="redeem"
-                                                        style="font-family: poppins;"></b></p>
+                                                            style="font-family: poppins;"></b></p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <hr>
                                             <p class="my-3 p-0" id="about-offer"></p>
                                             <div class="super-admin-only d-none mt-5">
                                                 <p class="m-0 mt-2 p-0 font-weight-bold"> Vendor Credentials?</p>
                                                 <hr class="m-0 mt-1">
-                                                <p class="p-0">Username: <span class="poppins text-danger" id="username"></span></p>
-                                                <p class="p-0">Password: <span class="poppins text-danger" id="password"></span></p>
+                                                <p class="p-0">Username: <span class="poppins text-danger"
+                                                        id="username"></span></p>
+                                                <p class="p-0">Password: <span class="poppins text-danger"
+                                                        id="password"></span></p>
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5 col-12">
@@ -328,7 +341,9 @@
                                             <p class="m-0 mt-1 p-0 small" id="store-type"></p>
 
                                             <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                            <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                            <p class="small text-muted p-0 font-italic"
+                                                style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly
+                                                copy that URL & paste it in URL bar to visit page)</p>
                                             <hr class="m-0 mt-1">
                                             <p class="m-0 mt-1 p-0 small" id="platform"></p>
 
@@ -337,12 +352,11 @@
                                             <p class="m-0 mt-1 p-0 small" id="cashback"></p>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="error" id="server-error"></div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-transparent"
-                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -379,23 +393,24 @@
                                                         <!-- profile -->
                                                         <div class="profile-wrapper form-group mt-0">
                                                             <div class="profile m-0">
-                                                                <img src="./assets/logo.jpg" id="e-offer-logo" class="img-fluid"
-                                                                    alt="">
+                                                                <img src="./assets/logo.jpg" id="e-offer-logo"
+                                                                    class="img-fluid" alt="">
                                                                 <label class="clickable" for="e-offerLogo">
                                                                     <i class="far fa-paperclip"></i>
                                                                     <p>Change logo</p>
                                                                 </label>
                                                             </div>
                                                             <input type="file" name="" id="e-offerLogo" class="d-none"
-                                                                onchange="previewFile2(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                                onchange="previewFile2(event)"
+                                                                accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                             <div class="error" id="e-offerLogo-error"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-7 col-md-7 col-12">
                                                         <div class="form-group">
                                                             <label for="">Offer Title</label>
-                                                            <input type="text" class="form-control" placeholder="Offer title"
-                                                                id="e-offer-title">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Offer title" id="e-offer-title">
                                                             <div class="error" id="e-offer-title-error"></div>
                                                         </div>
                                                         <div class="form-group">
@@ -408,7 +423,8 @@
                                                                 <option value="Beauty & Health">Beauty & Health</option>
                                                                 <option value="Electronics">Electronics</option>
                                                                 <option value="Entertainment">Entertainment</option>
-                                                                <option value="Sports & Fitness">Sports & Fitness</option>
+                                                                <option value="Sports & Fitness">Sports & Fitness
+                                                                </option>
                                                                 <option value="Education">Education</option>
                                                             </select>
                                                             <div class="error" id="e-offer-category-error"></div>
@@ -424,19 +440,22 @@
                                                 <div class="form-group">
                                                     <label for="">About Offer</label>
                                                     <textarea name="" class="form-control" id="e-about-offer" cols="30"
-                                                        rows="5" placeholder="About offer (explain in brief)"></textarea>
+                                                        rows="5"
+                                                        placeholder="About offer (explain in brief)"></textarea>
                                                     <div class="error" id="e-about-offer-error"></div>
                                                 </div>
-            
+
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                         <label for="">End Date</label>
-                                                        <input type="date" class="form-control" value="dd/mm/yyyy" id="e-end-date">
+                                                        <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                            id="e-end-date">
                                                         <div class="error" id="e-end-date-error"></div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                         <label for="">Use how many times?</label>
-                                                        <input type="text" class="form-control" placeholder="Enter count" id="e-use">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Enter count" id="e-use">
                                                         <div class="error" id="e-use-error"></div>
                                                     </div>
                                                 </div>
@@ -463,7 +482,8 @@
                                                                 <div class="radio"></div>Paid
                                                             </label>
                                                         </div>
-                                                        <div class="form-group m-0 d-none e-paid-wrapper" style="max-width: 200px;">
+                                                        <div class="form-group m-0 d-none e-paid-wrapper"
+                                                            style="max-width: 200px;">
                                                             <input type="text" class="form-control"
                                                                 placeholder="Amount in Rs." id="e-paid-amount">
                                                             <div class="error" id="e-paid-amount-error"></div>
@@ -475,13 +495,15 @@
                                                     <label for="">Store Type</label>
                                                     <div class="d-flex align-items-center radio-group-wrapper">
                                                         <div class="radio-group">
-                                                            <input type="radio" id="radio21" name="e-store-type" value="Online">
+                                                            <input type="radio" id="radio21" name="e-store-type"
+                                                                value="Online">
                                                             <label for="radio21">
                                                                 <div class="radio"></div>Online
                                                             </label>
                                                         </div>
                                                         <div class="radio-group">
-                                                            <input type="radio" id="radio13" name="e-store-type" value="Offline">
+                                                            <input type="radio" id="radio13" name="e-store-type"
+                                                                value="Offline">
                                                             <label for="radio13">
                                                                 <div class="radio"></div>Offline
                                                             </label>
@@ -505,12 +527,13 @@
                                                     <script>
                                                         $.get("./include/college.html", function (data) {
                                                             $("#college-list1").replaceWith(data);
-                                                        });       
+                                                        });
                                                     </script>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="">Cashback receive in %?</label>
-                                                    <input type="text" class="form-control" placeholder="Enter percentage (%)" id="e-cashback">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Enter percentage (%)" id="e-cashback">
                                                     <div class="error" id="e-cashback-error"></div>
                                                 </div>
                                             </div>
@@ -522,7 +545,8 @@
                                     <input type="hidden" name="" id="hiddenid">
                                     <button type="button" class="btn btn-transparent"
                                         data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-solid" id="edit-offer-btn">Update Changes</button>
+                                    <button type="submit" class="btn btn-solid" id="edit-offer-btn">Update
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>

@@ -54,7 +54,8 @@ $(document).ready(function () {
         formData.append('paidAmount', $('#add-offer-modal #paid-amount').val());
         formData.append('cashback', $('#add-offer-modal #cashback').val());
         formData.append('location', $('#add-offer-modal #location').val());
-        formData.append('college', $("#add-offer-modal #college option:selected").text());
+        formData.append('college', $("#add-offer-modal #college option:selected").attr("data-id") + '+' + $("#add-offer-modal #college option:selected").attr("data-collegepincode"));
+        formData.append('college_name', $("#add-offer-modal #college option:selected").text());
         formData.append('addOffer', "addOffer");
 
         // ajax function
@@ -183,6 +184,9 @@ $(document).ready(function () {
         formData.append('location', $('#edit-offer-modal #e-location').val());
         formData.append('editOffer', "editOffer");
         formData.append('taskid', $('#edit-offer-modal #hiddenid').val());
+        
+        formData.append('college', $("#edit-offer-modal #college option:selected").attr("data-id") + '+' + $("#edit-offer-modal #college option:selected").attr("data-collegepincode"));
+        formData.append('college_name', $("#edit-offer-modal #college option:selected").text());
 
         // ajax function
         $.ajax({
@@ -485,8 +489,10 @@ function EditOffer(editid) {
             }
             $("#edit-offer-modal input[name=e-store-type][value=" + response.store_type + "]").prop('checked', true);
             $("#edit-offer-modal #e-location").val(response.location);
-            var value = response.campus == "" ? '-- Select College --' : response.campus;
-            $('#edit-offer-modal #college option[text="' + value + '"]').attr('selected', 'selected');
+
+            var selectdata = response.college.split("+");
+            $("#edit-offer-modal #college-1 option[data-id='" + selectdata[0] + "'][data-collegepincode='" + selectdata[1] + "']").attr("selected", true);
+
             $("#edit-offer-modal #college").val(response.location);
             $("#edit-offer-modal #e-cashback").val(response.cashback);
             $("#edit-offer-modal #hiddenid").val(response.id);
