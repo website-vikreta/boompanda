@@ -7,6 +7,14 @@ function checksession() {
         if (data == "true") {
             // call to read record function
             $("#content-wrapper").removeClass('d-none');
+            $("#redeem-wrapper").css("display", "block");
+            viewoffer();
+            readStats();
+            readRecords();
+        } else if (data == "true1") {
+            // for superadmin
+            $("#content-wrapper").removeClass('d-none');
+            $("#redeem-wrapper").css("display", "none");
             viewoffer();
             readStats();
             readRecords();

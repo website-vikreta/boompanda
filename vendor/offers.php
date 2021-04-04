@@ -8,7 +8,7 @@
                 $offerid = $_GET['offerid'];
                 $_SESSION['offerid'] = $offerid;
                 if(mysqli_num_rows(mysqli_query($conn, "SELECT `id` FROM `offers` WHERE `id` = '$offerid'")) > 0){
-                    echo "true";
+                    echo "true1";
                 }
             }
         }else{
@@ -196,7 +196,16 @@
             $sql = "SELECT * FROM `offers` WHERE `id` = '$offerid'";
             $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
             $title = 'Coupon cashback for - '.$row['title'];
-            $amount = ($row['cashback'] != "") && ($row['offer_type'] == 'paid') ? (($row['cashback']/100)*$row['amount_paid'])*10 : 0;
+            // getting amount
+            $amount = 0;
+            if($row['offer_type'] == 'paid' || $row['offer_type'] == 'free'){
+                if($row['cashback_type'] == 'rupees'){
+                    $amount = $row['cashback'] * 10;
+                }else if($row['cashback_type'] == 'percentage'){
+                    $amount = round((($row['cashback']/100)*$row['amount_paid'])*10);
+                }
+            }
+            // $amount = ($row['cashback'] != "") && ($row['offer_type'] == 'paid') ? (($row['cashback']/100)*$row['amount_paid'])*10 : 0;
             $tid = 'credit_'.generateRandomString(14);
             // updating offer application
             $sql = "UPDATE `offer_applications` SET `user_redeem`=`user_redeem` + 1,`dateOfRedeem`= CONCAT(`dateOfRedeem` , '$date' , ',') WHERE `email` = '$u_email' AND `userType` = '$u_type' AND `offerid` = '$offerid'";

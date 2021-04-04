@@ -76,8 +76,8 @@
                         <button class="nav-link active" data-toggle="tab" href="#active">All Offers</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#applied"
-                            onclick="readMyOffers()">My Offers</button>
+                        <button class="nav-link" data-toggle="tab" href="#applied" onclick="readMyOffers()">My
+                            Offers</button>
                     </li>
                 </ul>
 
@@ -122,22 +122,26 @@
                                         <div class="col-lg-7 col-md-7 col-12">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-12 p-3">
-                                                    <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px" alt="" id="logo">
+                                                    <img src="./assets/logo.jpg" class="img-fluid p-2"
+                                                        style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2); max-width:120px"
+                                                        alt="" id="logo">
                                                 </div>
-                                                <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                <div
+                                                    class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
                                                     <div class="title-group">
                                                         <h4 id="title" class="m-0 p-0"></h4>
-                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i
+                                                            class="small">by <b id="organizer"></b></i>
                                                     </div>
-                                                    
+
                                                     <div class="flex-center justify-content-start">
                                                         <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                                 style="font-family: poppins;"></b></p>
                                                     </div>
                                                     <p class="end-date p-0 m-0 mt-1">Redeem count: <b id="redeem"
-                                                        style="font-family: poppins;"></b></p>
+                                                            style="font-family: poppins;"></b></p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <hr>
                                             <p class="my-3 p-0" id="about-offer"></p>
                                         </div>
@@ -155,7 +159,9 @@
                                             <p class="m-0 mt-1 p-0 small" id="store-type"></p>
 
                                             <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                            <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                            <p class="small text-muted p-0 font-italic"
+                                                style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly
+                                                copy that URL & paste it in URL bar to visit page)</p>
                                             <hr class="m-0 mt-1">
                                             <p class="m-0 mt-1 p-0 small" id="platform"></p>
 
@@ -164,13 +170,12 @@
                                             <p class="m-0 mt-1 p-0 small text-muted" id="cashback"></p>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="error" id="server-error"></div>
                             <div class="modal-footer">
                                 <input type="hidden" name="" id="hiddenid">
-                                <button type="button" class="btn btn-transparent"
-                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-solid" id="apply-btn">Proceed</button>
                             </div>
                         </div>
@@ -206,40 +211,47 @@
                                             <div class="row">
                                                 <div class="col-6 pr-0">
                                                     <div class="form-group m-0 m-0">
-                                                        <input type="text" class="form-control small" placeholder="Name" id="name" disabled>
+                                                        <input type="text" class="form-control small" placeholder="Name"
+                                                            id="name" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6 pl-1">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile" disabled>
+                                                        <input type="text" class="form-control small"
+                                                            placeholder="Mobile Number" id="mobile" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="Email" id="email" disabled>
+                                                <input type="text" class="form-control small" placeholder="Email"
+                                                    id="email" disabled>
                                                 <div class="error"></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 pr-0">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="State" id="state" disabled>
+                                                        <input type="text" class="form-control small"
+                                                            placeholder="State" id="state" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6 pl-1">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="City" id="city" disabled>
+                                                        <input type="text" class="form-control small" placeholder="City"
+                                                            id="city" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="College Name" id="college" disabled>
+                                                <input type="text" class="form-control small" placeholder="College Name"
+                                                    id="college" disabled>
                                                 <div class="error"></div>
                                             </div>
-                                            <div class="small font-italic text-primary m-0">(In order to change your details, kindly update your profile)</div>
+                                            <div class="small font-italic text-primary m-0">(In order to change your
+                                                details, kindly update your profile)</div>
                                         </div>
 
                                         <div class="team-members" id="team-members"></div>
@@ -293,4 +305,4 @@
     </script>
 </body>
 
-</html> 
+</html>

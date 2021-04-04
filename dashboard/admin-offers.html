@@ -243,11 +243,24 @@
                                                     });
                                                 </script>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="">Cashback receive in %?</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Enter percentage (%)" id="cashback">
-                                                <div class="error" id="cashback-error"></div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                                    <label for="">Cashback Type</label>
+                                                    <select name="" id="cashback-type" class="form-control">
+                                                        <option value="">---- Select one option ----</option>
+                                                        <option value="rupees">in Rs</option>
+                                                        <option value="percentage">in %</option>
+                                                    </select>
+                                                    <div class="error" id="cashback-type-error"></div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Cashback receive in %?</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Enter percentage (%)" id="cashback">
+                                                        <div class="error" id="cashback-error"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -519,23 +532,41 @@
 
                                                     <div class="form-group">
                                                         <label for="">College Name</label>
-                                                        <div id="college-list1"></div>
+                                                        <div id="e-college-list"></div>
                                                         <input type="text" class="form-control d-none mt-1"
                                                             placeholder="Enter campus name" id="campus">
+                                                        <p class="font-italic text-primary small m-0 p-0">(Please select
+                                                            college name again if previously selected while updating
+                                                            changes.)</p>
                                                         <div class="error" id="college-error"></div>
                                                     </div>
                                                     <script>
                                                         $.get("./include/college.html", function (data) {
-                                                            $("#college-list1").replaceWith(data);
+                                                            $("#e-college-list").replaceWith(data);
                                                         });
                                                     </script>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="">Cashback receive in %?</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter percentage (%)" id="e-cashback">
-                                                    <div class="error" id="e-cashback-error"></div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-12 form-group">
+                                                        <label for="">Cashback Type</label>
+                                                        <select name="" id="e-cashback-type" class="form-control">
+                                                            <option value="">---- Select one option ----</option>
+                                                            <option value="rupees">in Rs</option>
+                                                            <option value="percentage">in %</option>
+                                                        </select>
+                                                        <div class="error" id="e-cashback-type-error"></div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="">Cashback receive</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter value (do not include %, Rs, decimals)"
+                                                                id="e-cashback">
+                                                            <div class="error" id="e-cashback-error"></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>

@@ -51,6 +51,7 @@ $(document).ready(function () {
         formData.append('participate', $('#add-offer-modal #participate').val());
         formData.append('storeType', $("#add-offer-modal input[name=store-type]:checked").val());
         formData.append('offerType', $("#add-offer-modal input[name=type]:checked").val());
+        formData.append('cashbackType', $("#add-offer-modal #cashback-type").val());
         formData.append('paidAmount', $('#add-offer-modal #paid-amount').val());
         formData.append('cashback', $('#add-offer-modal #cashback').val());
         formData.append('location', $('#add-offer-modal #location').val());
@@ -116,6 +117,11 @@ $(document).ready(function () {
                 } else {
                     $("#add-offer-modal #type-error").html("");
                 }
+                if (response.cashbackTypeErr) {
+                    $("#add-offer-modal #cashback-type-error").html(response.cashbackTypeErr);
+                } else {
+                    $("#add-offer-modal #cashback-type-error").html("");
+                }
                 if (response.paidAmountErr) {
                     $("#add-offer-modal #paid-amount-error").html(response.paidAmountErr);
                 } else {
@@ -179,12 +185,13 @@ $(document).ready(function () {
         formData.append('participate', $('#edit-offer-modal #e-participate').val());
         formData.append('storeType', $("#edit-offer-modal input[name=e-store-type]:checked").val());
         formData.append('offerType', $("#edit-offer-modal input[name=e-type]:checked").val());
+        formData.append('cashbackType', $("#edit-offer-modal #e-cashback-type").val());
         formData.append('paidAmount', $('#edit-offer-modal #e-paid-amount').val());
         formData.append('cashback', $('#edit-offer-modal #e-cashback').val());
         formData.append('location', $('#edit-offer-modal #e-location').val());
         formData.append('editOffer', "editOffer");
         formData.append('taskid', $('#edit-offer-modal #hiddenid').val());
-        
+
         formData.append('college', $("#edit-offer-modal #college option:selected").attr("data-id") + '+' + $("#edit-offer-modal #college option:selected").attr("data-collegepincode"));
         formData.append('college_name', $("#edit-offer-modal #college option:selected").text());
 
@@ -245,6 +252,11 @@ $(document).ready(function () {
                     $("#edit-offer-modal #e-type-error").html(response.typeErr);
                 } else {
                     $("#edit-offer-modal #e-type-error").html("");
+                }
+                if (response.cashbackTypeErr) {
+                    $("#edit-offer-modal #e-cashback-type-error").html(response.cashbackTypeErr);
+                } else {
+                    $("#edit-offer-modal #e-cashback-type-error").html("");
                 }
                 if (response.paidAmountErr) {
                     $("#edit-offer-modal #e-paid-amount-error").html(response.paidAmountErr);
@@ -438,7 +450,8 @@ function viewOffer(offerid) {
 
             $("#view-offer-modal #store-type").text(response.store_type);
             $("#view-offer-modal #platform").text(response.location);
-            $("#view-offer-modal #cashback").text(response.cashback + " %");
+            var cashback_type = response.cashback_type == "rupees" ? "rupees" : "percent";
+            $("#view-offer-modal #cashback").text(response.cashback + " " + cashback_type);
 
             if (response.userType == 'superadmin') {
                 $("#view-offer-modal #username").text(response.username);
@@ -491,10 +504,12 @@ function EditOffer(editid) {
             $("#edit-offer-modal #e-location").val(response.location);
 
             var selectdata = response.college.split("+");
-            $("#edit-offer-modal #college-1 option[data-id='" + selectdata[0] + "'][data-collegepincode='" + selectdata[1] + "']").attr("selected", true);
+            $("#edit-offer-modal #college option[data-id='" + selectdata[0] + "'][data-collegepincode='" + selectdata[1] + "']").attr("selected", true);
+            $("#edit-offer-modal #college option[data-id='" + selectdata[0] + "'][data-collegepincode='" + selectdata[1] + "']").css("background", "red");
 
             $("#edit-offer-modal #college").val(response.location);
             $("#edit-offer-modal #e-cashback").val(response.cashback);
+            $("#edit-offer-modal #e-cashback-type").val(response.cashback_type);
             $("#edit-offer-modal #hiddenid").val(response.id);
 
             $("#edit-offer-modal #loading").css('display', 'none');
