@@ -71,6 +71,11 @@
         // dob
         if(!empty($_POST['dob'])){
             $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+            $y = explode("-",$dob);
+            if((date('Y') - $y[0]) < 16){
+                $response['dobErr'] = "You must atleast 16years old to proceed.";
+                $flag = 1;
+            }
         }
 
         // college

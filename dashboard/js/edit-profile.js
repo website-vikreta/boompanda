@@ -185,6 +185,11 @@ $(document).ready(function () {
                 } else {
                     $("#student-edit-profile-form #city-error").html("");
                 }
+                if (response.dobErr) {
+                    $("#student-edit-profile-form #dob-error").html(response.dobErr);
+                } else {
+                    $("#student-edit-profile-form #dob-error").html("");
+                }
                 if (response.referralErr) {
                     $("#student-edit-profile-form #referral-error").html(response.referralErr);
                 } else {
