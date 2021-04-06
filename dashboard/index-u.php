@@ -78,8 +78,8 @@
                   <div class="slider-wrapper">
                      <div class="slider" id="dashboard-slider">
                         <div class="slide">
-                           <a href="#">
-                              <img src="./media/slider/img-1.jpeg" class="img-fluid" alt="">
+                           <a href="https://www.grabon.in/cricketfantasy/" target="_blank" title="Visit Now">
+                              <img src="./media/slider/img-2.jpg" class="img-fluid" alt="">
                            </a>
                         </div>
                         <div class="slide">
@@ -133,25 +133,26 @@
                   <!-- activities -->
                   <div class="activity-statistics statastics mt-4">
                      <h5 class="poppins">Activities</h5>
-                     <div class="row">
+                     <div class="row align-items-stretch">
                         <div class="col-lg-8 col-md-8 col-12 my-2">
                            <div class="wrapper">
                               <a href="#" class="image" title="Apply for this Activity">
                                  <img src="./assets/new-gif.gif" alt="" class="new">
                                  <img src="./assets/tp/1569564008phphXAZrh.jpeg" class="img-fluid" alt="">
+                                 <p class="m-0 p-2 small">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametdolor sit amet.</p>
                               </a>
                               <a href="#" class="image" title="Apply for this Activity">
                                  <img src="./assets/new-gif.gif" alt="" class="new">
                                  <img src="./assets/tp/abhishek 5-3.jpeg" class="img-fluid" alt="">
+                                 <p class="m-0 p-2 small">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametdolor sit amet.</p>
                               </a>
                            </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12 my-2">
-                           <div class="wrapper flex-column p-2 ">
-                              <h6 class="poppins text-muted m-0 mb-2 px-2" style="white-space: nowrap;">Upcoming
-                                 Activity</h6>
-                              <a href="#" class="image my-0" style="width: 95%;" title="Upcoming Activity">
+                           <div class="wrapper">
+                              <a href="#" class="image w-100" title="Apply for this Activity">
                                  <img src="./assets/tp/abhishek 5-3.jpeg" class="img-fluid" alt="">
+                                 <p class="m-0 p-2 small">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametdolor sit amet.</p>
                               </a>
                            </div>
                         </div>

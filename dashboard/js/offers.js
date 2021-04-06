@@ -114,8 +114,8 @@ function viewOffer(offerid) {
 
             $("#view-offer-modal #store-type").text(response.store_type);
             $("#view-offer-modal #platform").text(response.location);
-            var cashback_type = response.cashback_type == "rupees" ? "rupees" : "percent";
-            $("#view-offer-modal #cashback").html("<span class='poppins text-danger' style='font-size:0.9rem'>" + response.cashback + " " + cashback_type + "</span> (Will be added in Boompanda Wallet)");
+            var cashback_type = response.cashback_type == "rupees" ? "Rs. " + response.cashback : response.cashback + " %";
+            $("#view-offer-modal #cashback").html("<span class='poppins text-danger' style='font-size:0.9rem'>" + cashback_type + "</span> (Will be added in Boompanda Wallet)");
             $("#view-offer-modal #hiddenid").val(response.id);
 
             $("#view-offer-modal #loading").css('display', 'none');

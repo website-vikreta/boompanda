@@ -15,14 +15,14 @@ $(document).ready(function () {
 
    // Bar Chart Example
    var ctx = document.getElementById("myBarChart");
-   var monthArray = [25, 64, 87, 15, 22, 102, 2, 41, 98, 75, 52, 55];
+   var monthArray = [25, 64, 87, 54, 45, 102, 87, 98, 98, 75, 52, 55];
    var myLineChart = new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
          datasets: [{
             label: "Boomcoins",
-            backgroundColor: "#ea1821",
+            backgroundColor: "#fff",
             borderColor: "#ea1821",
             data: monthArray,
          }],

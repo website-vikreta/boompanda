@@ -70,27 +70,30 @@
                     <p>Boompanda is using your cookies for improving your user experience.</p>
                     <button class="btn solid" id="closeCookie">Ok</button>
                 </div>
-                
+
                 <style>
-                    .card.stat{
+                    .card.stat {
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         flex-direction: row;
                         padding: 2rem;
-                        
+
                         margin: 0 auto;
                     }
-                    .card.stat .line{
+
+                    .card.stat .line {
                         width: 3px;
                         height: 30px;
                         background: #ddd;
                         margin: 0 3rem;
                     }
+
                     .card.stat :is(.earning, .balance, .pending) {
                         text-align: center;
                     }
-                    .card.stat :is(.earning, .balance, .pending) #number{
+
+                    .card.stat :is(.earning, .balance, .pending) #number {
                         color: var(--color-red);
                         font-family: var(--font-poppins);
                         font-weight: bold;
@@ -101,25 +104,29 @@
                 </style>
                 <div class="card p-2 text-muted mb-4">
                     <p class="mb-1"><i class="far fa-info-circle mr-2 text-danger"></i> 10 Boomcoins = Rs. 1</p>
-                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> You will soon be able to withdraw the funds to your Paytm Wallet or Bank Account/UPI</p>
+                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> You will soon be able to withdraw
+                        the funds to your Paytm Wallet or Bank Account/UPI</p>
                 </div>
                 <div class="card stat mx-auto">
-                    <div class="earning" title="This is the total amount earned by you from the beginning and it includes the amount which is present in your wallet as well as which you have withdrawn previously.">
+                    <div class="earning"
+                        title="This is the total amount earned by you from the beginning and it includes the amount which is present in your wallet as well as which you have withdrawn previously.">
                         <div id="number"></div>
-                        <p class="m-0">Total earning</p>
+                        <p class="m-0">Total Boomcoins earned</p>
                     </div>
                     <div class="line"></div>
-                    <div class="balance" title="The amount earned by completing various Tasks on BoomPanda. After crossing a minimum wallet balance of Rs. 100 you can withdraw it to your Paytm wallet or Bank Account/UPI.">
+                    <div class="balance"
+                        title="The amount earned by completing various Tasks on BoomPanda. After crossing a minimum wallet balance of Rs. 100 you can withdraw it to your Paytm wallet or Bank Account/UPI.">
                         <div id="number"></div>
                         <p class="m-0">Available Boomcoins</p>
                     </div>
                     <div class="line"></div>
-                    <div class="pending" title="Pending balance is the amount earned by you by completing various tasks but it has not been disbursed yet. You cannot withdraw this amount until it is disbursed into your Wallet Balance. Generally, the Pending balance is disbursed within appx. 15 days.">
+                    <div class="pending"
+                        title="Pending balance is the amount earned by you by completing various tasks but it has not been disbursed yet. You cannot withdraw this amount until it is disbursed into your Wallet Balance. Generally, the Pending balance is disbursed within appx. 15 days.">
                         <div id="number"></div>
                         <p class="m-0">Pending Boomcoins</p>
                     </div>
                 </div>
-                
+
                 <!-- show transactions here -->
                 <h4 class="poppins text-center mt-5">Your Transactions</h4>
                 <hr>

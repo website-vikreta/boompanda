@@ -50,7 +50,7 @@
                     
             }
         }else{
-            $data .= "<p class='text-muted text-center small p-5 w-100'>No active activities available at this moment, try again after some time.</p>";
+            $data .= "<p class='text-muted text-center small p-5 w-100'>No active offers available at this moment, try again after some time.</p>";
         }
         $data .= "</div>";
         // $data .= "</table>";
@@ -94,8 +94,9 @@
                         if($row['college_name'] != ""){
                             $data.=" <p class='address bar'><i class='m-1 mr-2 fas fa-graduation-cap'></i>".$row['college_name']."</p>";
                         }
+                        $cashback = $row['cashback_type'] == "rupees" ? "Rs. ".$row['cashback'] : $row['cashback']." %";
                         $data.="    <p class='m-0 small'>Rewards:</p>
-                            <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$row['cashback']."% Cashback</p>
+                            <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$cashback." Cashback</p>
                             <p class='coupon bar'>
                                 <span>".$coupon."</span>
                             </p>
@@ -140,8 +141,9 @@
                     if($row['college_name'] != ""){
                         $data.=" <p class='address bar'><i class='m-1 mr-2 fas fa-graduation-cap'></i>".$row['college_name']."</p>";
                     }
-                    $data.="    <p class='m-0 small'>Rewards:</p>
-                        <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$row['cashback']."% Cashback</p>
+                    $cashback = $row['cashback_type'] == "rupee" ? "Rs. ".$row['cashback'] : $row['cashback']." %";
+                    $data.="    <p class='m-0 small'>Rewards:</p> 
+                        <p class='m-0 rewards poppins'><i class='far fa-wallet'></i> ".$cashback." Cashback</p>
                         <p class='coupon bar'>
                             <span>".$coupon."</span>
                         </p>
@@ -178,7 +180,7 @@
                     
             }
         }else{
-            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any task / gig yet. Apply to task by click Active task button on top.</p>";
+            $data .= "<p class='text-muted text-center small p-5 w-100'>You havn't applied to any offer yet. Apply to offer by click Active offers button on top.</p>";
         }
         $data .= "</div>";
         // $data .= "</table>";
