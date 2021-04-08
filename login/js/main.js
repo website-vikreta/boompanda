@@ -43,7 +43,7 @@ $(document).ready(function () {
                     $("#login-form #server-error").html("");
                 }
                 if (response.success == true) {
-                    window.location.href = "../dashboard/index.html";
+                    window.location.href = "../dashboard/index.php";
                 }
                 $(_temp).removeAttr("disabled");
                 $(_temp).html('Login');

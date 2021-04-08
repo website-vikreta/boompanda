@@ -141,6 +141,11 @@
                            </a>
                         </div>
                         <div class="slide">
+                           <a href="./offers.html">
+                              <img src="./media/slider/offer cover.jpg" class="img-fluid" alt="">
+                           </a>
+                        </div>
+                        <div class="slide">
                            <a href="./activities.html">
                               <img src="./media/slider/activity cover.jpg" class="img-fluid" alt="">
                            </a>
@@ -182,21 +187,24 @@
                   <div class="activity-statistics statastics mt-4">
                      <h5 class="poppins">Activities</h5>
                      <div class="wrapper align-items-stretch">
-                        <?php if(mysqli_num_rows($newactivity) < 0){ echo "<p class='textmuted p-3'>No new activities are available at this movement.</p>";} ?>
-                        <?php while($row = mysqli_fetch_assoc($newactivity)){ ?>
-                           <a href="./activities.html" class="image" title="Apply for this Activity">
-                              <img src="./assets/new-gif.gif" alt="" class="new">
-                              <img src="<?php echo substr($row['logo'], 1); ?>" class="img-fluid" alt="">
-                              <p class="m-0 p-2 small"><?php echo $row['title']; ?></p>
-                           </a>
-                        <?php } ?>
-                        <?php if(mysqli_num_rows($appliedactivityN) > 0){ ?>
+                        <?php if(mysqli_num_rows($newactivity) <= 0){ 
+                           echo "<p class='textmuted p-3'>Sorry! No activities are available right now. We will soon be back with interesting activities!</p>";                                                  
+                        }else{
+                           while($row = mysqli_fetch_assoc($newactivity)){ ?>
+                              <a href="./activities.html" class="image" title="Apply for this Activity"> 
+                                 <img src="./assets/new-gif.gif" alt="" class="new">
+                                 <img src="<?php echo substr($row['logo'], 1); ?>" class="img-fluid" alt="">
+                                 <p class="m-0 p-2 small"><?php echo $row['title']; ?></p>
+                              </a>
+                        <?php   }
+                            if(mysqli_num_rows($appliedactivityN) > 0){ ?>
                            <a href="./activities.html" class="image" title="Apply for this Activity">
                               <img src="<?php echo substr($appliedactivity['logo'], 1); ?>" class="img-fluid" alt="">
                               <p class="text-danger pb-0 px-2 pt-2 font-weight-bold">Upcoming in your list</p>
                               <p class="m-0 px-2 pb-2 small"><?php echo $appliedactivity['title']; ?></p>
                            </a>
-                        <?php } ?>
+                        <?php }
+                        } ?>
                      </div>
                   </div>
 

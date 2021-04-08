@@ -71,7 +71,7 @@ if(isset($_GET["code"]))
         }
         $_SESSION['email'] = $email;
         $_SESSION['userType'] = "google";
-        header('location: ../dashboard/index.html');
+        header('location: ../dashboard/index.php');
     }
 }
 

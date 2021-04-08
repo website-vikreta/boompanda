@@ -17,7 +17,7 @@
     </div>
     <?php if($userType == 'superadmin'){ ?>
     <ul class="nav-list">
-        <a href="./index.html" class="nav-link">
+        <a href="./index.php" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
             </li>
@@ -77,7 +77,7 @@
 
     <?php } else if($userType == 'admin'){ ?>
         <ul class="nav-list">
-        <a href="./index.html" class="nav-link">
+        <a href="./index.php" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
             </li>
@@ -117,7 +117,7 @@
     </ul>
     <?php } else { ?>
         <ul class="nav-list">
-        <a href="./index.html" class="nav-link">
+        <a href="./index.php" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-chart-bar"></i> Dashboard</div>
             </li>
