@@ -60,8 +60,8 @@
             <!-- ! CONTENT -->
             <!-- ! ======================================================== -->
             <div class="content-wrapper pt-4">
-                 <!-- * ADD USER BUTTON -->
-                 <div class="top-button-group mb-4 p-0">
+                <!-- * ADD USER BUTTON -->
+                <div class="top-button-group mb-4 p-0">
                     <form class="text-right" id="dummy-form">
                         <div class="form-group m-0">
                             <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
@@ -96,8 +96,7 @@
                 <!-- ! ADD ACTIVITY MODAL -->
                 <!-- ! ======================================================== -->
                 <div class="modal fade" id="add-activity-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="add-user-modal1""
-    aria-hidden=" true">
+                    aria-labelledby="add-user-modal1"" aria-hidden=" true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
                         <div class="modal-content">
                             <form action="" id="add-activity-form">
@@ -114,33 +113,36 @@
                                             <div class="row">
                                                 <div class="col-lg-5 col-md-5 col-12 flex-center">
                                                     <!-- profile -->
-                                                    <div class="profile-wrapper form-group mt-0 rect">
-                                                        <div class="profile m-0 rect">
-                                                            <img src="./assets/thumbnail.jpg" id="activity-logo" class="img-fluid"
-                                                                alt="">
+                                                    <div class="profile-wrapper form-group mt-0">
+                                                        <div class="profile m-0">
+                                                            <img src="./assets/logo.jpg" id="activity-logo"
+                                                                class="img-fluid" alt="">
                                                             <label class="clickable" for="activityLogo">
                                                                 <i class="far fa-paperclip"></i>
                                                                 <p>Change Image</p>
                                                             </label>
                                                         </div>
                                                         <input type="file" name="" id="activityLogo" class="d-none"
-                                                            onchange="previewFile(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                            onchange="previewFile(event)"
+                                                            accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                         <div class="error" id="activityLogo-error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-12">
                                                     <div class="form-group">
                                                         <label for="">Activity Title</label>
-                                                        <input type="text" class="form-control" placeholder="Activty title"
-                                                            id="activity-title">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Activty title" id="activity-title">
                                                         <div class="error" id="activity-title-error"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Activty Category</label>
                                                         <select name="" id="activty-category" class="form-control">
                                                             <option value="-1">---- Select one option ----</option>
-                                                            <option value="Workshops & Seminars">Workshops & Seminars</option>
-                                                            <option value="Competitions & Games">Competitions & Games</option>
+                                                            <option value="Workshops & Seminars">Workshops & Seminars
+                                                            </option>
+                                                            <option value="Competitions & Games">Competitions & Games
+                                                            </option>
                                                             <option value="College Festivals">College Festivals</option>
                                                             <option value="Jobs / Internship">Jobs / Internship</option>
                                                         </select>
@@ -160,20 +162,22 @@
                                                     rows="5" placeholder="About activity (explain in brief)"></textarea>
                                                 <div class="error" id="about-activity-error"></div>
                                             </div>
-        
+
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">Start Date</label>
-                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="start-date">
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                        id="start-date">
                                                     <div class="error" id="start-date-error"></div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">End Date</label>
-                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="end-date">
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                        id="end-date">
                                                     <div class="error" id="end-date-error"></div>
                                                 </div>
                                             </div>
-        
+
                                             <div class="form-group">
                                                 <label for="">Time</label>
                                                 <input type="time" class="form-control" id="time">
@@ -182,8 +186,39 @@
                                             <div class="form-group">
                                                 <label for="">Who can participate?</label>
                                                 <textarea name="" class="form-control" id="participate" cols="30"
-                                                    rows="5" placeholder="Who can participate? (explain in brief)"></textarea>
+                                                    rows="5"
+                                                    placeholder="Who can participate? (explain in brief)"></textarea>
                                                 <div class="error" id="participate-error"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's name - 1</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer name" id="organizername-1">
+                                                        <div class="error" id="organizername1-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's number - 1</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer number" id="organizerno-1">
+                                                        <div class="error" id="organizerno1-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's name - 2</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer name" id="organizername-2">
+                                                        <div class="error" id="organizername2-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's number - 2</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer number" id="organizerno-2">
+                                                        <div class="error" id="organizerno2-error"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
@@ -191,22 +226,40 @@
                                             <div class="profile-wrapper banner-wrapper form-group mt-0">
                                                 <label for="">Activity Banner</label>
                                                 <div class="profile banner m-0">
-                                                    <img src="./assets/banner.jpg" id="activity-banner" class="img-fluid"
-                                                        alt="">
+                                                    <img src="./assets/banner.jpg" id="activity-banner"
+                                                        class="img-fluid" alt="">
                                                     <label class="clickable" for="activityBanner">
                                                         <i class="far fa-paperclip"></i>
                                                         <p>Change Banner</p>
                                                     </label>
                                                 </div>
                                                 <input type="file" name="" id="activityBanner" class="d-none"
-                                                    onchange="previewFile2(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                    onchange="previewFile2(event)"
+                                                    accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                 <div class="error" id="activityBanner-error"></div>
+                                            </div>
+
+                                            <!-- thumbnail -->
+                                            <div class="profile-wrapper form-group rect my-3 w-50">
+                                                <label for="" class="mb-2">Activity Thumbnail</label>
+                                                <div class="profile m-0 rect">
+                                                    <img src="./assets/thumbnail.jpg" id="activity-thumbnail"
+                                                        class="img-fluid" alt="">
+                                                    <label class="clickable" for="activityThumbnail">
+                                                        <i class="far fa-paperclip"></i>
+                                                        <p>Change image</p>
+                                                    </label>
+                                                </div>
+                                                <input type="file" name="" id="activityThumbnail" class="d-none"
+                                                    onchange="previewFile6(event)"
+                                                    accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                <div class="error" id="activityThumbnail-error"></div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Rewards</label>
-                                                <textarea name="" class="form-control" id="rewards" cols="30"
-                                                    rows="5" placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
+                                                <textarea name="" class="form-control" id="rewards" cols="30" rows="5"
+                                                    placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
                                                 <div class="error" id="rewards-error"></div>
                                             </div>
                                             <div class="form-group">
@@ -224,7 +277,8 @@
                                                             <div class="radio"></div>Paid
                                                         </label>
                                                     </div>
-                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                    <div class="form-group m-0 d-none paid-wrapper"
+                                                        style="max-width: 200px;">
                                                         <input type="text" class="form-control"
                                                             placeholder="Amount in Rs." id="paid-amount">
                                                         <div class="error" id="paid-amount-error"></div>
@@ -247,7 +301,8 @@
                                                             <div class="radio"></div>Team
                                                         </label>
                                                     </div>
-                                                    <div class="form-group m-0 d-none team-wrapper" style="max-width: 200px;">
+                                                    <div class="form-group m-0 d-none team-wrapper"
+                                                        style="max-width: 200px;">
                                                         <input type="number" class="form-control"
                                                             placeholder="Team size" id="team-size">
                                                         <div class="error" id="team-size-error"></div>
@@ -297,6 +352,32 @@
                                                 </div>
                                                 <div class="error" id="approval-error"></div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="">Where to perform</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper flex-wrap">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio22" name="where-to-perform"
+                                                            value="Inside">
+                                                        <label for="radio22">
+                                                            <div class="radio"></div>Inside boompanda's platform
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio23" name="where-to-perform"
+                                                            value="Outside">
+                                                        <label for="radio23">
+                                                            <div class="radio"></div>Outside boompanda's platform
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none external-wrapper w-100"
+                                                        style="max-width: 200px;">
+                                                        <input type="text" class="form-control w-100"
+                                                            placeholder="Enter URL" id="external-link">
+                                                        <div class="error" id="external-link-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="where-to-perform-error"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -319,8 +400,7 @@
                 <!-- ! VIEW ACTIVITY MODAL -->
                 <!-- ! ======================================================== -->
                 <div class="modal fade" id="view-activity-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="add-user-modal1""
-    aria-hidden=" true">
+                    aria-labelledby="add-user-modal1"" aria-hidden=" true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -336,31 +416,48 @@
                                 </div>
                                 <div class="info-block flex-column">
                                     <!-- banner image -->
-                                    <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
+                                    <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image"
+                                        id="activityBanner">
                                     <div class="row">
                                         <div class="col-lg-7 col-md-7 col-12">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4 col-12">
-                                                    <img src="./assets/logo.jpg" class="img-fluid p-1" style="width: 100%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);" alt="" id="logo">
+                                                    <img src="./assets/logo.jpg" class="img-fluid p-1"
+                                                        style="width: 100%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);"
+                                                        alt="" id="logo">
                                                 </div>
-                                                <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                <div
+                                                    class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
                                                     <div class="title-group">
                                                         <h4 id="title" class="m-0 p-0"></h4>
-                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                        <span id="category" class="m-0 p-0 bg-light"></span> <i
+                                                            class="small">by <b id="organizer"></b></i>
                                                     </div>
-                                                    
+
                                                     <div class="flex-center justify-content-start">
-                                                        <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                                style="font-family: poppins;"></b></p>
+                                                        <p class="start-date p-0 mr-3 mt-1">Start Date: <b
+                                                                id="start-date" style="font-family: poppins;"></b></p>
                                                         <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                                 style="font-family: poppins;"></b></p>
                                                     </div>
                                                     <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
-                                                        style="font-family: poppins;"></b></p>
+                                                            style="font-family: poppins;"></b></p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <hr>
                                             <p class="my-3 p-0" id="about-activity"></p>
+                                            <p class="m-0 mt-2 p-0 font-weight-bold"> Organizers Contact</p>
+                                            <hr class="m-0 mt-1">
+                                            <p class="m-0 mt-1 p-0 small"><span class="font-weight-normal">Orgnizer Name
+                                                    1: </span><span id="orgnizername1"></span></p>
+                                            <p class="m-0 mt-1 p-0 small"><span class="font-weight-normal">Orgnizer
+                                                    Number
+                                                    1: </span><span id="orgnizerno1"></span></p>
+                                            <p class="m-0 mt-1 p-0 small"><span class="font-weight-normal">Orgnizer Name
+                                                    2: </span><span id="orgnizername2"></span></p>
+                                            <p class="m-0 mt-1 p-0 small"><span class="font-weight-normal">Orgnizer
+                                                    Number
+                                                    2: </span><span id="orgnizerno2"></span></p>
                                         </div>
                                         <div class="col-lg-5 col-md-5 col-12">
                                             <p class="m-0 mt-2 p-0 font-weight-bold"> Who can participate?</p>
@@ -380,17 +477,18 @@
                                             <p class="m-0 mt-1 p-0 small" id="team"></p>
 
                                             <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                            <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                            <p class="small text-muted p-0 font-italic"
+                                                style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly
+                                                copy that URL & paste it in URL bar to visit page)</p>
                                             <hr class="m-0 mt-1">
                                             <p class="m-0 mt-1 p-0 small" id="platform"></p>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="error" id="server-error"></div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-transparent"
-                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -403,8 +501,7 @@
                 <!-- ! EDIT ACTIVITY MODAL -->
                 <!-- ! ======================================================== -->
                 <div class="modal fade" id="edit-activity-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="add-user-modal1""
-    aria-hidden=" true">
+                    aria-labelledby="add-user-modal1"" aria-hidden=" true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
                         <div class="modal-content">
                             <form action="" id="edit-activity-form">
@@ -424,33 +521,36 @@
                                             <div class="row">
                                                 <div class="col-lg-5 col-md-5 col-12 flex-center">
                                                     <!-- profile -->
-                                                    <div class="profile-wrapper rect form-group mt-0">
+                                                    <div class="profile-wrapper form-group mt-0">
                                                         <div class="profile m-0">
-                                                            <img src="./assets/logo.jpg" id="e-activity-logo" class="img-fluid rect"
-                                                                alt="">
+                                                            <img src="./assets/logo.jpg" id="e-activity-logo"
+                                                                class="img-fluid" alt="">
                                                             <label class="clickable" for="e-activityLogo">
                                                                 <i class="far fa-paperclip"></i>
                                                                 <p>Change image</p>
                                                             </label>
                                                         </div>
                                                         <input type="file" name="" id="e-activityLogo" class="d-none"
-                                                            onchange="previewFile3(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                            onchange="previewFile3(event)"
+                                                            accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                         <div class="error" id="e-activityLogo-error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 col-md-7 col-12">
                                                     <div class="form-group">
                                                         <label for="">Activity Title</label>
-                                                        <input type="text" class="form-control" placeholder="Activty title"
-                                                            id="e-activity-title">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Activty title" id="e-activity-title">
                                                         <div class="error" id="e-activity-title-error"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="">Activty Category</label>
                                                         <select name="" id="e-activty-category" class="form-control">
                                                             <option value="-1">---- Select one option ----</option>
-                                                            <option value="Workshops & Seminars">Workshops & Seminars</option>
-                                                            <option value="Competitions & Games">Competitions & Games</option>
+                                                            <option value="Workshops & Seminars">Workshops & Seminars
+                                                            </option>
+                                                            <option value="Competitions & Games">Competitions & Games
+                                                            </option>
                                                             <option value="College Festivals">College Festivals</option>
                                                             <option value="Jobs / Internship">Jobs / Internship</option>
                                                         </select>
@@ -470,20 +570,22 @@
                                                     rows="5" placeholder="About activity (explain in brief)"></textarea>
                                                 <div class="error" id="e-about-activity-error"></div>
                                             </div>
-        
+
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">Start Date</label>
-                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="e-start-date">
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                        id="e-start-date">
                                                     <div class="error" id="e-start-date-error"></div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-12 form-group my-0">
                                                     <label for="">End Date</label>
-                                                    <input type="date" class="form-control" value="dd/mm/yyyy" id="e-end-date">
+                                                    <input type="date" class="form-control" value="dd/mm/yyyy"
+                                                        id="e-end-date">
                                                     <div class="error" id="e-end-date-error"></div>
                                                 </div>
                                             </div>
-        
+
                                             <div class="form-group">
                                                 <label for="">Time</label>
                                                 <input type="time" class="form-control" id="e-time">
@@ -492,8 +594,40 @@
                                             <div class="form-group">
                                                 <label for="">Who can participate?</label>
                                                 <textarea name="" class="form-control" id="e-participate" cols="30"
-                                                    rows="5" placeholder="Who can participate? (explain in brief)"></textarea>
+                                                    rows="5"
+                                                    placeholder="Who can participate? (explain in brief)"></textarea>
                                                 <div class="error" id="e-participate-error"></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's name - 1</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer name" id="e-organizername-1">
+                                                        <div class="error" id="e-organizername1-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's number - 1</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer number" id="e-organizerno-1">
+                                                        <div class="error" id="e-organizerno1-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's name - 2</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer name" id="e-organizername-2">
+                                                        <div class="error" id="e-organizername2-error"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Organizer's number - 2</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Organizer number" id="e-organizerno-2">
+                                                        <div class="error" id="e-organizerno2-error"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
@@ -501,22 +635,40 @@
                                             <div class="profile-wrapper banner-wrapper form-group mt-0">
                                                 <label for="">Activity Banner</label>
                                                 <div class="profile banner m-0">
-                                                    <img src="./assets/banner.jpg" id="e-activity-banner" class="img-fluid"
-                                                        alt="">
+                                                    <img src="./assets/banner.jpg" id="e-activity-banner"
+                                                        class="img-fluid" alt="">
                                                     <label class="clickable" for="e-activityBanner">
                                                         <i class="far fa-paperclip"></i>
                                                         <p>Change Banner</p>
                                                     </label>
                                                 </div>
                                                 <input type="file" name="" id="e-activityBanner" class="d-none"
-                                                    onchange="previewFile4(event)" accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                    onchange="previewFile4(event)"
+                                                    accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
                                                 <div class="error" id="e-activityBanner-error"></div>
+                                            </div>
+
+                                            <!-- profile -->
+                                            <div class="profile-wrapper form-group rect my-3 w-50">
+                                                <label for="" class="mb-2">Activity Thumbnail</label>
+                                                <div class="profile m-0 rect">
+                                                    <img src="./assets/thumbnail.jpg" id="e-activity-thumbnail"
+                                                        class="img-fluid" alt="">
+                                                    <label class="clickable" for="e-activityThumbnail">
+                                                        <i class="far fa-paperclip"></i>
+                                                        <p>Change image</p>
+                                                    </label>
+                                                </div>
+                                                <input type="file" name="" id="e-activityThumbnail" class="d-none"
+                                                    onchange="previewFile5(event)"
+                                                    accept="image/jpg, image/jpeg, image/png, image/JPG, image/PNG, image/JPEG">
+                                                <div class="error" id="e-activityThumbnail-error"></div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Rewards</label>
-                                                <textarea name="" class="form-control" id="e-rewards" cols="30"
-                                                    rows="5" placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
+                                                <textarea name="" class="form-control" id="e-rewards" cols="30" rows="5"
+                                                    placeholder="Rewards (explain in brief {Price, Certificate, anything else})"></textarea>
                                                 <div class="error" id="e-rewards-error"></div>
                                             </div>
                                             <div class="form-group">
@@ -534,7 +686,8 @@
                                                             <div class="radio"></div>Paid
                                                         </label>
                                                     </div>
-                                                    <div class="form-group m-0 d-none paid-wrapper" style="max-width: 200px;">
+                                                    <div class="form-group m-0 d-none paid-wrapper"
+                                                        style="max-width: 200px;">
                                                         <input type="text" class="form-control"
                                                             placeholder="Amount in Rs." id="e-paid-amount">
                                                         <div class="error" id="e-paid-amount-error"></div>
@@ -546,7 +699,8 @@
                                                 <label for="">Participation</label>
                                                 <div class="d-flex align-items-center radio-group-wrapper">
                                                     <div class="radio-group">
-                                                        <input type="radio" id="radio9" name="e-team" value="Individual">
+                                                        <input type="radio" id="radio9" name="e-team"
+                                                            value="Individual">
                                                         <label for="radio9">
                                                             <div class="radio"></div>Individual
                                                         </label>
@@ -557,7 +711,8 @@
                                                             <div class="radio"></div>Team
                                                         </label>
                                                     </div>
-                                                    <div class="form-group m-0 d-none team-wrapper" style="max-width: 200px;">
+                                                    <div class="form-group m-0 d-none team-wrapper"
+                                                        style="max-width: 200px;">
                                                         <input type="number" class="form-control"
                                                             placeholder="Team size" id="e-team-size">
                                                         <div class="error" id="e-team-size-error"></div>
@@ -569,13 +724,15 @@
                                                 <label for="">Method to perform activity</label>
                                                 <div class="d-flex align-items-center radio-group-wrapper">
                                                     <div class="radio-group">
-                                                        <input type="radio" id="radio11" name="e-perform" value="Online">
+                                                        <input type="radio" id="radio11" name="e-perform"
+                                                            value="Online">
                                                         <label for="radio11">
                                                             <div class="radio"></div>Online
                                                         </label>
                                                     </div>
                                                     <div class="radio-group">
-                                                        <input type="radio" id="radio12" name="e-perform" value="Offline">
+                                                        <input type="radio" id="radio12" name="e-perform"
+                                                            value="Offline">
                                                         <label for="radio12">
                                                             <div class="radio"></div>Offline
                                                         </label>
@@ -607,6 +764,32 @@
                                                 </div>
                                                 <div class="error" id="e-approval-error"></div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="">Where to perform</label>
+                                                <div class="d-flex align-items-center radio-group-wrapper flex-wrap">
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio20" name="e-where-to-perform"
+                                                            value="Inside">
+                                                        <label for="radio20">
+                                                            <div class="radio"></div>Inside boompanda's platform
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio-group">
+                                                        <input type="radio" id="radio21" name="e-where-to-perform"
+                                                            value="Outside">
+                                                        <label for="radio21">
+                                                            <div class="radio"></div>Outside boompanda's platform
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group m-0 d-none external-wrapper w-100"
+                                                        style="max-width: 200px;">
+                                                        <input type="text" class="form-control w-100"
+                                                            placeholder="Enter URL" id="e-external-link">
+                                                        <div class="error" id="e-external-link-error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="error" id="e-where-to-perform-error"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -615,7 +798,8 @@
                                     <input type="hidden" name="" id="hiddenid">
                                     <button type="button" class="btn btn-transparent"
                                         data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-solid" id="edit-activity-btn">Update Changes</button>
+                                    <button type="submit" class="btn btn-solid" id="edit-activity-btn">Update
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>

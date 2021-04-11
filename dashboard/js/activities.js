@@ -1,6 +1,6 @@
-$(document).ready(function(){
+$(document).ready(function () {
     // apply
-    $("#proceed-activity-modal #apply-btn").click(function(e){
+    $("#proceed-activity-modal #apply-btn").click(function (e) {
         e.preventDefault();
         // disable button & add spinner class
         $(this).prop('disabled', true);
@@ -19,11 +19,11 @@ $(document).ready(function(){
         formData = new FormData();
         var members = [];
 
-        if(name == "" || mobile == "" || email == "" || state == "" || city == "" || college == ""){
+        if (name == "" || mobile == "" || email == "" || state == "" || city == "" || college == "") {
             $("#proceed-activity-modal #modal-error").text("Complete your profile first before applying to activity");
             // console.log(2);
             flag = 1;
-        }else{
+        } else {
             formData.append('name', name.replace(/'/g, ''));
             formData.append('mobile', mobile.replace(/'/g, ''));
             formData.append('email', email.replace(/'/g, ''));
@@ -32,14 +32,14 @@ $(document).ready(function(){
             formData.append('college', college.replace(/'/g, ''));
 
             var teamMembers = $("#proceed-activity-modal #teamMembers").val();
-            for(var i=1; i< teamMembers; i++){
-                var college = $("#proceed-activity-modal #college"+i+" .form-control").val().replace(/'/g, '');
+            for (var i = 1; i < teamMembers; i++) {
+                var college = $("#proceed-activity-modal #college" + i + " .form-control").val().replace(/'/g, '');
                 var dict = {
-                    'name': $("#proceed-activity-modal #name"+i).val().replace(/'/g, ''),
-                    'mobile':  $("#proceed-activity-modal #mobile"+i).val().replace(/'/g, ''),
-                    'email':  $("#proceed-activity-modal #email"+i).val().replace(/'/g, ''),
-                    'state':  $("#proceed-activity-modal #state"+i).val(),
-                    'city': $("#proceed-activity-modal #city"+i).val(),
+                    'name': $("#proceed-activity-modal #name" + i).val().replace(/'/g, ''),
+                    'mobile': $("#proceed-activity-modal #mobile" + i).val().replace(/'/g, ''),
+                    'email': $("#proceed-activity-modal #email" + i).val().replace(/'/g, ''),
+                    'state': $("#proceed-activity-modal #state" + i).val(),
+                    'city': $("#proceed-activity-modal #city" + i).val(),
                     'college': college == '-- Select College --' ? "" : college,
                 }
                 members.push(dict);
@@ -50,8 +50,8 @@ $(document).ready(function(){
             formData.append('teamSize', teamMembers);
             formData.append('approval', approval);
         }
-        
-        if(flag == 0){
+
+        if (flag == 0) {
             // ajax function
             $.ajax({
                 enctype: 'multipart/form-data',
@@ -63,7 +63,7 @@ $(document).ready(function(){
                 dataType: 'json',
                 cache: false,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
                     if (response.modalErr) {
                         $("#proceed-activity-modal #modal-error").html(response.modalErr);
                     } else {
@@ -83,11 +83,11 @@ $(document).ready(function(){
                     $(_temp).html('Apply Now');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    var message = errorThrown;  
+                    var message = errorThrown;
                     if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
                         message = jqXHR.responseText;
                     }
-                    console.log(message);
+                    // console.log(message);
                     $(_temp).removeAttr("disabled");
                     $(_temp).html('Apply Now');
                 }
@@ -135,7 +135,7 @@ function readMyActivities() {
     });
 }
 
-function ViewActivity(viewid){
+function ViewActivity(viewid) {
     $("#view-activity-modal #loading").css('display', 'flex');
     $("#view-activity-modal .info-block").css('display', 'none');
     $("#proceed-activity-modal #loading").css('display', 'flex');
@@ -158,44 +158,57 @@ function ViewActivity(viewid){
             $("#view-activity-modal #organizer").text(response.organizer);
             $("#view-activity-modal #start-date").text(response.startDate);
             $("#view-activity-modal #time").text(to12hr(response.time));
+            $("#view-activity-modal #orgnizername1").text(response.organizername1);
+            $("#view-activity-modal #orgnizerno1").text(response.organizerno1);
+            $("#view-activity-modal #orgnizername2").text(response.organizername2);
+            $("#view-activity-modal #orgnizerno1").text(response.organizerno2);
             $("#view-activity-modal #end-date").text(response.endDate);
             $("#view-activity-modal #about-activity").html(response.about_activity.replaceAll("\r\n", "<br>"));
 
             $("#view-activity-modal #participation").html(response.participation.replaceAll("\r\n", "<br>"));
             $("#view-activity-modal #rewards").html(response.rewards.replaceAll("\r\n", "<br>"));
-            if(response.type == 'Free'){
+            if (response.type == 'Free') {
                 $("#view-activity-modal #type").text(response.type);
-            }else{
+            } else {
                 $("#view-activity-modal #type").text(response.type + " ( ₹" + response.amountPaid + " )");
             }
-            if(response.team == 'Individual'){
+            if (response.team == 'Individual') {
                 $("#view-activity-modal #team").text(response.team);
-            }else{
+            } else {
                 $("#view-activity-modal #team").text(response.team + " ( Team Size - " + response.teamSize + " )");
             }
             $("#view-activity-modal #platform").text(response.location);
 
-            // fill up proceed modal
-            $("#proceed-activity-modal #name").val(response.name);
-            $("#proceed-activity-modal #mobile").val(response.mobile);
-            $("#proceed-activity-modal #email").val(response.email);
-            $("#proceed-activity-modal #state").val(response.state);
-            $("#proceed-activity-modal #city").val(response.city);
-            $("#proceed-activity-modal #college").val(response.college_name);
+            // if external link then block this part
+            if (response.external_link == "") {
+                // fill up proceed modal
+                $("#proceed-activity-modal #name").val(response.name);
+                $("#proceed-activity-modal #mobile").val(response.mobile);
+                $("#proceed-activity-modal #email").val(response.email);
+                $("#proceed-activity-modal #state").val(response.state);
+                $("#proceed-activity-modal #city").val(response.city);
+                $("#proceed-activity-modal #college").val(response.college_name);
 
-            for(var i=1; i<response.teamSize; i++){
-                var data = appendHTML(i);
-                $("#proceed-activity-modal #team-members").append(data);
-                print_state("state"+i);
-                var cnt = 1;
-                $.get("./include/college.html", function (response) { 
-                    $("#college-list"+(cnt++)).replaceWith(response);
-                });
+                for (var i = 1; i < response.teamSize; i++) {
+                    var data = appendHTML(i);
+                    $("#proceed-activity-modal #team-members").append(data);
+                    print_state("state" + i);
+                    var cnt = 1;
+                    $.get("./include/college.html", function (response) {
+                        $("#college-list" + (cnt++)).replaceWith(response);
+                    });
+                }
+
+                $("#proceed-activity-modal #hiddenid").val(response.id);
+                $("#proceed-activity-modal #teamMembers").val(response.teamSize);
+                $("#proceed-activity-modal #approval").val(response.approval);
+                $("#view-activity-modal #visitlink").addClass("d-none");
+                $("#view-activity-modal #proceed").removeClass("d-none");
+            } else {
+                $("#view-activity-modal #proceed").addClass("d-none");
+                $("#view-activity-modal #visitlink").attr("href", response.external_link);
+                $("#view-activity-modal #visitlink").removeClass("d-none");
             }
-
-            $("#proceed-activity-modal #hiddenid").val(response.id);
-            $("#proceed-activity-modal #teamMembers").val(response.teamSize);
-            $("#proceed-activity-modal #approval").val(response.approval);
 
             $("#view-activity-modal #loading").css('display', 'none');
             $("#view-activity-modal .info-block").css('display', 'flex');
@@ -312,32 +325,32 @@ function ViewActivity1(viewid2) {
     });
 }
 
-function appendHTML(id){
+function appendHTML(id) {
     var data = `
     <div class="user-info mt-5">
-        <h6 class="m-0 mb-2 text-muted">Member `+id+`</h6>
+        <h6 class="m-0 mb-2 text-muted">Member `+ id + `</h6>
         <div class="row">
             <div class="col-6 pr-0">
                 <div class="form-group m-0 m-0">
-                    <input type="text" class="form-control small" placeholder="Name" id="name`+id+`">
+                    <input type="text" class="form-control small" placeholder="Name" id="name`+ id + `">
                     <div class="error"></div>
                 </div>
             </div>
             <div class="col-6 pl-1">
                 <div class="form-group m-0">
-                    <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile`+id+`">
+                    <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile`+ id + `">
                     <div class="error"></div>
                 </div>
             </div>
         </div>
         <div class="form-group m-0">
-            <input type="text" class="form-control small" placeholder="Email" id="email`+id+`">
+            <input type="text" class="form-control small" placeholder="Email" id="email`+ id + `">
             <div class="error"></div>
         </div>
         <div class="row">
             <div class="col-6 pr-0">
                 <div class="form-group m-0">
-                    <select onchange="print_city('city`+id+`', this.selectedIndex);" id="state`+id+`"
+                    <select onchange="print_city('city`+ id + `', this.selectedIndex);" id="state` + id + `"
                         name="stt" class="form-control"></select>
                     
                     <div class="error" id="state-error"></div>
@@ -345,13 +358,13 @@ function appendHTML(id){
             </div>
             <div class="col-6 pl-1">
                 <div class="form-group m-0">
-                    <select id="city`+id+`" class="form-control"></select>
+                    <select id="city`+ id + `" class="form-control"></select>
                     <div class="error" id="city-error"></div>
                 </div>
             </div>
         </div>
-        <div class="form-group m-0" id='college`+id+`'>
-            <div id="college-list`+id+`"></div>
+        <div class="form-group m-0" id='college`+ id + `'>
+            <div id="college-list`+ id + `"></div>
             <div class="error" id="college-error"></div>
         </div>
     </div>`;

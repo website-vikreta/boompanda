@@ -68,8 +68,8 @@
                         <button class="nav-link active" data-toggle="tab" href="#active">All Activities</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" data-toggle="tab" href="#applied"
-                            onclick="readMyActivities()">My Activities</button>
+                        <button class="nav-link" data-toggle="tab" href="#applied" onclick="readMyActivities()">My
+                            Activities</button>
                     </li>
                 </ul>
 
@@ -122,29 +122,35 @@
                                     </div>
                                     <div class="info-block flex-column">
                                         <!-- banner image -->
-                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
+                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100"
+                                            alt="banner-image" id="activityBanner">
                                         <div class="row">
                                             <div class="col-lg-7 col-md-7 col-12">
                                                 <div class="row">
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <img src="./assets/logo.jpg" class="img-fluid p-2" style="width: 100%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);" alt="" id="logo">
+                                                        <img src="./assets/logo.jpg" class="img-fluid p-2"
+                                                            style="width: 90%; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);"
+                                                            alt="" id="logo">
                                                     </div>
-                                                    <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                    <div
+                                                        class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
                                                         <div class="title-group">
                                                             <h4 id="title" class="m-0 p-0"></h4>
-                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i
+                                                                class="small">by <b id="organizer"></b></i>
                                                         </div>
-                                                        
+
                                                         <div class="flex-center justify-content-start">
-                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                                    style="font-family: poppins;"></b></p>
+                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b
+                                                                    id="start-date" style="font-family: poppins;"></b>
+                                                            </p>
                                                             <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                                     style="font-family: poppins;"></b></p>
                                                         </div>
                                                         <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
-                                                            style="font-family: poppins;"></b></p>
+                                                                style="font-family: poppins;"></b></p>
                                                     </div>
-                                                </div>                                            
+                                                </div>
                                                 <hr>
                                                 <p class="my-3 p-0" id="about-activity"></p>
                                             </div>
@@ -166,18 +172,33 @@
                                                 <p class="m-0 mt-1 p-0 small" id="team"></p>
 
                                                 <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                                <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
                                                 <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="platform"></p> 
+                                                <p class="m-0 mt-1 p-0 small" id="platform"></p>
+
+                                                <p class="m-0 mt-4 p-0 font-weight-bold"> Organizers Contact</p>
+                                                <hr class="m-0 mt-1">
+                                                <p class="m-0 mt-1 p-0 small">
+                                                    <span id="orgnizername1"></span>
+                                                    <i class="far fa-arrow-right text-danger mx-2"></i>
+                                                    </span><span id="orgnizerno1"></span>
+                                                </p>
+                                                <p class="m-0 mt-1 p-0 small">
+                                                    <span id="orgnizername2"></span>
+                                                    <i class="far fa-arrow-right text-danger mx-2"></i>
+                                                    <span id="orgnizerno2"></span>
+                                                </p>
                                             </div>
                                         </div>
-                                    </div>                                
+                                    </div>
                                 </div>
                                 <div class="error" id="server-error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-transparent"
                                         data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-solid" id="proceed" data-toggle='modal' data-target='#proceed-activity-modal'>Proceed</button>
+                                    <button type="button" class="btn btn-solid d-none" id="proceed" data-toggle='modal'
+                                        data-target='#proceed-activity-modal'>Proceed</button>
+                                    <a href="" class="btn btn-solid d-none" target="_BLANK" id="visitlink">Check out
+                                        Activity</a>
                                 </div>
                             </div>
                         </form>
@@ -209,29 +230,35 @@
                                     </div>
                                     <div class="info-block flex-column">
                                         <!-- banner image -->
-                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100" alt="banner-image" id="activityBanner">
+                                        <img src="./assets/banner.jpg" class="img-fluid mt-2 mb-4 w-100"
+                                            alt="banner-image" id="activityBanner">
                                         <div class="row">
                                             <div class="col-lg-7 col-md-7 col-12">
                                                 <div class="row">
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <img src="./assets/logo.jpg" class="img-fluid p-1" style="width: 100%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);" alt="" id="logo">
+                                                        <img src="./assets/logo.jpg" class="img-fluid p-1"
+                                                            style="width: 100%; box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);"
+                                                            alt="" id="logo">
                                                     </div>
-                                                    <div class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
+                                                    <div
+                                                        class="col-lg-8 col-md-8 col-12 d-flex flex-column justify-content-center">
                                                         <div class="title-group">
                                                             <h4 id="title" class="m-0 p-0"></h4>
-                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i class="small">by <b id="organizer"></b></i>
+                                                            <span id="category" class="m-0 p-0 bg-light"></span> <i
+                                                                class="small">by <b id="organizer"></b></i>
                                                         </div>
-                                                        
+
                                                         <div class="flex-center justify-content-start">
-                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b id="start-date"
-                                                                    style="font-family: poppins;"></b></p>
+                                                            <p class="start-date p-0 mr-3 mt-1">Start Date: <b
+                                                                    id="start-date" style="font-family: poppins;"></b>
+                                                            </p>
                                                             <p class="end-date p-0 m-0 mt-1">End Date: <b id="end-date"
                                                                     style="font-family: poppins;"></b></p>
                                                         </div>
                                                         <p class="end-date p-0 m-0 mt-1">Time: <b id="time"
-                                                            style="font-family: poppins;"></b></p>
+                                                                style="font-family: poppins;"></b></p>
                                                     </div>
-                                                </div>                                            
+                                                </div>
                                                 <hr>
                                                 <p class="my-3 p-0" id="about-activity"></p>
                                             </div>
@@ -253,14 +280,16 @@
                                                 <p class="m-0 mt-1 p-0 small" id="team"></p>
 
                                                 <p class="m-0 mt-4 p-0 font-weight-bold"> Platform / Location</p>
-                                                <p class="small text-muted p-0 font-italic" style="line-height: 1.2 !important;">(NOTE: if you found any URL kindly copy that URL & paste it in URL bar to visit page)</p>
+                                                <p class="small text-muted p-0 font-italic"
+                                                    style="line-height: 1.2 !important;">(NOTE: if you found any URL
+                                                    kindly copy that URL & paste it in URL bar to visit page)</p>
                                                 <hr class="m-0 mt-1">
-                                                <p class="m-0 mt-1 p-0 small" id="platform"></p> 
+                                                <p class="m-0 mt-1 p-0 small" id="platform"></p>
                                             </div>
                                         </div>
                                         <h5 class="mt-4">Registration Details</h5>
                                         <div id="teamTable"></div>
-                                    </div>                                
+                                    </div>
                                 </div>
                                 <div class="error" id="server-error"></div>
                             </div>
@@ -297,40 +326,47 @@
                                             <div class="row">
                                                 <div class="col-6 pr-0">
                                                     <div class="form-group m-0 m-0">
-                                                        <input type="text" class="form-control small" placeholder="Name" id="name" disabled>
+                                                        <input type="text" class="form-control small" placeholder="Name"
+                                                            id="name" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6 pl-1">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="Mobile Number" id="mobile" disabled>
+                                                        <input type="text" class="form-control small"
+                                                            placeholder="Mobile Number" id="mobile" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="Email" id="email" disabled>
+                                                <input type="text" class="form-control small" placeholder="Email"
+                                                    id="email" disabled>
                                                 <div class="error"></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 pr-0">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="State" id="state" disabled>
+                                                        <input type="text" class="form-control small"
+                                                            placeholder="State" id="state" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6 pl-1">
                                                     <div class="form-group m-0">
-                                                        <input type="text" class="form-control small" placeholder="City" id="city" disabled>
+                                                        <input type="text" class="form-control small" placeholder="City"
+                                                            id="city" disabled>
                                                         <div class="error"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group m-0">
-                                                <input type="text" class="form-control small" placeholder="College Name" id="college" disabled>
+                                                <input type="text" class="form-control small" placeholder="College Name"
+                                                    id="college" disabled>
                                                 <div class="error"></div>
                                             </div>
-                                            <div class="small font-italic text-primary m-0">(In order to change your details, kindly update your profile)</div>
+                                            <div class="small font-italic text-primary m-0">(In order to change your
+                                                details, kindly update your profile)</div>
                                         </div>
 
                                         <div class="team-members" id="team-members"></div>
@@ -386,4 +422,4 @@
     </script>
 </body>
 
-</html> 
+</html>

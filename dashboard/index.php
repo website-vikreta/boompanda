@@ -131,7 +131,7 @@
                   <div class="slider-wrapper">
                      <div class="slider" id="dashboard-slider">
                         <div class="slide">
-                           <a href="https://www.grabon.in/cricketfantasy/" target="_blank" title="Visit Now">
+                           <a href="https://www.grabon.in/cricketfantasy/?rfid=727366" target="_blank" title="Visit Now">
                               <img src="./media/slider/grabon.jpg" class="img-fluid" alt="">
                            </a>
                         </div>

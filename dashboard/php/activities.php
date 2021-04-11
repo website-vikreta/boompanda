@@ -23,12 +23,12 @@
                     <div class='card mb-4 mt-0' style='width:235px'>
                         <div class = 'head rect'>
                             <div class='image rect p-1'>
-                                <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
+                                <img src='".substr($row['thumbnail'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
                             </div>
                             <h3 class='gig-title mx-2 mb-2'>".$row['title']."</h3>
                         </div>
                         <div class='time flex-center justify-content-between'>
-                            <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".$row['startDate']."</span>
+                            <span class='poppins'><i class='far fa-calendar-week mr-1'></i> ".date("d-m-Y", strtotime($row['startDate']))."</span>
                             <span class='poppins'><i class='far fa-clock mr-1'></i> ".to12hr($row['time'])."</span>
                         </div>
                         <a>".$row['category']."</a>
@@ -128,7 +128,7 @@
                         <div class='card mb-4 mt-0' style='width:235px'>
                             <div class = 'head rect'>
                                 <div class='image rect p-1'>
-                                    <img src='".substr($row['logo'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
+                                    <img src='".substr($row['thumbnail'], 1)."' class='img-fluid p-0' style='border-radius: 50px'>
                                 </div>
                                 <h3 class='gig-title mx-2 mb-2'>".$row['title']."</h3>
                             </div>
