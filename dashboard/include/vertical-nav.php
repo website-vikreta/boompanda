@@ -73,6 +73,11 @@
                 </ul>
             </li>
         </div>
+        <a href="extras.html" class="nav-link">
+            <li class="nav-tab">
+                <div class="tab"><i class="far fa-abacus"></i> Extras</div>
+            </li>
+        </a>
     </ul>
 
     <?php } else if($userType == 'admin'){ ?>

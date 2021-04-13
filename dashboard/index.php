@@ -32,11 +32,10 @@
    $newactivity = mysqli_query($conn, $sql);
 
    // applied activity
-   $sql = "SELECT * FROM `activities` INNER JOIN `activity_applications` 
+   $sql = "SELECT `activities`.* FROM `activities` INNER JOIN `activity_applications` 
             WHERE `activity_applications`.`activityid` = `activities`.`id` AND `activity_applications`.`email` = '$email' 
-            AND `activity_applications`.`userType` = '$userType' ORDER BY `activities`.`startDate` LIMIT 1";
+            AND `activity_applications`.`userType` = '$userType' ORDER BY `activities`.`startDate` LIMIT 5";
    $appliedactivityN = mysqli_query($conn, $sql);
-   $appliedactivity = mysqli_fetch_assoc($appliedactivityN);
 
    // new offers 2
    $sql = "SELECT `title`, `logo` FROM `offers` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
@@ -48,6 +47,11 @@
             AND `offer_applications`.`userType` = '$userType' AND `offer_applications`.`total_redeem` > `offer_applications`.`user_redeem`
             ORDER BY `offers`.`end_date` LIMIT 1";
    $appliedoffer = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+
+   // banner images
+   // $sql = "SELECT * FROM `dashboard_slider` WHERE `status` = 'Active' ORDER BY `id` DESC";
+   $sql = "SELECT * FROM `dashboard_slider` ORDER BY `id` DESC";
+   $banner = mysqli_query($conn, $sql);
 
 ?>
 
@@ -128,34 +132,29 @@
             <div class="row">
                <div class="col-lg-8 col-md-8 col-12">
                   <!-- carousal -->
+                  
+                  <?php if(mysqli_num_rows($banner) > 0){ ?>
                   <div class="slider-wrapper">
                      <div class="slider" id="dashboard-slider">
-                        <div class="slide">
-                           <a href="https://www.grabon.in/cricketfantasy/?rfid=727366" target="_blank" title="Visit Now">
-                              <img src="./media/slider/grabon.jpg" class="img-fluid" alt="">
-                           </a>
-                        </div>
-                        <div class="slide">
-                           <a href="./tasks.html">
-                              <img src="./media/slider/task cover.jpg" class="img-fluid" alt="">
-                           </a>
-                        </div>
-                        <div class="slide">
-                           <a href="./offers.html">
-                              <img src="./media/slider/offer cover.jpg" class="img-fluid" alt="">
-                           </a>
-                        </div>
-                        <div class="slide">
-                           <a href="./activities.html">
-                              <img src="./media/slider/activity cover.jpg" class="img-fluid" alt="">
-                           </a>
-                        </div>
+                        <?php 
+                           while($row = mysqli_fetch_assoc($banner)){ ?>
+                           <div class="slide">
+                              <a href="<?php echo $row['url']; ?>" target="_blank" title="Visit Now">
+                                 <img src="<?php echo substr($row['banner'], 1); ?>" class="img-fluid" alt="">
+                              </a>
+                           </div>
+                        <?php }?>
                      </div>
                      <div class="slider-btn-wrapper">
                         <button class="prev slider-btn"><i class="far fa-chevron-left"></i></button>
                         <button class="next slider-btn"><i class="far fa-chevron-right"></i></button>
                      </div>
                   </div>
+                  <?php
+                     }else{
+                        echo "<p class='p-0'>Oops nothing to show here</p>";
+                     }
+                  ?>
 
                   <!-- task statastics -->
                   <div class="task-statastics statastics mt-4">
@@ -197,13 +196,20 @@
                                  <p class="m-0 p-2 small"><?php echo $row['title']; ?></p>
                               </a>
                         <?php   }
-                            if(mysqli_num_rows($appliedactivityN) > 0){ ?>
-                           <a href="./activities.html" class="image" title="Apply for this Activity">
-                              <img src="<?php echo substr($appliedactivity['logo'], 1); ?>" class="img-fluid" alt="">
-                              <p class="text-danger pb-0 px-2 pt-2 font-weight-bold">Upcoming in your list</p>
-                              <p class="m-0 px-2 pb-2 small"><?php echo $appliedactivity['title']; ?></p>
-                           </a>
-                        <?php }
+
+                           while($row = mysqli_fetch_assoc($appliedactivityN)){
+                              if($row['status'] == 'Active'){
+                        ?>
+                              <a href="./activities.html" class="image" title="Apply for this Activity">
+                                 <img src="<?php echo substr($row['logo'], 1); ?>" class="img-fluid" alt="">
+                                 <p class="text-danger pb-0 px-2 pt-2 font-weight-bold">Upcoming in your list</p>
+                                 <p class="m-0 px-2 pb-2 small"><?php echo $row['title']; ?></p>
+                              </a>
+                        <?php         break;
+                              }else{
+                                 continue;
+                              }
+                           }
                         } ?>
                      </div>
                   </div>
