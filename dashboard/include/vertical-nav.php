@@ -132,7 +132,7 @@
                 <div class="tab"><i class="far fa-rupee-sign"></i> Tasks</div>
             </li>
         </a>
-        <a href="offers-u.html" class="nav-link">
+        <a href="offers.html" class="nav-link">
             <li class="nav-tab">
                 <div class="tab"><i class="far fa-tags"></i> Offers</div>
             </li>
