@@ -522,30 +522,69 @@
                     <div class="modal-dialog modal-dialog-centered modal-dialog-zoom modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Task Reports</h5>
+                                <h5 class="modal-title">Your submissions</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                     style="outline: none;">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body" id="task-info1">
+                            <div class="modal-body" id="task-info">
                                 <div class="loading" id="loading">
                                     <i class="far fa-sync fa-spin"></i>
                                 </div>
                                 <div class="row info-block">
-                                    <div class="col-lg-12 col-md-12 col-12">
-                                        <h4 class="mb-4">My Submissions</h4>
-                                        <div class="entries1"> </div>
+                                    <!--Dont forget to rename this class to info-block-->
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="title-group">
+                                            <h4 id="title" class="m-0 p-0"></h4>
+                                            <span id="category" class="m-0 p-0 bg-light"></span>
+                                        </div>
+
+                                        <div class="stats my-4">
+                                            <div class="flex-between">
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="total-submission-stat"></h2>
+                                                    <span class="small text-muted">Total Submissions</span>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="accepted-submission-stat"></h2>
+                                                    <span class="small text-muted">Accepted Submissions</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-between mt-3">
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="pending-boomcoins-stat">0</h2>
+                                                    <span class="small text-muted">Pending Boomcoins</span>
+                                                </div>
+                                                <div class="line"></div>
+                                                <div class="number" style="flex: 1;">
+                                                    <h2 class="poppins m-0" id="disbursed-boomcoins-stat">0</h2>
+                                                    <span class="small text-muted">Boomcoins disbursed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-12 mb-3">
+                                        <form action="" class="form w-50 mx-4">
+                                            <div class="form-group">
+                                                <h6 for="" class="mb-2">View Submissions</h6>
+                                                <select name="" id="submission-type" class="form-control"
+                                                    onchange="showSubmissionCards2(this.options[this.selectedIndex].value)">
+                                                    <option value="all">All Submissions</option>
+                                                    <option value="accepted">Approved Submissions</option>
+                                                    <option value="rejected">Rejected Submissions</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                        <div class="submissions mb-3"
+                                            style="max-height: 60vh; overflow-y: scroll; padding: 1rem; display:grid; grid-template-columns:1fr 1fr; grid-gap:1rem">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <form action="" id="task-apply-form">
-                                    <input type="hidden" name="" id="hiddenid">
-                                    <span class="error small text-danger" id="modal-error"></span>
-                                    <button type="button" class="btn btn-transparent"
-                                        data-dismiss="modal">Close</button>
-                                </form>
+                                <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
