@@ -1,15 +1,15 @@
 <?php
-    include_once "./db.php";
-    extract($_POST);
+include_once "./db.php";
+extract($_POST);
 
-    $superadmin = $_SESSION['userType'];
+$superadmin = $_SESSION['userType'];
 
-    // * ====================================
-    // * READ RECORDS
-    // * ====================================
-    if(!empty($_POST['readrecord'])){
+// * ====================================
+// * READ RECORDS
+// * ====================================
+if (!empty($_POST['readrecord'])) {
 
-        $data = "
+    $data = "
         <div class='table-responsive'>
             <table class='table table-sm table-striped' id='myTable' width='100%'>
                 <thead>
@@ -36,137 +36,138 @@
                 </tfoot>
                 <tbody>
         ";
-        // sql query with inner join
-        $sql = "SELECT * FROM `tasks` WHERE `status` != 'Deleted' ORDER BY `id` DESC";
-        $result=mysqli_query($conn,$sql);
-    
-        if(mysqli_num_rows($result) > 0){
-            $number = 1;
-            while($row = mysqli_fetch_assoc($result)){
-                $task_id = $row['id'];
-                $amt_d = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(`disbursed_boomcoins`) AS `disbursed_boomcoins` FROM `applications` WHERE `taskid` = '$task_id'"));
-                if($amt_d['disbursed_boomcoins'] == ""){$amt_d['disbursed_boomcoins'] = 0;}
-                $data .= "
+    // sql query with inner join
+    $sql = "SELECT * FROM `tasks` WHERE `status` != 'Deleted' ORDER BY `id` DESC";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $number = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $task_id = $row['id'];
+            $amt_d = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(`disbursed_boomcoins`) AS `disbursed_boomcoins` FROM `applications` WHERE `taskid` = '$task_id'"));
+            if ($amt_d['disbursed_boomcoins'] == "") {
+                $amt_d['disbursed_boomcoins'] = 0;
+            }
+            $data .= "
                     <tr>
-                        <td class='text-center'>".$number."</td>
-                        <td class='text-center'><img src='".substr($row['gigLogo'], 1)."' class='img-fluid' style='height: 20px'></td>
-                        <td><b>".$row['title']."</b><br><i>".$row['companyName']."</i><p class='m-0'>End Date - <span style='font-family: poppins'>".$row['endDate']."</span></td>
-                        <td class='text-center poppins'>".$row['noOfApplications']."</td>
-                        <td class='text-center poppins'>".$row['noOfSubmissions']."</td>
-                        <td class='text-center poppins font-weight-bold'>".$row['noOfApproved']."</td>
-                        <td class='text-center poppins'>".$amt_d['disbursed_boomcoins']."</td>
-                        <td class='text-center'>".$row['status']."</td>";
-                if($superadmin == 'superadmin'){
-                    $data .= "<td class='flex-center'>
-                                <a class='btn btn-solid btn-primary text-white w-100 h-auto mb-1' href='../live/tracking.php?accesskey=".$row['token']."' target='_BLANK' onclick='LiveTrack(".$row['id'].")' title='View Live Tracking'>Live Tracking</a>
-                                <button class='btn btn-solid btn-danger text-white w-100 h-auto' onclick='DisburseFunds(".$row['id'].")' title='View all pending amounts & pay' data-toggle='modal' data-target='#payment-modal'>Disburse Amount</button>
+                        <td class='text-center'>" . $number . "</td>
+                        <td class='text-center'><img src='" . substr($row['gigLogo'], 1) . "' class='img-fluid' style='height: 20px'></td>
+                        <td><b>" . $row['title'] . "</b><br><i>" . $row['companyName'] . "</i><p class='m-0'>End Date - <span style='font-family: poppins'>" . $row['endDate'] . "</span></td>
+                        <td class='text-center poppins'>" . $row['noOfApplications'] . "</td>
+                        <td class='text-center poppins'>" . $row['noOfSubmissions'] . "</td>
+                        <td class='text-center poppins font-weight-bold'>" . $row['noOfApproved'] . "</td>
+                        <td class='text-center poppins'>" . $amt_d['disbursed_boomcoins'] . "</td>
+                        <td class='text-center'>" . $row['status'] . "</td>";
+            if ($superadmin == 'superadmin') {
+                $data .= "<td class='flex-center'>
+                                <a class='btn btn-solid btn-primary text-white w-100 h-auto mb-1' href='../live/tracking.php?accesskey=" . $row['token'] . "' target='_BLANK' onclick='LiveTrack(" . $row['id'] . ")' title='View Live Tracking'>Live Tracking</a>
+                                <button class='btn btn-solid btn-danger text-white w-100 h-auto' onclick='DisburseFunds(" . $row['id'] . ")' title='View all pending amounts & pay' data-toggle='modal' data-target='#payment-modal'>Disburse Amount</button>
                             </td>";
-                }
-                        
-                $data .="<td class='flex-between' style='height: 100%; display: flex;'>
+            }
+
+            $data .= "<td class='flex-between' style='height: 100%; display: flex;'>
                 ";
-                // live tracking
-                if($row['tracking'] == "Hidden" && $superadmin == 'superadmin'){
-                    $data .= "
-                    <button class='btn solid rounded btn-primary task-".$row['id']."' id='livetraking".$row['id']."' onclick='LiveTracking(".$row['id'].")' data-toggle='tooltip' title='Start Live Tracking'><i class='far fa-broadcast-tower'></i></button>
+            // live tracking
+            if ($row['tracking'] == "Hidden" && $superadmin == 'superadmin') {
+                $data .= "
+                    <button class='btn solid rounded btn-primary task-" . $row['id'] . "' id='livetraking" . $row['id'] . "' onclick='LiveTracking(" . $row['id'] . ")' data-toggle='tooltip' title='Start Live Tracking'><i class='far fa-broadcast-tower'></i></button>
                     ";
-                }else if($row['tracking'] == "Live" && $superadmin == 'superadmin'){
-                    $data .= "
-                    <button class='btn solid rounded btn-danger task-".$row['id']."' id='hidetracking".$row['id']."' onclick='HideTracking(".$row['id'].")' data-toggle='tooltip' title='Stop Live Tracking'><i class='far fa-eye-slash'></i></button>
+            } else if ($row['tracking'] == "Live" && $superadmin == 'superadmin') {
+                $data .= "
+                    <button class='btn solid rounded btn-danger task-" . $row['id'] . "' id='hidetracking" . $row['id'] . "' onclick='HideTracking(" . $row['id'] . ")' data-toggle='tooltip' title='Stop Live Tracking'><i class='far fa-eye-slash'></i></button>
                     ";
-                }
-                // active inactive
-                if($row['status'] == "Not Active" || $row['status'] == "Paused"){
-                    $data .= "
-                    <button class='btn solid rounded btn-success task-".$row['id']."' id='approve".$row['id']."' onclick='ActiveTask(".$row['id'].")' data-toggle='tooltip' title='Run this gig'><i class='far fa-play'></i></button>
+            }
+            // active inactive
+            if ($row['status'] == "Not Active" || $row['status'] == "Paused") {
+                $data .= "
+                    <button class='btn solid rounded btn-success task-" . $row['id'] . "' id='approve" . $row['id'] . "' onclick='ActiveTask(" . $row['id'] . ")' data-toggle='tooltip' title='Run this gig'><i class='far fa-play'></i></button>
                     ";
-                }else if($row['status'] == "Active"){
-                    $data .= "
-                    <button class='btn solid rounded btn-warning task-".$row['id']."' id='disapprove".$row['id']."' onclick='InactiveTask(".$row['id'].")' data-toggle='tooltip' title='Stop running this gig'><i class='far fa-stop'></i></button>
+            } else if ($row['status'] == "Active") {
+                $data .= "
+                    <button class='btn solid rounded btn-warning task-" . $row['id'] . "' id='disapprove" . $row['id'] . "' onclick='InactiveTask(" . $row['id'] . ")' data-toggle='tooltip' title='Stop running this gig'><i class='far fa-stop'></i></button>
                     ";
-                }
-                $data .= "                        
-                        <button class='btn solid rounded btn-primary task-".$row['id']."' title='View complete task information' id='view".$row['id']."' onclick='ViewTask(".$row['id'].")' data-toggle='modal' data-target='#view-task-modal'><i class='far fa-eye'></i></button>
-                        <button class='btn solid rounded btn-info task-".$row['id']."' title='View applications' id='application".$row['id']."' onclick='window.location.href= `./pending-approvals.html?id=".$row['id']."`'><i class='far fa-tasks'></i></button>
-                        <button class='btn solid rounded btn-warning task-".$row['id']."' title='View submissions' id='submission".$row['id']."' onclick='window.location.href= `./submissions.html?id=".$row['id']."`'><i class='far fa-share'></i></button>
-                        <button class='btn solid rounded btn-secondary task-".$row['id']."'><i class='far fa-edit'></i></button>
-                        <button class='btn solid rounded btn-danger task-".$row['id']."' id='delete".$row['id']."' onclick='DeleteTask(".$row['id'].")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
+            }
+            $data .= "                        
+                        <button class='btn solid rounded btn-primary task-" . $row['id'] . "' title='View complete task information' id='view" . $row['id'] . "' onclick='ViewTask(" . $row['id'] . ")' data-toggle='modal' data-target='#view-task-modal'><i class='far fa-eye'></i></button>
+                        <button class='btn solid rounded btn-info task-" . $row['id'] . "' title='View applications' id='application" . $row['id'] . "' onclick='window.location.href= `./pending-approvals.html?id=" . $row['id'] . "`'><i class='far fa-tasks'></i></button>
+                        <button class='btn solid rounded btn-warning task-" . $row['id'] . "' title='View submissions' id='submission" . $row['id'] . "' onclick='window.location.href= `./submissions.html?id=" . $row['id'] . "`'><i class='far fa-share'></i></button>
+                        <button class='btn solid rounded btn-secondary task-" . $row['id'] . "'><i class='far fa-edit'></i></button>
+                        <button class='btn solid rounded btn-danger task-" . $row['id'] . "' id='delete" . $row['id'] . "' onclick='DeleteTask(" . $row['id'] . ")' data-toggle='tooltip' title='Remove'><i class='far fa-trash'></i></button>
                     </td>
                 </tr>
                 ";
-                $number++;
-            }
+            $number++;
         }
-        $data .= "
+    }
+    $data .= "
             </tbody>
             </table>
             </div>
         ";
-        // $data .= "</table>";
-        echo $data;
-    }
+    // $data .= "</table>";
+    echo $data;
+}
 
 
-    // * ====================================
-    // * READ SINGLE RECORD
-    // * ====================================
-    if(isset($_POST['taskid'])){
-        $taskid = $_POST['taskid'];
-        $sql = "SELECT * FROM `tasks` WHERE `id` = '$taskid'";
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        echo json_encode($row);
-    }
+// * ====================================
+// * READ SINGLE RECORD
+// * ====================================
+if (isset($_POST['taskid'])) {
+    $taskid = $_POST['taskid'];
+    $sql = "SELECT * FROM `tasks` WHERE `id` = '$taskid'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    echo json_encode($row);
+}
 
-    // * ====================================
-    // * APPROVE USERS
-    // * ====================================
-    if(isset($_POST['approveid'])){
-        $approveid = $_POST['approveid'];
-        $sql = "UPDATE `tasks` SET `status`='Active' WHERE `id`= '$approveid'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+// * ====================================
+// * APPROVE USERS
+// * ====================================
+if (isset($_POST['approveid'])) {
+    $approveid = $_POST['approveid'];
+    $sql = "UPDATE `tasks` SET `status`='Active' WHERE `id`= '$approveid'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
     }
-    // * ====================================
-    // * INACTIVE TASKS
-    // * ====================================
-    if(isset($_POST['disapproveid'])){
-        $disapproveid = $_POST['disapproveid'];
-        $sql = "UPDATE `tasks` SET `status`='Paused' WHERE `id`= '$disapproveid'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+}
+// * ====================================
+// * INACTIVE TASKS
+// * ====================================
+if (isset($_POST['disapproveid'])) {
+    $disapproveid = $_POST['disapproveid'];
+    $sql = "UPDATE `tasks` SET `status`='Paused' WHERE `id`= '$disapproveid'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
     }
+}
 
-    // * ====================================
-    // * DELETE TASKS
-    // * ====================================
-    if(isset($_POST['deleteid'])){
-        $deleteid = $_POST['deleteid'];
-        $sql = "UPDATE `tasks` SET `status`='Deleted' WHERE `id`= '$deleteid'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+// * ====================================
+// * DELETE TASKS
+// * ====================================
+if (isset($_POST['deleteid'])) {
+    $deleteid = $_POST['deleteid'];
+    $sql = "UPDATE `tasks` SET `status`='Deleted' WHERE `id`= '$deleteid'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
     }
+}
 
-    
-    // * ====================================
-    // * DISBURSD FUNDS
-    // * ====================================
-    if(isset($_POST['disbursedid'])){
-        $disbursedid = $_POST['disbursedid'];
-        $total_amt = 0;
-        $data = "
+
+// * ====================================
+// * DISBURSD FUNDS
+// * ====================================
+if (isset($_POST['disbursedid'])) {
+    $disbursedid = $_POST['disbursedid'];
+    $total_amt = 0;
+    $data = "
         <div class='flex-center m-0' style='width:100% !important; max-height:60vh; overflow-y:scroll;'>
             <table class='table m-0 table-sm table-striped w-100' id='myTable' width='100%'>
                 <thead>
@@ -176,98 +177,117 @@
                 </thead>
                 <tbody>
         ";
-        // sql query with inner join
-        $sql = "SELECT * FROM `applications` WHERE `taskid` = '$disbursedid' ORDER BY `pending_boomcoins` DESC";
-        $result=mysqli_query($conn,$sql);
-    
-        if(mysqli_num_rows($result) > 0){
-            $number = 1;
-            while($row = mysqli_fetch_assoc($result)){
-                if($row['pending_boomcoins'] > 0){
-                    $total_amt = $total_amt + $row['pending_boomcoins'];
-                    $data .= "
+    // sql query with inner join
+    $sql = "SELECT * FROM `applications` WHERE `taskid` = '$disbursedid' ORDER BY `pending_boomcoins` DESC";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $number = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            if ($row['pending_boomcoins'] > 0) {
+                $total_amt = $total_amt + $row['pending_boomcoins'];
+                $data .= "
                         <tr>
-                            <td class='text-center'>".$number."</td>
-                            <td class=''>".$row['email']."</td>
-                            <td class='text-center'>".$row['pending_boomcoins']."</td>
+                            <td class='text-center'>" . $number . "</td>
+                            <td class=''>" . $row['email'] . "</td>
+                            <td class='text-center'>" . $row['pending_boomcoins'] . "</td>
                         </tr>
                     ";
-                    $number++;
-                }
+                $number++;
             }
         }
-        $data .= "
+    }
+    $data .= "
             </tbody>
             </table>
             </div>
 
             <div class='content mt-3'>
-                <b class='small poppins'>Total Amount to be paid: <span class='text-danger font-weight-bold'> ".$total_amt."</span></b>
+                <b class='small poppins'>Total Amount to be paid: <span class='text-danger font-weight-bold'> " . $total_amt . "</span></b>
             </div>
             <center class='my-3'>
-                <button class='btn btn-solid' onclick='PayFunds(".$disbursedid.")'>Pay Now</button>
+                <button class='btn btn-solid' onclick='PayFunds(" . $disbursedid . ")'>Pay Now</button>
             </center>
         ";
-        // $data .= "</table>";
-        echo $data;
-    }
+    // $data .= "</table>";
+    echo $data;
+}
 
-    // * ====================================
-    // * PAY NOW
-    // * ====================================
-    if(isset($_POST['payid'])){
-        $total_pay = 0;
-        $taskid = $_POST['payid'];
-        $response = array();
-        $response['success'] = false;
-        $response['id'] = $taskid;
-
-        $sql = "SELECT * FROM `applications` WHERE `pending_boomcoins` > 0 AND `taskid` = '$taskid'";
-        $result = mysqli_query($conn, $sql);
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_assoc($result)){
-                $u_email = $row['email'];
-                $u_userType = $row['userType'];
-                $coins = $row['pending_boomcoins'];
-                mysqli_query($conn, "UPDATE `applications` SET`disbursed_boomcoins`= `disbursed_boomcoins` + `pending_boomcoins`, `pending_boomcoins`= 0 WHERE `email` = '$u_email' AND `userType` = '$u_userType' AND `taskid` = '$taskid'");
-                mysqli_query($conn, "UPDATE `wallet` SET `balance`=`balance` + '$coins',`total_earning`= `total_earning` + '$coins' WHERE `email` = '$u_email' AND `userType` = '$u_userType'");
-            }
+// * ====================================
+// * PAY NOW
+// * ====================================
+if (isset($_POST['payid'])) {
+    $total_pay = 0;
+    $taskid = $_POST['payid'];
+    $response = array();
+    $response['success'] = false;
+    $response['id'] = $taskid;
+    $r = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `title` FROM `tasks` WHERE `id` = '$taskid'"));
+    $sql = "SELECT * FROM `applications` WHERE `pending_boomcoins` > 0 AND `taskid` = '$taskid'";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $u_email = $row['email'];
+            $u_userType = $row['userType'];
+            $coins = $row['pending_boomcoins'];
+            $taskname = $r['title'];
+            $date = date("d-m-Y");
+            $tid = 'credit_' . generateRandomString(14);
+            $r1 = mysqli_query($conn, "UPDATE `applications` SET`disbursed_boomcoins`= `disbursed_boomcoins` + `pending_boomcoins`, `pending_boomcoins`= 0 WHERE `email` = '$u_email' AND `userType` = '$u_userType' AND `taskid` = '$taskid'");
+            $r2 = mysqli_query($conn, "UPDATE `wallet` SET `balance`=`balance` + '$coins',`total_earning`= `total_earning` + '$coins' WHERE `email` = '$u_email' AND `userType` = '$u_userType'");
+            $ins = "INSERT INTO `transactions`(`email`, `userType`, `transactionID`, `description`, `date`, `amount`, `action`, `status`) 
+                        VALUES ('$u_email', '$u_userType', '$tid', 'Credit for - $taskname', '$date', '$coins - Boomcoins', 'credit', 'success')";
+            $r3 = mysqli_query($conn, $ins);
+        }
+        if ($r1 && $r2 && $r3)
             $response['success'] = true;
-        }
-        echo json_encode($response);
     }
+    echo json_encode($response);
+}
 
-    // * ====================================
-    // * START LIVE TRACKING
-    // * ====================================
-    if(isset($_POST['liveid'])){
-        $liveid = $_POST['liveid'];
+// * ====================================
+// * START LIVE TRACKING
+// * ====================================
+if (isset($_POST['liveid'])) {
+    $liveid = $_POST['liveid'];
 
-        $r = mysqli_fetch_array(mysqli_query($conn, "SELECT `token` FROM `tasks` WHERE `id` =  '$liveid'"));
+    $r = mysqli_fetch_array(mysqli_query($conn, "SELECT `token` FROM `tasks` WHERE `id` =  '$liveid'"));
 
-        if($r['token'] != ""){
-            $sql = "UPDATE `tasks` SET `tracking`='Live' WHERE `id`= '$liveid'";
-        }else{
-            $token = sha1(time());
-            $sql = "UPDATE `tasks` SET `tracking`='Live', `token` = '$token' WHERE `id`= '$liveid'";
-        }
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+    if ($r['token'] != "") {
+        $sql = "UPDATE `tasks` SET `tracking`='Live' WHERE `id`= '$liveid'";
+    } else {
+        $token = sha1(time());
+        $sql = "UPDATE `tasks` SET `tracking`='Live', `token` = '$token' WHERE `id`= '$liveid'";
     }
-    // * ====================================
-    // * STOP LIVE TRACKING
-    // * ====================================
-    if(isset($_POST['hideid'])){
-        $hideid = $_POST['hideid'];
-        $sql = "UPDATE `tasks` SET `tracking`='Hidden' WHERE `id`= '$hideid'";
-        $result = mysqli_query($conn, $sql);
-        if($result){
-            echo "success";
-        }else{
-            echo "error";
-        }
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
     }
+}
+// * ====================================
+// * STOP LIVE TRACKING
+// * ====================================
+if (isset($_POST['hideid'])) {
+    $hideid = $_POST['hideid'];
+    $sql = "UPDATE `tasks` SET `tracking`='Hidden' WHERE `id`= '$hideid'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        echo "success";
+    } else {
+        echo "error";
+    }
+}
+
+
+function generateRandomString($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}

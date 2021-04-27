@@ -261,7 +261,7 @@ function SubmitTask(taskid) {
         },
         dataType: 'json',
         success: function (response) {
-            // console.log(response);
+            console.log(response);
 
             proof_array = [];
             submissions = [];
@@ -312,7 +312,7 @@ function SubmitTask(taskid) {
             if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
                 message = jqXHR.responseText;
             }
-            // console.log(message);
+            console.log(message);
             notification('Ooops...', message, 'error');
         }
     });

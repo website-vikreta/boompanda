@@ -216,7 +216,7 @@ function PayFunds(payid) {
             },
             dataType: 'JSON',
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.success == true) {
                     $("#payment-modal").modal('hide');
                     notification('Heads up!', 'Amount has been disbursed to all the applicants.', 'success');
@@ -225,11 +225,14 @@ function PayFunds(payid) {
                     alert("Nothing to process!");
                 }
             },
-            error: function () {
-                notification('Ooops...', 'Some error on server side', 'error');
-                // enable buttons & remove spinner
-                $(this).prop('disabled', false);
-                $(this).html("Pay Now");
+            error: function (jqXHR, textStatus, errorThrown) {
+                var message = errorThrown;
+                if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                    message = jqXHR.responseText;
+                }
+                // console.log(message);
+                $(this).removeAttr("disabled");
+                $(this).html('Pay Now');
             }
         });
     }
