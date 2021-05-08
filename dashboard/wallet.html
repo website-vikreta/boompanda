@@ -102,18 +102,15 @@
                         line-height: 100%;
                     }
                 </style>
-                <div class="card p-2 text-muted mb-4">
-                    <p class="mb-1"><i class="far fa-info-circle mr-2 text-danger"></i> 10 Boomcoins = Rs. 1</p>
-                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> You will soon be able to withdraw
-                        the funds to your Paytm Wallet or Bank Account/UPI</p>
+                <div class="card p-4 small mb-4">
+                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> 10 Boomcoins = Rs. 1</p>
+                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> Create contact & add beneficiary
+                        account before proceeding. <a class="text-danger poppins" href="./accounts.html">Click Here</a>
+                        to add account.</p>
+                    <p class="m-0"><i class="far fa-info-circle mr-2 text-danger"></i> Minimun 1000 Boomcoins required
+                        for withdraw.</p>
                 </div>
                 <div class="card stat mx-auto">
-                    <div class="earning"
-                        title="This is the total amount earned by you from the beginning and it includes the amount which is present in your wallet as well as which you have withdrawn previously.">
-                        <div id="number"></div>
-                        <p class="m-0">Total Boomcoins earned</p>
-                    </div>
-                    <div class="line"></div>
                     <div class="balance"
                         title="The amount earned by completing various Tasks on BoomPanda. After crossing a minimum wallet balance of Rs. 100 you can withdraw it to your Paytm wallet or Bank Account/UPI.">
                         <div id="number"></div>
@@ -125,12 +122,106 @@
                         <div id="number"></div>
                         <p class="m-0">Pending Boomcoins</p>
                     </div>
+                    <div class="line"></div>
+                    <div class="earning"
+                        title="This is the total amount earned by you from the beginning and it includes the amount which is present in your wallet as well as which you have withdrawn previously.">
+                        <div id="number"></div>
+                        <p class="m-0">Total Boomcoins earned</p>
+                    </div>
+                </div>
+
+                <div class="top-button-group my-4 p-0">
+                    <form class="text-center" id="dummy-form">
+                        <div class="form-group m-0">
+                            <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
+                                data-target="#withdraw-modal" onclick="fetchAmount()"><i
+                                    class="fas fa-money-check mr-1"></i>
+                                Withdraw Now
+                            </button>
+                        </div>
+                        <script>
+                            $("#dummy-form button").on('click', function (e) {
+                                e.preventDefault();
+                            })
+                        </script>
+                    </form>
                 </div>
 
                 <!-- show transactions here -->
                 <h4 class="poppins text-center mt-5">Your Transactions</h4>
                 <hr>
                 <div id="responsecontainer"></div>
+
+
+
+                <!-- ! ======================================================== -->
+                <!-- ! CREATE CONTACT -->
+                <!-- ! ======================================================== -->
+                <div class="modal fade" id="withdraw-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="add-user-modal1"" aria-hidden=" true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
+                        <div class="modal-content">
+                            <form action="" id="withdraw-form">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-user-modal1">Withdraw</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="outline: none;">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pt-2">
+                                    <div class="loading" id="loading">
+                                        <i class="far fa-sync fa-spin"></i>
+                                    </div>
+                                    <div class="info-block flex-column">
+                                        <!-- amount to withdraw -->
+                                        <p class=" poppins p-0">Boomcoins withdraw</p>
+                                        <div class="my-2" style="background: #ddd; height:1px"></div>
+                                        <ul class="small text-muted m-0 px-3">
+                                            <li>Atleast 1000 boomcoins required to withdraw.</li>
+                                        </ul>
+                                        <div class="form-group my-1">
+                                            <input type="number" class="form-control" placeholder="Boomcoins"
+                                                id="boomcoins"
+                                                onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+                                            <div class="error" id="boomcoin-error"></div>
+                                        </div>
+                                        <!-- account to withdraw -->
+                                        <p class=" poppins p-0 mt-3">Transfer funds to</p>
+                                        <div class="my-2" style="background: #ddd; height:1px"></div>
+                                        <ul class="small text-muted m-0 px-3">
+                                            <li>If you wanted to change payment method. <a class="text-danger"
+                                                    href="./accounts.html">Click
+                                                    Here</a> and change primary account</li>
+                                        </ul>
+                                        <p class="poppins " id="account"></p>
+                                        <!-- actual RS get -->
+                                        <p class="poppins p-0 mt-3">Amount breakdown</p>
+                                        <div class="my-2" style="background: #ddd; height:1px"></div>
+                                        <p class="p-0">Total Boomcoins: <span id="boomcoin-count"
+                                                class="poppins"></span></p>
+                                        <p class="p-0">Total Rs: <span id="rupee-count" class="poppins"></span></p>
+                                        <p class="p-0">Service Charge in Rs: <span id="service-charge"
+                                                class="poppins"></span>
+                                        </p>
+                                        <p class="font-weight-bold p-0">Amount to be credit: ₹ <span class="text-danger"
+                                                id="total-rupees" class="poppins"></span></p>
+
+                                    </div>
+                                </div>
+                                <div class="error" id="server-error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-transparent"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-solid" id="withdraw-btn">Withdraw Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! ======================================================== -->
+                <!-- ! CREATE CONTACT MODAL -->
+                <!-- ! ======================================================== -->
             </div>
             <!-- ! ======================================================== -->
             <!-- ! CONTENT -->
@@ -148,12 +239,14 @@
     </div>
 
 
-    <!-- jquery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- bootstrap js -->
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
     <!-- datatables -->
     <script src="../vendor/datatables/datatables.min.js"></script>
+    <!-- bootstrap notify -->
+    <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+    <!-- magnific popup -->
+    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
     <!-- custom js -->
     <script src="./js/main.js"></script>
     <script src="./js/wallet.js"></script>

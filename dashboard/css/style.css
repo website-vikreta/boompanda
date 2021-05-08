@@ -72,7 +72,15 @@ a:focus {
 }
 
 .text-orange {
-  color: var(--color-orange);
+  color: var(--color-orange) !important;
+}
+
+.text-danger {
+  color: var(--color-red) !important;
+}
+
+.bg-danger {
+  background: var(--color-red) !important;
 }
 
 .btn,

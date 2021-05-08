@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <!-- check for sessions -->
+   <script src="../vendor/jquery/jquery.min.js"></script>
+   <!-- <input type="hidden" value="admin" id="session_user_check"> -->
+   <script src="./js/user_sessions.js"></script>
+
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard | Boompanda</title>
+   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+   <link rel="shortcut icon" href="../assets/favicon.ico">
+   <link rel="manifest" href="../assets/site.webmanifest">
+
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+   <!-- font awesome -->
+   <link rel="stylesheet" href="../vendor/fontawesome/all.css">
+   <link rel="stylesheet" href="../vendor/fontawesome/all.min.css">
+   <!-- data tables -->
+   <link rel="stylesheet" href="../vendor/datatables/datatables.min.css">
+   <!-- custom css -->
+   <link rel="stylesheet" href="./css/style.css">
+   <link rel="stylesheet" href="./css/responsive.css">
+   <!-- important scripts -->
+   <!-- includes -->
+   <script src="./js/include.js"></script>
+</head>
+
+<body>
+
+   <div class="wrapper">
+      <!-- ! ======================================================== -->
+      <!-- ! VERTICAL NAV -->
+      <!-- ! ======================================================== -->
+      <div id="vertical-nav"></div>
+      <!-- ! ======================================================== -->
+      <!-- ! VERTICAL NAV -->
+      <!-- ! ======================================================== -->
+
+      <div class="main-section">
+         <!-- ! ======================================================== -->
+         <!-- ! NAV -->
+         <!-- ! ======================================================== -->
+         <nav>
+            <div class="page-loc">
+               <p class="m-0">Manage Accounts</p>
+            </div>
+            <div id="navigation-bar"></div>
+         </nav>
+         <!-- ! ======================================================== -->
+         <!-- ! NAV -->
+         <!-- ! ======================================================== -->
+
+         <!-- ! ======================================================== -->
+         <!-- ! CONTENT -->
+         <!-- ! ======================================================== -->
+         <div class="content-wrapper pt-4">
+
+            <div class="card p-3">
+               <p class="poppins m-0">Steps to add Bank Account / Card / UPI details</p>
+               <hr class="my-2">
+               <ol class="small">
+                  <li>Create Contact by clicking <b>Create Contact</b> button. (NOTE: You can create only one contact.
+                     if you create more than 1, it will be updated with new data)</li>
+                  <li>Add beneficiary account / card / VPA by clicking <b>Add beneficiary</b> button.</li>
+                  <li>From the below table, choose any one method/account to choose as primary account or click on
+                     <b>Make Primary</b> to set it as primary. All your funds,
+                     payout & cashbacks will be credited to that account.
+                  </li>
+               </ol>
+            </div>
+            <!-- * ADD OFFER BUTTON -->
+            <div class="top-button-group my-4 p-0">
+               <form class="text-right" id="dummy-form">
+                  <div class="form-group m-0">
+                     <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
+                        data-target="#create-contact-modal" onclick="viewContact()"><i
+                           class="fas fa-user-circle mr-1"></i>
+                        Create Contact
+                     </button>
+                     <button class="btn btn-solid m-0" id="add-user-btn" data-toggle="modal"
+                        data-target="#add-account-modal"><i class="fas fa-file-invoice-dollar mr-1"></i>
+                        Add Beneficiary
+                     </button>
+                  </div>
+                  <script>
+                     $("#dummy-form button").on('click', function (e) {
+                        e.preventDefault();
+                     })
+                  </script>
+               </form>
+            </div>
+
+            <div class="table-wrapper">
+               <!-- response from php is added in this div -->
+               <div id="responsecontainer"></div>
+            </div>
+
+
+
+
+            <!-- ! ======================================================== -->
+            <!-- ! CREATE CONTACT -->
+            <!-- ! ======================================================== -->
+            <div class="modal fade" id="create-contact-modal" tabindex="-1" role="dialog"
+               aria-labelledby="add-user-modal1"" aria-hidden=" true">
+               <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
+                  <div class="modal-content">
+                     <form action="" id="create-contact-form">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="add-user-modal1">Create Contact</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                              style="outline: none;">
+                              <span aria-hidden="true">×</span>
+                           </button>
+                        </div>
+                        <div class="modal-body pt-2">
+                           <div class="loading" id="loading">
+                              <i class="far fa-sync fa-spin"></i>
+                           </div>
+                           <div class="info-block flex-column">
+                              <p class="py-2">
+                                 <ul class="small text-primary m-0 px-3">
+                                    <li>Once contact is created, information cannot be changed.</li>
+                                    <li>Update info in profile before creating contact.</li>
+                                 </ul>
+                              </p>
+                              <div class="form-group my-1">
+                                 <label for="">Name</label>
+                                 <input type="text" class="form-control" placeholder="Name" id="name" disabled>
+                                 <div class="error" id="name-error"></div>
+                              </div>
+                              <div class="form-group my-1">
+                                 <label for="">Email</label>
+                                 <input type="text" class="form-control" placeholder="Email" id="email" disabled>
+                                 <div class="error" id="email-error"></div>
+                              </div>
+                              <div class="form-group my-1">
+                                 <label for="">Mobile Number</label>
+                                 <input type="text" class="form-control" placeholder="Mobile Number" id="mobile" disabled>
+                                 <div class="error" id="mobile-error"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="error" id="server-error"></div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
+                           <button type="submit" class="btn btn-solid" id="create-contact-btn">Create Contact</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! CREATE CONTACT MODAL -->
+            <!-- ! ======================================================== -->
+
+            <!-- ! ======================================================== -->
+            <!-- ! ADD BENIFICIERY MODAL -->
+            <!-- ! ======================================================== -->
+            <div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="add-user-modal1""
+    aria-hidden=" true">
+               <div class="modal-dialog modal-dialog-centered modal-dialog-zoom" role="document">
+                  <div class="modal-content">
+                     <form action="" id="add-account-form">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="add-user-modal1">View Beneficiery</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                              style="outline: none;">
+                              <span aria-hidden="true">×</span>
+                           </button>
+                        </div>
+                        <div class="modal-body pt-2">
+                           <div class="form-group text-center">
+                              <label for="">Account Type</label>
+                              <div class="flex-center radio-group-wrapper">
+                                 <div class="radio-group">
+                                    <input type="radio" id="radio1" value="bank" name="accountType" checked>
+                                    <label for="radio1">
+                                       <div class="radio"></div>Bank Account
+                                    </label>
+                                 </div>
+                                 <div class="radio-group">
+                                    <input type="radio" id="radio3" value="vpa" name="accountType">
+                                    <label for="radio3">
+                                       <div class="radio"></div>UPI
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="error"></div>
+                           </div>
+                           <hr class="my-2">
+                           <div class="wrapper flex-column bank-wrapper">
+                              <div class="form-group my-1">
+                                 <label for="">Account Number</label>
+                                 <input type="text" class="form-control" placeholder="Account Number" id="acc-number">
+                                 <div class="error" id="acc-error"></div>
+                              </div>
+                              <div class="form-group my-1">
+                                 <label for="">Confirm Account Number</label>
+                                 <input type="text" class="form-control" placeholder="Re-enter account number"
+                                    id="c-acc-number">
+                                 <div class="error" id="c-acc-error"></div>
+                              </div>
+                              <div class="form-group my-1">
+                                 <label for="">IFSC Code</label>
+                                 <input type="text" class="form-control" placeholder="IFSC" id="ifsc">
+                                 <div class="error" id="ifsc-error"></div>
+                              </div>
+                              <div class="form-group my-1">
+                                 <label for="">Beneficiery Account Name</label>
+                                 <input type="text" class="form-control" placeholder="Name" id="beneficiary-name">
+                                 <div class="error" id="name-error"></div>
+                              </div>
+                           </div>
+                           <div class="wrapper flex-column vpa-wrapper d-none">
+                              <div class="form-group my-1">
+                                 <label for="">Enter UPI address</label>
+                                 <input type="text" class="form-control" placeholder="example@upi" id="vpa">
+                                 <div class="error" id="vpa-error"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="error" id="server-error"></div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-transparent" data-dismiss="modal">Close</button>
+                           <button type="submit" class="btn btn-solid" id="add-account-btn">Add Beneficiary</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <!-- ! ======================================================== -->
+            <!-- ! ADD BENIFICIERY MODAL MODAL -->
+            <!-- ! ======================================================== -->
+         </div>
+         <!-- ! ======================================================== -->
+         <!-- ! CONTENT -->
+         <!-- ! ======================================================== -->
+
+         <!-- ! ======================================================== -->
+         <!-- ! FOOTER -->
+         <!-- ! ======================================================== -->
+         <div id="footer"></div>
+         <!-- ! ======================================================== -->
+         <!-- ! FOOTER -->
+         <!-- ! ======================================================== -->
+
+      </div>
+   </div>
+
+
+   <!-- bootstrap js -->
+   <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+   <!-- datatables -->
+   <script src="../vendor/datatables/datatables.min.js"></script>
+   <!-- bootstrap notify -->
+   <script src="../vendor/bootstrapnotify/bootstrap-notify.min.js"></script>
+   <!-- magnific popup -->
+   <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+   <!-- custom js -->
+   <script src="./js/main.js"></script>
+   <script src="./js/accounts.js"></script>
+   <script>
+      readAccounts();
+   </script>
+</body>
+
+</html>
