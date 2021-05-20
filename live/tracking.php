@@ -1,17 +1,17 @@
 <?php
-    include_once "../dashboard/php/db.php";
-    extract($_POST);
+include_once "../dashboard/php/db.php";
+extract($_POST);
 
-    $superadmin = $email = "";
-    if(isset($_SESSION['email']) && isset($_SESSION['userType'])){
-        $email = $_SESSION['email'];
-        $superadmin = $_SESSION['userType'];
-    }    
+$superadmin = $email = "";
+if (isset($_SESSION['email']) && isset($_SESSION['userType'])) {
+    $email = $_SESSION['email'];
+    $superadmin = $_SESSION['userType'];
+}
 
-    if(isset($_GET['accesskey'])){
-        $accesskey = $_GET['accesskey'];
-    }
-    
+if (isset($_GET['accesskey'])) {
+    $accesskey = $_GET['accesskey'];
+}
+
 
 ?>
 
@@ -45,29 +45,29 @@
 <body>
 
     <?php
-        $sql = "SELECT * FROM `tasks` WHERE `token` = '$accesskey'";
-        $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM `tasks` WHERE `token` = '$accesskey'";
+    $result = mysqli_query($conn, $sql);
 
-        if($result && mysqli_num_rows($result) == 1){
-            $row = mysqli_fetch_assoc($result);
-            if($row['tracking'] == 'Live' || $superadmin == 'superadmin'){
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        if ($row['tracking'] == 'Live' || $superadmin == 'superadmin') {
 
-                // get count for total submissions
-                $numbers = "SELECT count(*) AS `total_submission` FROM `submissions` WHERE `taskid` = '".$row['id']."' AND `status` = 'accepted'";
-                $numbers_sql = mysqli_query($conn, $numbers);
-                $number_row = mysqli_fetch_assoc($numbers_sql);
+            // get count for total submissions
+            $numbers = "SELECT count(*) AS `total_submission` FROM `submissions` WHERE `taskid` = '" . $row['id'] . "' AND `status` = 'accepted'";
+            $numbers_sql = mysqli_query($conn, $numbers);
+            $number_row = mysqli_fetch_assoc($numbers_sql);
 
-                // get count for today's submission
-                $today = date('Y-m-d');
-                $numbers1 = "SELECT count(*) AS `today_submission` FROM `submissions` WHERE `taskid` = '".$row['id']."' AND `dateOfSubmission` = '$today' AND `status` = 'accepted'";
-                $numbers_sql1 = mysqli_query($conn, $numbers1);
-                $number_row1 = mysqli_fetch_assoc($numbers_sql1);
+            // get count for today's submission
+            $today = date('Y-m-d');
+            $numbers1 = "SELECT count(*) AS `today_submission` FROM `submissions` WHERE `taskid` = '" . $row['id'] . "' AND `dateOfSubmission` = '$today' AND `status` = 'accepted'";
+            $numbers_sql1 = mysqli_query($conn, $numbers1);
+            $number_row1 = mysqli_fetch_assoc($numbers_sql1);
 
-                // get all the submissions
-                $submission = "SELECT * FROM `submissions` WHERE `taskid` = '".$row['id']."' AND `status` = 'accepted' ORDER BY `dateOfSubmission` DESC";
-                $submission_result = mysqli_query($conn, $submission);
-    ?>            
-        <!-- ! Content will go here -->
+            // get all the submissions
+            $submission = "SELECT * FROM `submissions` WHERE `taskid` = '" . $row['id'] . "' AND `status` = 'accepted' ORDER BY `dateOfSubmission` DESC";
+            $submission_result = mysqli_query($conn, $submission);
+    ?>
+            <!-- ! Content will go here -->
 
             <div class="container">
                 <div class="image text-center">
@@ -85,15 +85,13 @@
                                     <h4 id="title" class="m-0 p-0"><?php echo $row['title']; ?></h4>
                                     <span id="category" class="m-0 p-0 bg-light"><?php echo $row['category']; ?></span> <i class="small">by <b id="organizer"><?php echo $row['companyName']; ?></b></i>
                                 </div>
-                                
+
                                 <div>
-                                    <p class="start-date p-0 m-0 mt-1 small">Start Date: <b id="start-date"
-                                            style="font-family: poppins;"><?php echo $row['startDate']; ?></b></p>
-                                    <p class="end-date p-0 m-0 small">End Date: <b id="end-date"
-                                            style="font-family: poppins;"><?php echo $row['endDate']; ?></b></p>
-                                </div>  
+                                    <p class="start-date p-0 m-0 mt-1 small">Start Date: <b id="start-date" style="font-family: poppins;"><?php echo $row['startDate']; ?></b></p>
+                                    <p class="end-date p-0 m-0 small">End Date: <b id="end-date" style="font-family: poppins;"><?php echo $row['endDate']; ?></b></p>
+                                </div>
                             </div>
-                        </div>    
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="card-wrapper">
@@ -111,7 +109,7 @@
                 <hr>
                 <div class="content-wrapper">
                     <?php
-                        $data = "
+                    $data = "
                         <div class='table-responsive-md'>
                             <table class='table table-sm table-striped' id='myTable' width='100%'>
                                 <thead>
@@ -132,48 +130,48 @@
                                 </tfoot>
                                 <tbody>
                         ";
-                    
-                        if(mysqli_num_rows($submission_result) > 0){
-                            $number = 1;
-                            while($submission_row = mysqli_fetch_assoc($submission_result)){
-                                $task_id = $row['id'];
-                                $date = $submission_row['dateOfSubmission'] == '' ? 'NA' : $submission_row['dateOfSubmission'];
-                                $name = $submission_row['name'] == '' ? 'NA' : $submission_row['name'];
-                                $city = $submission_row['city'] == '' ? 'NA' : $submission_row['city'];
-                                $details = $submission_row['details'] == '' ? 'NA' : $submission_row['details'];
-                                $data .= "
+
+                    if (mysqli_num_rows($submission_result) > 0) {
+                        $number = 1;
+                        while ($submission_row = mysqli_fetch_assoc($submission_result)) {
+                            $task_id = $row['id'];
+                            $date = $submission_row['dateOfSubmission'] == '' ? 'NA' : $submission_row['dateOfSubmission'];
+                            $name = $submission_row['name'] == '' ? 'NA' : $submission_row['name'];
+                            $city = $submission_row['city'] == '' ? 'NA' : $submission_row['city'];
+                            $details = $submission_row['details'] == '' ? 'NA' : $submission_row['details'];
+                            $data .= "
                                     <tr>
-                                        <td class='text-center'>".$number."</td>
-                                        <td class='poppins'>".$date."</td>
-                                        <td>".$name."</td>
-                                        <td>".$city."</td>
-                                        <td>".$details."</td>
-                                        <td class='text-center'><a class='text-primary poppins' href='".$submission_row['proofs']."' target='_BLANK'>Click Here</a></td>";
-                                $number++;
-                            }
+                                        <td class='text-center'>" . $number . "</td>
+                                        <td class='poppins'>" . $date . "</td>
+                                        <td>" . $name . "</td>
+                                        <td>" . $city . "</td>
+                                        <td>" . $details . "</td>
+                                        <td class='text-center'><a class='text-primary poppins' href='" . $submission_row['proofs'] . "' target='_BLANK'>Click Here</a></td>";
+                            $number++;
                         }
-                        $data .= "
+                    }
+                    $data .= "
                             </tbody>
                             </table>
                             </div>
                         ";
-                        // $data .= "</table>";
-                        echo $data;
+                    // $data .= "</table>";
+                    echo $data;
                     ?>
                 </div>
             </div>
 
 
-        <!-- ! Content will go here -->
+            <!-- ! Content will go here -->
 
 
     <?php
-            }else{
-                echo "<h2>Link is expired or Unavailable at this movement</h2>";
-            }
-        }else{
+        } else {
             echo "<h2>Link is expired or Unavailable at this movement</h2>";
         }
+    } else {
+        echo "<h2>Link is expired or Unavailable at this movement</h2>";
+    }
     ?>
 
 
@@ -186,7 +184,9 @@
     <!-- custom js -->
     <script src="./tracking.js"></script>
     <script>
-        $('#myTable').DataTable({"pageLength": 50});
+        $('#myTable').DataTable({
+            "pageLength": 50
+        });
     </script>
 </body>
 

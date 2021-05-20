@@ -61,7 +61,7 @@ $(document).ready(function () {
             dataType: 'json',
             cache: false,
             success: function (response) {
-                // console.log(response);
+                console.log(response);
 
                 if (response.gigLogoErr) {
                     $("#add-task-form #gigLogo-error").html(response.gigLogoErr);
@@ -147,9 +147,12 @@ $(document).ready(function () {
                 $(_temp).removeAttr("disabled");
                 $(_temp).html('Add Task');
             },
-            error: function () {
-                console.log("Some error on server side");
-
+            error: function (jqXHR, textStatus, errorThrown) {
+                var message = errorThrown;
+                if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+                    message = jqXHR.responseText;
+                }
+                console.log(message);
                 $(_temp).removeAttr("disabled");
                 $(_temp).html('Add Task');
             }
