@@ -320,6 +320,9 @@ if (!empty($_POST['readrecord'])) {
                         <td class='poppins'>" . date("d-m-Y", strtotime($row['endDate'])) . "</td>
                         <td class='text-center'>" . $row['noOfApplication'] . "</td>
                         <td class='text-center'>" . $row['status'] . "</td>
+                        <td class='d-flex justify-content-end pb-0'>
+                            <a class='btn btn-solid btn-primary text-white w-100 h-auto mb-1' href='../live/activity.php?accesskey=" . $row['token'] . "' target='_BLANK' onclick='LiveTrack(" . $row['id'] . ")' title='View Live Tracking'>Live Tracking</a>     
+                        </td>
                         <td class='d-flex justify-content-end'>
                             <button class='btn solid rounded btn-info activity-" . $row['id'] . "' title='View complete info' id='activity" . $row['id'] . "' onclick='viewActivity(" . $row['id'] . ")' data-toggle='modal' data-target='#view-activity-modal'><i class='far fa-eye'></i></button>
                 ";
@@ -632,8 +635,9 @@ if (isset($_POST['editActivity']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         // replacing images
-        $getImg = "SELECT `logo`, `banner`, `thumbnail` FROM `activities` WHERE `id` = '$taskid'";
+        $getImg = "SELECT `logo`, `banner`, `thumbnail`, `token` FROM `activities` WHERE `id` = '$taskid'";
         $getImg_row = mysqli_fetch_assoc(mysqli_query($conn, $getImg));
+        $token = $getImg_row['token'] == "" ? sha1(time()) : $getImg_row['token'];
         if ($filename != "" and $filename1 != "" and $filename2 != "") {
 
             $logoLocation = $getImg_row['logo'];
@@ -642,45 +646,45 @@ if (isset($_POST['editActivity']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
             compress_image($_FILES['bannerImage']['tmp_name'], $bannerLocation, 50);
             $thumbnailLocation = $getImg_row['thumbnail'];
             compress_image($_FILES['thumbnailImage']['tmp_name'], $thumbnailLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename != "" and $filename1 != "") {
 
             $logoLocation = $getImg_row['logo'];
             compress_image($_FILES['activityLogo']['tmp_name'], $logoLocation, 50);
             $bannerLocation = $getImg_row['banner'];
             compress_image($_FILES['bannerImage']['tmp_name'], $bannerLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename != "" and $filename1 != "") {
 
             $logoLocation = $getImg_row['logo'];
             compress_image($_FILES['activityLogo']['tmp_name'], $logoLocation, 50);
             $thumbnailLocation = $getImg_row['thumbnail'];
             compress_image($_FILES['thumbnailImage']['tmp_name'], $thumbnailLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename1 != "" and $filename2 != "") {
 
             $bannerLocation = $getImg_row['banner'];
             compress_image($_FILES['bannerImage']['tmp_name'], $bannerLocation, 50);
             $thumbnailLocation = $getImg_row['thumbnail'];
             compress_image($_FILES['thumbnailImage']['tmp_name'], $thumbnailLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename != "") {
 
             $logoLocation = $getImg_row['logo'];
             compress_image($_FILES['activityLogo']['tmp_name'], $logoLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`logo`='$logoLocation',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename1 != "") {
 
             $bannerLocation = $getImg_row['banner'];
             compress_image($_FILES['bannerImage']['tmp_name'], $bannerLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`banner`='$bannerLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else if ($filename2 != "") {
 
             $thumbnailLocation = $getImg_row['thumbnail'];
             compress_image($_FILES['thumbnailImage']['tmp_name'], $thumbnailLocation, 50);
-            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`thumbnail`='$thumbnailLocation',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         } else {
-            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink' WHERE `id` = '$taskid'";
+            $sql = "UPDATE `activities` SET `title`='$title',`category`='$category',`organizer`='$organizer',`about_activity`='$about',`startDate`='$startDate',`endDate`='$endDate',`time`='$time',`organizername1`='$organizername1',`organizerno1`='$organizerno1',`organizername2`='$organizername2',`organizerno2`='$organizerno2',`participation`='$participate',`rewards`='$rewards',`type`='$type',`amountPaid`='$paidAmount',`team`='$team',`teamSize`='$teamSize',`platform`='$platform',`location`='$location', `approval` = '$approval', `external_link`='$externalLink', `token` = '$token' WHERE `id` = '$taskid'";
         }
 
         $result = mysqli_query($conn, $sql);

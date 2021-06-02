@@ -140,8 +140,8 @@ if (isset($_POST['add_beneficiary'])) {
          if (array_key_exists("id", $r)) {
             $fundID = $r["id"];
             // insert sql
-            $sql = "INSERT INTO `ra_fundaccounts`(`email`, `userType`, `fundID`, `accountNumber`, `ifsc`, `accName`) 
-                     VALUES ('$email', '$userType', '$fundID', '$accNumber', '$ifsc', '$accName')";
+            $sql = "INSERT INTO `ra_fundaccounts`(`email`, `userType`, `fundID`) 
+                     VALUES ('$email', '$userType', '$fundID')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                $response['success'] = true;
@@ -169,8 +169,8 @@ if (isset($_POST['add_beneficiary'])) {
          if (array_key_exists("id", $r)) {
             $fundID = $r["id"];
             // insert sql
-            $sql = "INSERT INTO `ra_fundaccounts`(`email`, `userType`, `fundID`, `vpa`) 
-                     VALUES ('$email', '$userType', '$fundID', '$vpa')";
+            $sql = "INSERT INTO `ra_fundaccounts`(`email`, `userType`, `fundID`) 
+                     VALUES ('$email', '$userType', '$fundID')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                $response['success'] = true;

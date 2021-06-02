@@ -1,4 +1,25 @@
+var params = new window.URLSearchParams(window.location.search);
+flag = params.get('flag');
+
 $(document).ready(function () {
+
+    // show notification
+    if (flag != "" && flag == "success") {
+        notification('Payment Successful', 'you have succesfully applied for the activity', 'success');
+    } else if (flag != "" && flag == "error") {
+        notification('Payment Failed', 'Try again later. If amount deducted wait for 24hrs or contact admin.', 'error');
+    } else if (flag != "" && flag == "profile") {
+        notification('Profile Error', 'Kindly update your profile', 'error');
+    } else if (flag != "" && flag == "alreadyapplied") {
+        notification('Oops', 'You already apply for this offer', 'error');
+    }
+    if (flag != "") {
+        // remove parameters without refreshing the page
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
+
+
     // apply
     $("#proceed-activity-modal #apply-btn").click(function (e) {
         e.preventDefault();
@@ -9,14 +30,14 @@ $(document).ready(function () {
 
         // validations
         var flag = 0;
-        var name = $("#proceed-activity-modal #name").val();
-        var mobile = $("#proceed-activity-modal #mobile").val();
-        var email = $("#proceed-activity-modal #email").val();
+        var name = $("#proceed-activity-modal #name").val().replace(/'/g, '');
+        var mobile = $("#proceed-activity-modal #mobile").val().replace(/'/g, '');
+        var email = $("#proceed-activity-modal #email").val().replace(/'/g, '');
         var state = $("#proceed-activity-modal #state").val();
         var city = $("#proceed-activity-modal #city").val();
-        var college = $("#proceed-activity-modal #college").val();
+        var ucollege = $("#proceed-activity-modal #college").val().replace(/'/g, '');
 
-        formData = new FormData();
+        // formData = new FormData();
         var members = [];
 
         if (name == "" || mobile == "" || email == "" || state == "" || city == "" || college == "") {
@@ -24,12 +45,12 @@ $(document).ready(function () {
             // console.log(2);
             flag = 1;
         } else {
-            formData.append('name', name.replace(/'/g, ''));
-            formData.append('mobile', mobile.replace(/'/g, ''));
-            formData.append('email', email.replace(/'/g, ''));
-            formData.append('state', state);
-            formData.append('city', city);
-            formData.append('college', college.replace(/'/g, ''));
+            // formData.append('name', name.replace(/'/g, ''));
+            // formData.append('mobile', mobile.replace(/'/g, ''));
+            // formData.append('email', email.replace(/'/g, ''));
+            // formData.append('state', state);
+            // formData.append('city', city);
+            // formData.append('college', college.replace(/'/g, ''));
 
             var teamMembers = $("#proceed-activity-modal #teamMembers").val();
             for (var i = 1; i < teamMembers; i++) {
@@ -44,54 +65,59 @@ $(document).ready(function () {
                 }
                 members.push(dict);
             }
+            members = JSON.stringify(members);
+            var activityId = $("#proceed-activity-modal #hiddenid").val();
 
-            formData.append('members', JSON.stringify(members));
-            formData.append('activityId', $("#proceed-activity-modal #hiddenid").val());
-            formData.append('teamSize', teamMembers);
-            formData.append('approval', approval);
+            // formData.append('members', JSON.stringify(members));
+            // formData.append('activityId', $("#proceed-activity-modal #hiddenid").val());
+            // formData.append('teamSize', teamMembers);
+            // formData.append('approval', approval);
         }
 
         if (flag == 0) {
+            var token = getRandomString(100);
+            window.location.href = "./php/proceedactivity.php?token=" + token + "&name=" + name + "&mobile=" + mobile + "&email=" + email + "&state=" + state + "&city=" + city + "&college=" + ucollege + "&members=" + members + "&activityId=" + activityId + "&teamSize=" + teamMembers + "&approval=approval";
             // ajax function
-            $.ajax({
-                enctype: 'multipart/form-data',
-                url: "./php/activities.php",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                cache: false,
-                success: function (response) {
-                    // console.log(response);
-                    if (response.modalErr) {
-                        $("#proceed-activity-modal #modal-error").html(response.modalErr);
-                    } else {
-                        $("#proceed-activity-modal #modal-error").html("");
-                    }
-                    if (response.success == true) {
-                        $("#proceed-activity-modal #team-members").html("");
-                        // throw notification
-                        notification('Heads up!', 'Your application has been submitted.', 'success');
+            // $.ajax({
+            //     enctype: 'multipart/form-data',
+            //     url: "./php/activities.php",
+            //     type: "POST",
+            //     data: formData,
+            //     processData: false,
+            //     contentType: false,
+            //     // dataType: 'json',
+            //     cache: false,
+            //     success: function (response) {
+            //         console.log(response);
+            //         // if (response.modalErr) {
+            //         //     $("#proceed-activity-modal #modal-error").html(response.modalErr);
+            //         // } else {
+            //         //     $("#proceed-activity-modal #modal-error").html("");
+            //         // }
+            //         if (response == 'true') {
+            //             $("#proceed-activity-modal #team-members").html("");
+            //             // throw notification
+            //             notification('Heads up!', 'Your application has been submitted.', 'success');
 
-                        $('#proceed-activity-modal').modal("hide");
-                        $('#view-activity-modal').modal("hide");
-                        readActiveActivities();
-                    }
+            //             $('#proceed-activity-modal').modal("hide");
+            //             $('#view-activity-modal').modal("hide");
+            //             readActiveActivities();
+            //         }
 
-                    $(_temp).removeAttr("disabled");
-                    $(_temp).html('Apply Now');
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    var message = errorThrown;
-                    if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
-                        message = jqXHR.responseText;
-                    }
-                    // console.log(message);
-                    $(_temp).removeAttr("disabled");
-                    $(_temp).html('Apply Now');
-                }
-            });
+            //         $(_temp).removeAttr("disabled");
+            //         $(_temp).html('Apply Now');
+            //     },
+            //     error: function (jqXHR, textStatus, errorThrown) {
+            //         var message = errorThrown;
+            //         if (jqXHR.responseText !== null && jqXHR.responseText !== 'undefined' && jqXHR.responseText !== '') {
+            //             message = jqXHR.responseText;
+            //         }
+            //         console.log("Inside error");
+            //         console.log(message);
+            //         $(_temp).removeAttr("disabled");
+            //         $(_temp).html('Apply Now');
+            //     }
+            // });
         }
     });
 });
@@ -378,4 +404,13 @@ function to12hr(str) {
     var ampm = (H < 12 || H === 24) ? "AM" : "PM";
     timeString = h + timeString.substr(2, 3) + ampm;
     return timeString
+}
+// generate random string
+function getRandomString(length) {
+    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    for (var i = 0; i < length; i++) {
+        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    return result;
 }

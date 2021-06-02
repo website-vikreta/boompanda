@@ -59,63 +59,16 @@ if ($userType == 'google' || $userType == 'boompanda') {
 } else if ($userType == 'admin' || $userType == 'superadmin') {
 
 
-   // values of tasks
-   $sql = "SELECT 
-               (SELECT COUNT(*) FROM `submissions` WHERE `email` = '$email' AND `userType` = '$userType') AS `total`,
-               (SELECT COUNT(*) FROM `submissions` WHERE `status` = 'accepted' AND `email` = '$email' AND `userType` = '$userType') AS `accepted`,
-               (SELECT COUNT(*) FROM `submissions` WHERE `status` = 'rejected' AND `email` = '$email' AND `userType` = '$userType') AS `rejected`
-            FROM `submissions`";
-   $taskStat = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-
-   // total boomcoins earned
-   $sql = "SELECT `total_earning` FROM `wallet` WHERE `email` = '$email' AND `userType` = '$userType'";
-   $totalEarning = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-
-   // earning per month array calc
-   $earningYear = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-   $mindate = date('Y') . '-01-01';
-   // make sure transaction table has date in DD-MM-YYYY format
-   $sql = "SELECT * FROM `transactions` WHERE `email` = '$email' AND `userType` = '$userType' AND `action` = 'credit' AND `date` >= '$mindate'";
-   $result = mysqli_query($conn, $sql);
-   while ($row = mysqli_fetch_assoc($result)) {
-      $m = explode('-', $row['date']);
-      $amt = explode("-", $row['amount']);
-      $earningYear[(int)$m[1] - 1] += (int)$amt[0];
-   }
-
-   // new activities 2
-   $sql = "SELECT `title`, `thumbnail` FROM `activities` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
-   $newactivity = mysqli_query($conn, $sql);
-
-   // applied activity
-   $sql = "SELECT `activities`.* FROM `activities` INNER JOIN `activity_applications` 
-               WHERE `activity_applications`.`activityid` = `activities`.`id` AND `activity_applications`.`email` = '$email' 
-               AND `activity_applications`.`userType` = '$userType' ORDER BY `activities`.`startDate` LIMIT 5";
-   $appliedactivityN = mysqli_query($conn, $sql);
-
-   // new offers 2
-   $sql = "SELECT `title`, `logo` FROM `offers` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
-   $newoffer = mysqli_query($conn, $sql);
-
-   // applied offer
-   $sql = "SELECT * FROM `offers` INNER JOIN `offer_applications` 
-               WHERE `offer_applications`.`offerid` = `offers`.`id` AND `offer_applications`.`email` = '$email' 
-               AND `offer_applications`.`userType` = '$userType' AND `offer_applications`.`total_redeem` > `offer_applications`.`user_redeem`
-               ORDER BY `offers`.`end_date` LIMIT 1";
-   $appliedoffer = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-
    //new users today
    $sql = "SELECT COUNT(*) AS newusers FROM `user` WHERE `date` = DATE(NOW())";
    $result = mysqli_query($conn, $sql);
    $userstodayjoined = mysqli_fetch_assoc($result);
 
-
    // offers availed 
    $date = date('d-m-Y');
-   $sql = "SELECT COUNT(*) AS offeravailed FROM `transactions` where  `date` = '$date'";
+   $sql = "SELECT COUNT(*) AS offeravailed FROM `transactions` where  `date` = '$date' AND `description` LIKE 'Payment for offer%'";
    $result = mysqli_query($conn, $sql);
    $offeravailed = mysqli_fetch_assoc($result);
-
 
    //submission today
    $sql = "SELECT COUNT(*) AS submtoday FROM `submissions` WHERE `dateOfSubmission` = DATE(NOW())";
@@ -140,8 +93,8 @@ if ($userType == 'google' || $userType == 'boompanda') {
    $sql = "SELECT * FROM `user` WHERE 'date' >= '$mindate'";
    $result = mysqli_query($conn, $sql);
    while ($row = mysqli_fetch_assoc($result)) {
-      $m = explode('-', $row['date']);
-      $monthArrayjoined[(int)$m[1] - (int)1] += (int)1;
+      $new = explode('-', $row['date']);
+      $monthArrayjoined[(int)$new[1] - 1] += 1;
    }
 }
 

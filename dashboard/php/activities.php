@@ -1,6 +1,11 @@
 <?php
 
 include_once "./db.php";
+require('razorpay/config.php');
+require('razorpay/razorpay-php/Razorpay.php');
+
+use Razorpay\Api\Api;
+
 extract($_POST);
 
 // getting session variables
@@ -19,8 +24,10 @@ if (!empty($_POST['readrecord'])) {
     if (mysqli_num_rows($result) > 0) {
         $number = 1;
         while ($row = mysqli_fetch_assoc($result)) {
+            $amount = $row['type'] == 'Paid' ? "₹ " . $row['amountPaid'] : 'Free';
             $data .= "
                     <div class='card mb-4 mt-0' style='width:235px'>
+                        <div class='amount'>" . $amount . "</div>   
                         <div class = 'head rect'>
                             <div class='image rect p-1'>
                                 <img src='" . substr($row['thumbnail'], 1) . "' class='img-fluid p-0' style='border-radius: 50px'>
@@ -67,44 +74,6 @@ if (isset($_POST['viewid'])) {
     $row['city'] = $r['city'];
     $row['college_name'] = $r['college_name'];
     echo json_encode($row);
-}
-
-// * ====================================
-// * APPLY
-// * ====================================
-if (isset($_POST['activityId'])) {
-    $id = $_POST['activityId'];
-    $teamSize = $_POST['teamSize'];
-    $members = $_POST['members'];
-    $sql = "SELECT `approval` FROM `activities` WHERE `id` = '$id'";
-    $r = mysqli_fetch_assoc(mysqli_query($conn, $sql));
-    $approval = ($r['approval'] == "Yes") ? "Under Review" : "Active";
-    // user details
-    $name = $_POST['name'];
-    $mobile = $_POST['mobile'];
-    $email = $_POST['email'];
-    $state = $_POST['state'];
-    $city = $_POST['city'];
-    $college = $_POST['college'];
-
-    $response = array();
-    $response['success'] = false;
-
-    $sql = "SELECT * FROM `activity_applications` WHERE `email` = '$email' AND `activityid` = '$id' AND `userType` = '$userType'";
-    if (mysqli_num_rows(mysqli_query($conn, $sql)) > 0) {
-        $response['modalErr'] = "You already applied for this activity";
-    } else {
-        $sql = "INSERT INTO `activity_applications`(`activityid`, `name`, `email`, `userType`, `mobile`, `state`, `city`, `college`, `members`, `status`) 
-                    VALUES ('$id', '$name', '$email', '$userType', '$mobile', '$state','$city', '$college', '$members', '$approval')";
-        $result = mysqli_query($conn, $sql);
-        $sql1 = "UPDATE `activities` SET `noOfApplication` = `noOfApplication` + 1 WHERE `id` = '$id'";
-        $result1 = mysqli_query($conn, $sql1);
-        if ($result && $result1) {
-            $response['success'] = true;
-        }
-    }
-
-    echo json_encode($response);
 }
 
 // * ====================================
