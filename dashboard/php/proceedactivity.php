@@ -55,9 +55,10 @@ if (isset($_GET['activityId']) && isset($_GET['approval'])) {
             // ! RAZORPAY PAYMENT
             // ! ==========================================
             $api = new Api($keyId, $keySecret);
+            $amt = round(($activityresult['amountPaid'] * 100) / 0.98);
             $orderData = [
                 'receipt'         => 3456,
-                'amount'          => $activityresult['amountPaid'] * 100, // 2000 rupees in paise
+                'amount'          => $amt, // 2000 rupees in paise
                 'currency'        => 'INR',
                 'payment_capture' => 1 // auto capture
             ];

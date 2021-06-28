@@ -187,7 +187,7 @@ function ViewActivity(viewid) {
             $("#view-activity-modal #orgnizername1").text(response.organizername1);
             $("#view-activity-modal #orgnizerno1").text(response.organizerno1);
             $("#view-activity-modal #orgnizername2").text(response.organizername2);
-            $("#view-activity-modal #orgnizerno1").text(response.organizerno2);
+            $("#view-activity-modal #orgnizerno2").text(response.organizerno2);
             $("#view-activity-modal #end-date").text(response.endDate);
             $("#view-activity-modal #about-activity").html(response.about_activity.replaceAll("\r\n", "<br>"));
 
@@ -196,7 +196,7 @@ function ViewActivity(viewid) {
             if (response.type == 'Free') {
                 $("#view-activity-modal #type").text(response.type);
             } else {
-                $("#view-activity-modal #type").text(response.type + " ( ₹" + response.amountPaid + " )");
+                $("#view-activity-modal #type").html(response.type + " ( ₹" + response.amountPaid + " ) <span class='text-warning'>2% Internet handling fees will be added</span>");
             }
             if (response.team == 'Individual') {
                 $("#view-activity-modal #team").text(response.team);
@@ -279,7 +279,7 @@ function ViewActivity1(viewid2) {
             if (response.type == 'Free') {
                 $("#view-myactivity-modal #type").text(response.type);
             } else {
-                $("#view-myactivity-modal #type").text(response.type + " ( ₹" + response.amountPaid + " )");
+                $("#view-myactivity-modal #type").html(response.type + " ( ₹" + response.amountPaid + " ) <span class='text-warning'>2% Internet handling fees will be added</span>");
             }
             if (response.team == 'Individual') {
                 $("#view-myactivity-modal #team").text(response.team);

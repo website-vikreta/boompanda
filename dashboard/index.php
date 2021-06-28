@@ -36,7 +36,7 @@ if ($userType == 'google' || $userType == 'boompanda') {
    }
 
    // new activities 2
-   $sql = "SELECT `title`, `logo` FROM `activities` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
+   $sql = "SELECT `title`, `logo`, `thumbnail` FROM `activities` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
    $newactivity = mysqli_query($conn, $sql);
 
    // applied activity
@@ -47,7 +47,7 @@ if ($userType == 'google' || $userType == 'boompanda') {
    $appliedactivity = mysqli_fetch_assoc($appliedactivityN);
 
    // new offers 2
-   $sql = "SELECT `title`, `logo` FROM `offers` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
+   $sql = "SELECT `title`, `logo`, `thumbnail` FROM `offers` WHERE `status` = 'Active' ORDER BY `id` DESC LIMIT 2";
    $newoffer = mysqli_query($conn, $sql);
 
    // applied offer
@@ -181,31 +181,31 @@ if ($userType == 'google' || $userType == 'boompanda') {
             <?php
             if ($userType == 'google' || $userType == 'boompanda') { ?>
                <!-- dashbard content starts -->
+               <!-- carousal -->
+               <?php if (mysqli_num_rows($banner) > 0) { ?>
+                  <div class="slider-wrapper">
+                     <div class="slider" id="dashboard-slider">
+                        <?php
+                        while ($row = mysqli_fetch_assoc($banner)) { ?>
+                           <div class="slide">
+                              <a href="<?php echo $row['url']; ?>" target="_blank" title="Visit Now">
+                                 <img src="<?php echo substr($row['banner'], 1); ?>" class="img-fluid" alt="">
+                              </a>
+                           </div>
+                        <?php } ?>
+                     </div>
+                     <div class="slider-btn-wrapper">
+                        <button class="prev slider-btn"><i class="far fa-chevron-left"></i></button>
+                        <button class="next slider-btn"><i class="far fa-chevron-right"></i></button>
+                     </div>
+                  </div>
+               <?php
+               } else {
+                  echo "<p class='p-0'>Oops nothing to show here</p>";
+               }
+               ?>
                <div class="row">
                   <div class="col-lg-8 col-md-8 col-12">
-                     <!-- carousal -->
-                     <?php if (mysqli_num_rows($banner) > 0) { ?>
-                        <div class="slider-wrapper">
-                           <div class="slider" id="dashboard-slider">
-                              <?php
-                              while ($row = mysqli_fetch_assoc($banner)) { ?>
-                                 <div class="slide">
-                                    <a href="<?php echo $row['url']; ?>" target="_blank" title="Visit Now">
-                                       <img src="<?php echo substr($row['banner'], 1); ?>" class="img-fluid" alt="">
-                                    </a>
-                                 </div>
-                              <?php } ?>
-                           </div>
-                           <div class="slider-btn-wrapper">
-                              <button class="prev slider-btn"><i class="far fa-chevron-left"></i></button>
-                              <button class="next slider-btn"><i class="far fa-chevron-right"></i></button>
-                           </div>
-                        </div>
-                     <?php
-                     } else {
-                        echo "<p class='p-0'>Oops nothing to show here</p>";
-                     }
-                     ?>
 
                      <!-- task statastics -->
                      <div class="task-statastics statastics mt-4">
@@ -243,7 +243,7 @@ if ($userType == 'google' || $userType == 'boompanda') {
                            <?php while ($row = mysqli_fetch_assoc($newactivity)) { ?>
                               <a href="./activities.html" class="image" title="Apply for this Activity">
                                  <img src="./assets/new-gif.gif" alt="" class="new">
-                                 <img src="<?php echo substr($row['logo'], 1); ?>" class="img-fluid" alt="">
+                                 <img src="<?php echo substr($row['thumbnail'], 1); ?>" class="img-fluid" alt="">
                                  <p class="m-0 p-2 small"><?php echo $row['title']; ?></p>
                               </a>
                            <?php } ?>
@@ -278,7 +278,7 @@ if ($userType == 'google' || $userType == 'boompanda') {
 
                   </div>
                   <div class="col-lg-4 col-md-4 col-12 statastics">
-                     <div class="wrapper justify-content-center">
+                     <div class="wrapper justify-content-center mt-5">
                         <canvas id="myBarChart" width="100%" height="80"></canvas>
                         <h6 class="poppins mt-3 text-center">Earning per month in <?php echo date('Y'); ?></h6>
                      </div>
