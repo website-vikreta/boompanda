@@ -1,13 +1,12 @@
 <?php
 
 // Include Requests
-require_once __DIR__.'/libs/Requests-1.6.1/library/Requests.php';
+require_once __DIR__ . '/libs/Requests-1.6.1/library/Requests.php';
 
 // Register requests autoloader
 Requests::register_autoloader();
 
-spl_autoload_register(function ($class)
-{
+spl_autoload_register(function ($class) {
     // project-specific namespace prefix
     $prefix = 'Razorpay\Api';
 
@@ -17,8 +16,7 @@ spl_autoload_register(function ($class)
     // does the class use the namespace prefix?
     $len = strlen($prefix);
 
-    if (strncmp($prefix, $class, $len) !== 0)
-    {
+    if (strncmp($prefix, $class, $len) !== 0) {
         // no, move to the next registered autoloader
         return;
     }
@@ -34,8 +32,7 @@ spl_autoload_register(function ($class)
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
     // if the file exists, require it
-    if (file_exists($file))
-    {
+    if (file_exists($file)) {
         require $file;
     }
 });
